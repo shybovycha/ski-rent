@@ -1,4 +1,5 @@
 #include "welcomewindow.h"
+#include "configurationwindow.h"
 #include "mainwindow.h"
 #include "ui_welcomewindow.h"
 
@@ -16,8 +17,12 @@ WelcomeWindow::~WelcomeWindow()
 
 void WelcomeWindow::on_startButton_clicked()
 {
-    MainWindow* win = new MainWindow(0);
+    QWidget* win = new MainWindow(0);
     win->showNormal();
-    this->setParent(win);
-    this->close();
+}
+
+void WelcomeWindow::on_configureButton_clicked()
+{
+    QWidget* win = new ConfigurationWindow(0);
+    win->showNormal();
 }

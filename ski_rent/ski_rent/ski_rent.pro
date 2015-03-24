@@ -15,12 +15,27 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     welcomewindow.cpp \
-    configurationwindow.cpp
+    configurationwindow.cpp \
+    equipmentform.cpp \
+    rentform.cpp \
+    reservationform.cpp \
+    priceform.cpp \
+    userform.cpp
 
 HEADERS  += mainwindow.h \
     welcomewindow.h \
-    configurationwindow.h
+    configurationwindow.h \
+    equipmentform.h \
+    rentform.h \
+    reservationform.h \
+    priceform.h \
+    userform.h
 
 FORMS    += mainwindow.ui \
     welcomewindow.ui \
-    configurationwindow.ui
+    configurationwindow.ui \
+    equipmentform.ui \
+    rentform.ui \
+    reservationform.ui \
+    priceform.ui \
+    userform.ui

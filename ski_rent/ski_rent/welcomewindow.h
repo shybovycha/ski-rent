@@ -16,9 +16,9 @@ public:
     ~WelcomeWindow();
 
 private slots:
-    void on_pushButton_clicked();
-
     void on_startButton_clicked();
+
+    void on_configureButton_clicked();
 
 private:
     Ui::WelcomeWindow *ui;
