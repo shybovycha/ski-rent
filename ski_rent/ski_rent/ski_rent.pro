@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +20,14 @@ SOURCES += main.cpp\
     rentform.cpp \
     reservationform.cpp \
     priceform.cpp \
-    userform.cpp
+    userform.cpp \
+    userdao.cpp \
+    user.cpp \
+    baseentity.cpp \
+    databaseconnector.cpp \
+    databaseadapter.cpp \
+    mysqladapter.cpp \
+    entityconverter.cpp
 
 HEADERS  += mainwindow.h \
     welcomewindow.h \
@@ -29,7 +36,15 @@ HEADERS  += mainwindow.h \
     rentform.h \
     reservationform.h \
     priceform.h \
-    userform.h
+    userform.h \
+    userdao.h \
+    user.h \
+    baseentity.h \
+    databaseconnector.h \
+    databaseadapter.h \
+    mysqladapter.h \
+    dbrow.h \
+    entityconverter.h
 
 FORMS    += mainwindow.ui \
     welcomewindow.ui \
@@ -39,3 +54,6 @@ FORMS    += mainwindow.ui \
     reservationform.ui \
     priceform.ui \
     userform.ui
+
+LIBS += -L/home/shybovycha/Qt/5.4/gcc_64/lib/ -lmysqlclient
+# LIBS += -L/home/shybovycha/Qt/5.4/gcc_64/plugins/sqldrivers/ -lqsqlmysql
