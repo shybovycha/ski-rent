@@ -5,8 +5,6 @@ MySQLAdapter::MySQLAdapter(QString host, int port, QString user, QString passwor
 {
     this->db = QSqlDatabase::addDatabase("QMYSQL");
 
-    qDebug() << QSqlDatabase::drivers();
-
     db.setHostName(host);
     db.setPort(port);
     db.setUserName(user);

@@ -7,12 +7,11 @@
 class EntityConverter
 {
 public:
-    template<typename T> static T convert(DBRow row);
-    template<typename T> static QList<T> convert(QList<DBRow> rows);
-
-protected:
     EntityConverter();
     ~EntityConverter();
+
+    template<typename T> static T convert(DBRow row);
+    template<typename T> static QList<T> convert(QList<DBRow> rows);
 };
 
 #endif // ENTITYCONVERTER_H

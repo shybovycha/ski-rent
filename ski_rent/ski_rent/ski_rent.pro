@@ -27,7 +27,10 @@ SOURCES += main.cpp\
     databaseconnector.cpp \
     databaseadapter.cpp \
     mysqladapter.cpp \
-    entityconverter.cpp
+    entityconverter.cpp \
+    basedao.cpp \
+    querybuilder.cpp \
+    userquerybuilder.cpp
 
 HEADERS  += mainwindow.h \
     welcomewindow.h \
@@ -44,7 +47,9 @@ HEADERS  += mainwindow.h \
     databaseadapter.h \
     mysqladapter.h \
     dbrow.h \
-    entityconverter.h
+    entityconverter.h \
+    basedao.h \
+    querybuilder.h
 
 FORMS    += mainwindow.ui \
     welcomewindow.ui \
@@ -56,4 +61,3 @@ FORMS    += mainwindow.ui \
     userform.ui
 
 LIBS += -L/home/shybovycha/Qt/5.4/gcc_64/lib/ -lmysqlclient
-# LIBS += -L/home/shybovycha/Qt/5.4/gcc_64/plugins/sqldrivers/ -lqsqlmysql
