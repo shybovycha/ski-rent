@@ -4,14 +4,12 @@
 #include <QList>
 #include <dbrow.h>
 
+template<typename T>
 class EntityConverter
 {
 public:
-    EntityConverter();
-    ~EntityConverter();
-
-    template<typename T> static T convert(DBRow row);
-    template<typename T> static QList<T> convert(QList<DBRow> rows);
+    static T convert(DBRow row);
+    static QList<T> convert(QList<DBRow> rows);
 };
 
 #endif // ENTITYCONVERTER_H

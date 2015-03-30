@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     entityconverter.cpp \
     basedao.cpp \
     querybuilder.cpp \
-    userquerybuilder.cpp
+    userquerybuilder.cpp \
+    userentityconverter.cpp
 
 HEADERS  += mainwindow.h \
     welcomewindow.h \

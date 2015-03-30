@@ -11,24 +11,24 @@ UserDAO::~UserDAO()
 }
 
 QList<User> UserDAO::getAllUsers() {
-    QString sql = QueryBuilder::getListAllQuery<User>();
+    QString sql = QueryBuilder<User>::getListAllQuery();
     QList<DBRow> rows = this->getDb()->select(sql);
-    QList<User> users = EntityConverter::convert<User>(rows);
+    QList<User> users = EntityConverter<User>::convert(rows);
 
     return users;
 }
 
 QList<User> UserDAO::findUsers(QString query) {
-    QString sql = QueryBuilder::getSearchQuery<User>(query);
+    QString sql = QueryBuilder<User>::getSearchQuery(query);
 
     QList<DBRow> rows = this->getDb()->select(sql);
-    QList<User> users = EntityConverter::convert<User>(rows);
+    QList<User> users = EntityConverter<User>::convert(rows);
 
     return users;
 }
 
 User UserDAO::getUser(unsigned int id) {
-    QString sql = QueryBuilder::getReadQuery<User>(id);
+    QString sql = QueryBuilder<User>::getReadQuery(id);
 
     QList<DBRow> rows = this->getDb()->select(sql);
 
@@ -36,17 +36,17 @@ User UserDAO::getUser(unsigned int id) {
         throw QString("Could not find user with id = %1").arg(id).toStdString().c_str();
     }
 
-    return EntityConverter::convert<User>(rows[0]);
+    return EntityConverter<User>::convert(rows[0]);
 }
 
 void UserDAO::updateUser(User newUserData) {
-    QString sql = QueryBuilder::getCreateQuery<User>(newUserData);
+    QString sql = QueryBuilder<User>::getCreateQuery(newUserData);
 
     this->getDb()->update(sql);
 }
 
 void UserDAO::deleteUser(unsigned int id) {
-    QString sql = QueryBuilder::getDeleteQuery<User>(id);
+    QString sql = QueryBuilder<User>::getDeleteQuery(id);
 
     this->getDb()->update(sql);
 }
