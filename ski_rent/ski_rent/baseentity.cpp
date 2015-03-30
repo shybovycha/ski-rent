@@ -17,3 +17,11 @@ unsigned int BaseEntity::getId() {
 void BaseEntity::setId(unsigned int val) {
     this->id = val;
 }
+
+QVariant BaseEntity::get(QString field) {
+    return this->fields[field];
+}
+
+void BaseEntity::set(QString field, QVariant value) {
+    this->fields[field] = value;
+}

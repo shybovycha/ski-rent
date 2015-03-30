@@ -50,7 +50,8 @@ HEADERS  += mainwindow.h \
     dbrow.h \
     entityconverter.h \
     basedao.h \
-    querybuilder.h
+    querybuilder.h \
+    userquerybuilder.h
 
 FORMS    += mainwindow.ui \
     welcomewindow.ui \

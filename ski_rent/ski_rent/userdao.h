@@ -10,18 +10,16 @@
 #include "databaseconnector.h"
 #include "entityconverter.h"
 #include "querybuilder.h"
+#include "querybuilder.h"
+#include "userquerybuilder.h"
 
-class UserDAO : public BaseDAO
+class UserDAO : public BaseDAO<User>
 {
 public:
     UserDAO();
     ~UserDAO();
 
-    QList<User> getAllUsers();
     QList<User> findUsers(QString query);
-    User getUser(unsigned int id);
-    void updateUser(User newUserData);
-    void deleteUser(unsigned int id);
 };
 
 #endif // USERDAO_H

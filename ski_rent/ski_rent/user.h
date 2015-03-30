@@ -27,16 +27,6 @@ public:
     void setCity(QString val);
     void setAddress(QString val);
     void setPhone(QString val);
-
-protected:
-    QString name;
-    QString surname;
-    QString documentType;
-    QString documentNumber;
-    QString country;
-    QString city;
-    QString address;
-    QString phone;
 };
 
 #endif // USER_H

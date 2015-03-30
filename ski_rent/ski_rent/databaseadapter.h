@@ -1,12 +1,13 @@
 #ifndef DATABASEADAPTER_H
 #define DATABASEADAPTER_H
 
-#include "QList"
 #include "dbrow.h"
+#include "querybuilder.h"
 
-#include "QtSql/QSqlDatabase"
-#include "QtSql/QSqlQuery"
-#include "QtSql/QSqlRecord"
+#include <QList>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlRecord>
 
 class DatabaseAdapter
 {

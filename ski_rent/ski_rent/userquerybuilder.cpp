@@ -1,69 +1,28 @@
-#include "querybuilder.h"
+#include "userquerybuilder.h"
 #include "user.h"
 #include <QString>
 #include <QStringList>
 
-template<>
-QString QueryBuilder<User>::getCreateQuery(User entity) {
-    QString res =
-            QString("INSERT INTO users (name, surname, document_type, document_number, country, city, address, phone) VALUES ('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8')")
-            .arg(entity.getName())
-            .arg(entity.getSurname())
-            .arg(entity.getDocumentType())
-            .arg(entity.getDocumentNumber())
-            .arg(entity.getCountry())
-            .arg(entity.getCity())
-            .arg(entity.getAddress())
-            .arg(entity.getPhone())
-            ;
+UserQueryBuilder::UserQueryBuilder() : QueryBuilder()
+{
+    this->tableName = "users";
 
-    return res;
+    this->updateColumns.append("name");
+    this->updateColumns.append("surname");
+    this->updateColumns.append("document_number");
+    this->updateColumns.append("country");
+    this->updateColumns.append("city");
+    this->updateColumns.append("address");
+    this->updateColumns.append("phone");
+
+    this->searchColumns.append("name");
+    this->searchColumns.append("surname");
+    this->searchColumns.append("document_number");
+    this->searchColumns.append("country");
+    this->searchColumns.append("city");
+    this->searchColumns.append("address");
+    this->searchColumns.append("phone");
 }
 
-template<>
-QString QueryBuilder<User>::getReadQuery(int id) {
-    QString res = QString("SELECT * FROM users WHERE id = %1").arg(id);
-
-    return res;
-}
-
-template<>
-QString QueryBuilder<User>::getSearchQuery(QString query) {
-    QString likeCondition = QString("'%%1%'").arg(QString(query).split("\\s+").join("%"));
-    QString whereCondition = QString("name LIKE %1 OR surname LIKE %1 OR document_number LIKE %1 OR country LIKE %1 OR city LIKE %1 OR address LIKE %1 OR phone LIKE %1").arg(likeCondition);
-    QString sql = QString("SELECT * FROM users WHERE %1").arg(whereCondition);
-
-    return sql;
-}
-
-template<>
-QString QueryBuilder<User>::getUpdateQuery(User newEntity) {
-    QString res =
-            QString("UPDATE users SET name = '%2', surname = '%3', document_type = '%4', document_number = '%5', country = '%6', city = '%7', address = '%8', phone = '%9' WHERE id = %1")
-            .arg(newEntity.getId())
-            .arg(newEntity.getName())
-            .arg(newEntity.getSurname())
-            .arg(newEntity.getDocumentType())
-            .arg(newEntity.getDocumentNumber())
-            .arg(newEntity.getCountry())
-            .arg(newEntity.getCity())
-            .arg(newEntity.getAddress())
-            .arg(newEntity.getPhone())
-            ;
-
-    return res;
-}
-
-template<>
-QString QueryBuilder<User>::getDeleteQuery(int id) {
-    QString res = QString("DELETE FROM users WHERE id = %1").arg(id);
-
-    return res;
-}
-
-template<>
-QString QueryBuilder<User>::getListAllQuery() {
-    QString res = QString("SELECT * FROM users");
-
-    return res;
+UserQueryBuilder::~UserQueryBuilder() {
 }
