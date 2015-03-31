@@ -36,7 +36,12 @@ SOURCES += main.cpp\
     equipmnetentityconverter.cpp \
     rent.cpp \
     rententityconverter.cpp \
-    rentquerybuilder.cpp
+    rentquerybuilder.cpp \
+    rentdao.cpp \
+    history.cpp \
+    historydao.cpp \
+    historyquerybuilder.cpp \
+    historyentityconverter.cpp
 
 HEADERS  += mainwindow.h \
     welcomewindow.h \
@@ -58,7 +63,12 @@ HEADERS  += mainwindow.h \
     querybuilder.h \
     equipment.h \
     equipmentdao.h \
-    rent.h
+    rent.h \
+    rentdao.h \
+    rentquerybuilder.h \
+    history.h \
+    historydao.h \
+    historyquerybuilder.h
 
 FORMS    += mainwindow.ui \
     welcomewindow.ui \

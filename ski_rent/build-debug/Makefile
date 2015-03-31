@@ -72,7 +72,12 @@ SOURCES       = ../ski_rent/main.cpp \
 		../ski_rent/equipmnetentityconverter.cpp \
 		../ski_rent/rent.cpp \
 		../ski_rent/rententityconverter.cpp \
-		../ski_rent/rentquerybuilder.cpp moc_mainwindow.cpp \
+		../ski_rent/rentquerybuilder.cpp \
+		../ski_rent/rentdao.cpp \
+		../ski_rent/history.cpp \
+		../ski_rent/historydao.cpp \
+		../ski_rent/historyquerybuilder.cpp \
+		../ski_rent/historyentityconverter.cpp moc_mainwindow.cpp \
 		moc_welcomewindow.cpp \
 		moc_configurationwindow.cpp \
 		moc_equipmentform.cpp \
@@ -105,6 +110,11 @@ OBJECTS       = main.o \
 		rent.o \
 		rententityconverter.o \
 		rentquerybuilder.o \
+		rentdao.o \
+		history.o \
+		historydao.o \
+		historyquerybuilder.o \
+		historyentityconverter.o \
 		moc_mainwindow.o \
 		moc_welcomewindow.o \
 		moc_configurationwindow.o \
@@ -252,7 +262,12 @@ DIST          = /home/shybovycha/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../ski_rent/querybuilder.h \
 		../ski_rent/equipment.h \
 		../ski_rent/equipmentdao.h \
-		../ski_rent/rent.h ../ski_rent/main.cpp \
+		../ski_rent/rent.h \
+		../ski_rent/rentdao.h \
+		../ski_rent/rentquerybuilder.h \
+		../ski_rent/history.h \
+		../ski_rent/historydao.h \
+		../ski_rent/historyquerybuilder.h ../ski_rent/main.cpp \
 		../ski_rent/mainwindow.cpp \
 		../ski_rent/welcomewindow.cpp \
 		../ski_rent/configurationwindow.cpp \
@@ -276,7 +291,12 @@ DIST          = /home/shybovycha/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../ski_rent/equipmnetentityconverter.cpp \
 		../ski_rent/rent.cpp \
 		../ski_rent/rententityconverter.cpp \
-		../ski_rent/rentquerybuilder.cpp
+		../ski_rent/rentquerybuilder.cpp \
+		../ski_rent/rentdao.cpp \
+		../ski_rent/history.cpp \
+		../ski_rent/historydao.cpp \
+		../ski_rent/historyquerybuilder.cpp \
+		../ski_rent/historyentityconverter.cpp
 QMAKE_TARGET  = ski_rent
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ski_rent
@@ -570,8 +590,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../ski_rent/mainwindow.h ../ski_rent/welcomewindow.h ../ski_rent/configurationwindow.h ../ski_rent/equipmentform.h ../ski_rent/rentform.h ../ski_rent/reservationform.h ../ski_rent/priceform.h ../ski_rent/userform.h ../ski_rent/userdao.h ../ski_rent/user.h ../ski_rent/baseentity.h ../ski_rent/databaseconnector.h ../ski_rent/databaseadapter.h ../ski_rent/mysqladapter.h ../ski_rent/dbrow.h ../ski_rent/entityconverter.h ../ski_rent/basedao.h ../ski_rent/querybuilder.h ../ski_rent/equipment.h ../ski_rent/equipmentdao.h ../ski_rent/rent.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../ski_rent/main.cpp ../ski_rent/mainwindow.cpp ../ski_rent/welcomewindow.cpp ../ski_rent/configurationwindow.cpp ../ski_rent/equipmentform.cpp ../ski_rent/rentform.cpp ../ski_rent/reservationform.cpp ../ski_rent/priceform.cpp ../ski_rent/userform.cpp ../ski_rent/userdao.cpp ../ski_rent/user.cpp ../ski_rent/baseentity.cpp ../ski_rent/databaseconnector.cpp ../ski_rent/databaseadapter.cpp ../ski_rent/mysqladapter.cpp ../ski_rent/basedao.cpp ../ski_rent/userquerybuilder.cpp ../ski_rent/userentityconverter.cpp ../ski_rent/equipment.cpp ../ski_rent/equipmentdao.cpp ../ski_rent/equipmentquerybuilder.cpp ../ski_rent/equipmnetentityconverter.cpp ../ski_rent/rent.cpp ../ski_rent/rententityconverter.cpp ../ski_rent/rentquerybuilder.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../ski_rent/mainwindow.h ../ski_rent/welcomewindow.h ../ski_rent/configurationwindow.h ../ski_rent/equipmentform.h ../ski_rent/rentform.h ../ski_rent/reservationform.h ../ski_rent/priceform.h ../ski_rent/userform.h ../ski_rent/userdao.h ../ski_rent/user.h ../ski_rent/baseentity.h ../ski_rent/databaseconnector.h ../ski_rent/databaseadapter.h ../ski_rent/mysqladapter.h ../ski_rent/dbrow.h ../ski_rent/entityconverter.h ../ski_rent/basedao.h ../ski_rent/querybuilder.h ../ski_rent/equipment.h ../ski_rent/equipmentdao.h ../ski_rent/rent.h ../ski_rent/rentdao.h ../ski_rent/rentquerybuilder.h ../ski_rent/history.h ../ski_rent/historydao.h ../ski_rent/historyquerybuilder.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../ski_rent/main.cpp ../ski_rent/mainwindow.cpp ../ski_rent/welcomewindow.cpp ../ski_rent/configurationwindow.cpp ../ski_rent/equipmentform.cpp ../ski_rent/rentform.cpp ../ski_rent/reservationform.cpp ../ski_rent/priceform.cpp ../ski_rent/userform.cpp ../ski_rent/userdao.cpp ../ski_rent/user.cpp ../ski_rent/baseentity.cpp ../ski_rent/databaseconnector.cpp ../ski_rent/databaseadapter.cpp ../ski_rent/mysqladapter.cpp ../ski_rent/basedao.cpp ../ski_rent/userquerybuilder.cpp ../ski_rent/userentityconverter.cpp ../ski_rent/equipment.cpp ../ski_rent/equipmentdao.cpp ../ski_rent/equipmentquerybuilder.cpp ../ski_rent/equipmnetentityconverter.cpp ../ski_rent/rent.cpp ../ski_rent/rententityconverter.cpp ../ski_rent/rentquerybuilder.cpp ../ski_rent/rentdao.cpp ../ski_rent/history.cpp ../ski_rent/historydao.cpp ../ski_rent/historyquerybuilder.cpp ../ski_rent/historyentityconverter.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../ski_rent/mainwindow.ui ../ski_rent/welcomewindow.ui ../ski_rent/configurationwindow.ui ../ski_rent/equipmentform.ui ../ski_rent/rentform.ui ../ski_rent/reservationform.ui ../ski_rent/priceform.ui ../ski_rent/userform.ui $(DISTDIR)/
 
 
@@ -4082,7 +4102,350 @@ rententityconverter.o: ../ski_rent/rententityconverter.cpp ../ski_rent/entitycon
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rententityconverter.o ../ski_rent/rententityconverter.cpp
 
-rentquerybuilder.o: ../ski_rent/rentquerybuilder.cpp ../ski_rent/querybuilder.h \
+rentquerybuilder.o: ../ski_rent/rentquerybuilder.cpp ../ski_rent/rentquerybuilder.h \
+		../ski_rent/rent.h \
+		../ski_rent/baseentity.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QMap \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QString \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QVariant \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QDateTime \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatetime.h \
+		../ski_rent/querybuilder.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QStringList \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QList
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rentquerybuilder.o ../ski_rent/rentquerybuilder.cpp
+
+rentdao.o: ../ski_rent/rentdao.cpp ../ski_rent/rentdao.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QList \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QString \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QDateTime \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatetime.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		../ski_rent/rent.h \
+		../ski_rent/baseentity.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QMap \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QVariant \
+		../ski_rent/basedao.h \
+		../ski_rent/databaseadapter.h \
+		../ski_rent/dbrow.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlRecord \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqlrecord.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsql.h \
+		../ski_rent/querybuilder.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QStringList \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlDatabase \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqldatabase.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlQuery \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqlquery.h \
+		../ski_rent/databaseconnector.h \
+		../ski_rent/mysqladapter.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlError \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqlerror.h \
+		../ski_rent/entityconverter.h \
+		../ski_rent/rentquerybuilder.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rentdao.o ../ski_rent/rentdao.cpp
+
+history.o: ../ski_rent/history.cpp ../ski_rent/history.h \
+		../ski_rent/baseentity.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QMap \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QString \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QVariant \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QDateTime \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatetime.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o history.o ../ski_rent/history.cpp
+
+historydao.o: ../ski_rent/historydao.cpp ../ski_rent/historydao.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QList \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		../ski_rent/history.h \
+		../ski_rent/baseentity.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QMap \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QString \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QVariant \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QDateTime \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatetime.h \
+		../ski_rent/databaseadapter.h \
+		../ski_rent/dbrow.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlRecord \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqlrecord.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsql.h \
+		../ski_rent/querybuilder.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QStringList \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlDatabase \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqldatabase.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlQuery \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqlquery.h \
+		../ski_rent/databaseconnector.h \
+		../ski_rent/mysqladapter.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlError \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqlerror.h \
+		../ski_rent/historyquerybuilder.h \
+		../ski_rent/entityconverter.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o historydao.o ../ski_rent/historydao.cpp
+
+historyquerybuilder.o: ../ski_rent/historyquerybuilder.cpp ../ski_rent/historyquerybuilder.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QString \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstring.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qchar.h \
@@ -4119,36 +4482,35 @@ rentquerybuilder.o: ../ski_rent/rentquerybuilder.cpp ../ski_rent/querybuilder.h 
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QStringList \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		../ski_rent/history.h \
+		../ski_rent/baseentity.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QMap \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlist.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlist.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpair.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
-		../ski_rent/rent.h \
-		../ski_rent/baseentity.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QMap \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmap.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qhash.h \
-		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvector.h \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
@@ -4157,7 +4519,88 @@ rentquerybuilder.o: ../ski_rent/rentquerybuilder.cpp ../ski_rent/querybuilder.h 
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QVariant \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QDateTime \
 		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatetime.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rentquerybuilder.o ../ski_rent/rentquerybuilder.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o historyquerybuilder.o ../ski_rent/historyquerybuilder.cpp
+
+historyentityconverter.o: ../ski_rent/historyentityconverter.cpp ../ski_rent/entityconverter.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QList \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		../ski_rent/dbrow.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QMap \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QVariant \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/QSqlRecord \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsqlrecord.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtSql/qsql.h \
+		../ski_rent/history.h \
+		../ski_rent/baseentity.h \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QString \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/QDateTime \
+		/home/shybovycha/Qt/5.4/gcc_64/include/QtCore/qdatetime.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o historyentityconverter.o ../ski_rent/historyentityconverter.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
