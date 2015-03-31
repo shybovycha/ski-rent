@@ -17,14 +17,3 @@ User EntityConverter<User>::convert(DBRow row) {
 
     return result;
 }
-
-template<>
-QList<User> EntityConverter<User>::convert(QList<DBRow> rows) {
-    QList<User> res;
-
-    for (int i = 0; i < rows.size(); i++) {
-        res.append(convert(rows[i]));
-    }
-
-    return res;
-}

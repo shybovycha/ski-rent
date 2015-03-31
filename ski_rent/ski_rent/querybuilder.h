@@ -15,7 +15,6 @@ public:
     QString getSearchQuery(QString query);
     QString getListAllQuery();
 
-protected:
     QueryBuilder();
     ~QueryBuilder();
 
@@ -35,6 +34,10 @@ QueryBuilder<T>::~QueryBuilder() {
 
 template<typename T>
 QString QueryBuilder<T>::getCreateQuery(T entity) {
+    if (this->updateColumns.size() < 1) {
+        throw QString("Can not generate create query - no updateColumns set").toStdString().c_str();
+    }
+
     QStringList valueList;
 
     for (int i = 0; i < this->updateColumns.size(); i++) {
@@ -73,6 +76,10 @@ QString QueryBuilder<T>::getSearchQuery(QString query) {
 
 template<typename T>
 QString QueryBuilder<T>::getUpdateQuery(T newEntity) {
+    if (this->updateColumns.size() < 1) {
+        throw QString("Can not generate update query - no updateColumns set").toStdString().c_str();
+    }
+
     QStringList updates;
 
     for (int i = 0; i < this->updateColumns.size(); i++) {

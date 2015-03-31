@@ -1,10 +1,10 @@
-#ifndef USERDAO_H
-#define USERDAO_H
+#ifndef EQUIPMENTDAO_H
+#define EQUIPMENTDAO_H
 
 #include "QList"
 #include "QString"
 
-#include "user.h"
+#include "equipment.h"
 #include "basedao.h"
 #include "databaseadapter.h"
 #include "databaseconnector.h"
@@ -12,13 +12,13 @@
 #include "querybuilder.h"
 #include "querybuilder.h"
 
-class UserDAO : public BaseDAO<User>
+class EquipmentDAO : public BaseDAO<Equipment>
 {
 public:
-    UserDAO();
-    ~UserDAO();
+    EquipmentDAO();
+    ~EquipmentDAO();
 
-    QList<User> findUsers(QString query);
+    QList<Equipment> available();
 };
 
-#endif // USERDAO_H
+#endif // EQUIPMENTDAO_H

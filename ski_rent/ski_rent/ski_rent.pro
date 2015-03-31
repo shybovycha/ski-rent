@@ -27,11 +27,16 @@ SOURCES += main.cpp\
     databaseconnector.cpp \
     databaseadapter.cpp \
     mysqladapter.cpp \
-    entityconverter.cpp \
     basedao.cpp \
-    querybuilder.cpp \
     userquerybuilder.cpp \
-    userentityconverter.cpp
+    userentityconverter.cpp \
+    equipment.cpp \
+    equipmentdao.cpp \
+    equipmentquerybuilder.cpp \
+    equipmnetentityconverter.cpp \
+    rent.cpp \
+    rententityconverter.cpp \
+    rentquerybuilder.cpp
 
 HEADERS  += mainwindow.h \
     welcomewindow.h \
@@ -51,7 +56,9 @@ HEADERS  += mainwindow.h \
     entityconverter.h \
     basedao.h \
     querybuilder.h \
-    userquerybuilder.h
+    equipment.h \
+    equipmentdao.h \
+    rent.h
 
 FORMS    += mainwindow.ui \
     welcomewindow.ui \
