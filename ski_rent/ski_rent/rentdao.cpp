@@ -1,13 +1,11 @@
 #include "rentdao.h"
 
-RentDAO::RentDAO()
-{
+RentDAO::RentDAO() {
     this->queryBuilder = new RentQueryBuilder();
 }
 
-RentDAO::~RentDAO()
-{
-
+RentDAO::~RentDAO() {
+    delete this->queryBuilder;
 }
 
 DatabaseAdapter* RentDAO::getDb() {

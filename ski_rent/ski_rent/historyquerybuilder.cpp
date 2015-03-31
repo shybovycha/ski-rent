@@ -47,6 +47,7 @@ QString HistoryQueryBuilder::getCreateQuery(History newEntity) {
     values.append(QString::number(newEntity.getPrice()));
 
     for (int i = 0; i < columns.size(); i++) {
+        columns[i] = QString("`%1`").arg(columns[i]);
         values[i] = QString("'%1'").arg(values[i]);
     }
 

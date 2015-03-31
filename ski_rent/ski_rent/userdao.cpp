@@ -1,11 +1,9 @@
 #include "userdao.h"
 
-UserDAO::UserDAO() : BaseDAO<User>()
-{
+UserDAO::UserDAO() : BaseDAO<User>() {
 }
 
-UserDAO::~UserDAO()
-{
+UserDAO::~UserDAO() {
 }
 
 QList<User> UserDAO::findUsers(QString query) {

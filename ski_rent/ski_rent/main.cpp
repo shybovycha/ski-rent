@@ -11,11 +11,11 @@ int main(int argc, char *argv[])
 
     UserDAO* userDao = new UserDAO();
 
-    User* user1 = new User();
+    /*User* user1 = new User();
     user1->setName("Oksana");
     user1->setSurname("Tunik");
     user1->setCity("Polska");
-    userDao->create(*user1);
+    userDao->create(*user1);*/
 
     QList<User> users = userDao->all();
 

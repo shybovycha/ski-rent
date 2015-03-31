@@ -13,5 +13,3 @@ Rent EntityConverter<Rent>::convert(DBRow row) {
 
     return result;
 }
-
-

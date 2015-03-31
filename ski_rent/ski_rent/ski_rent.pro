@@ -41,7 +41,11 @@ SOURCES += main.cpp\
     history.cpp \
     historydao.cpp \
     historyquerybuilder.cpp \
-    historyentityconverter.cpp
+    historyentityconverter.cpp \
+    reservation.cpp \
+    reservationdao.cpp \
+    reservationquerybuilder.cpp \
+    reservationentityconverter.cpp
 
 HEADERS  += mainwindow.h \
     welcomewindow.h \
@@ -68,7 +72,10 @@ HEADERS  += mainwindow.h \
     rentquerybuilder.h \
     history.h \
     historydao.h \
-    historyquerybuilder.h
+    historyquerybuilder.h \
+    reservation.h \
+    reservationdao.h \
+    reservationquerybuilder.h
 
 FORMS    += mainwindow.ui \
     welcomewindow.ui \
