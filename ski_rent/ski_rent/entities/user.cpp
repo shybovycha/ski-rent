@@ -1,13 +1,11 @@
 #include "entities/user.h"
 
-User::User()
+User::User() : BaseEntity()
 {
-
 }
 
 User::~User()
 {
-
 }
 
 QString User::getName() {

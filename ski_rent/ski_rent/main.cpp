@@ -1,8 +1,6 @@
 #include <QApplication>
 
-#include "ui/welcomewindow.h"
-#include "dao/userdao.h"
-#include "entities/user.h"
+#include "controllers/maincontroller.h"
 
 #include <QDebug>
 
@@ -10,13 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    UserDAO* userDao = new UserDAO();
-
-    /*User* user1 = new User();
-    user1->setName("Oksana");
-    user1->setSurname("Tunik");
-    user1->setCity("Polska");
-    userDao->create(*user1);*/
+    /*UserDAO* userDao = new UserDAO();
 
     QList<User> users = userDao->all();
 
@@ -25,7 +17,42 @@ int main(int argc, char *argv[])
     }
 
     WelcomeWindow w;
-    w.show();
+    w.show();*/
+
+    MainController::getInstancePtr()->index();
 
     return a.exec();
 }
+
+/*#include <QApplication>
+#include <QMainWindow>
+#include <QTableView>
+#include <QStandardItemModel>
+
+int main(int argc, char **argv)
+{
+    QApplication app(argc, argv);
+    QMainWindow win;
+    QTableView *cview = new QTableView();
+    win.setCentralWidget(cview);
+
+    QStandardItemModel model(0, 3);
+
+    model.setHeaderData(0, Qt::Horizontal, "one" );
+    model.setHeaderData(1, Qt::Horizontal, "two" );
+    model.setHeaderData(2, Qt::Horizontal, "three");
+
+    for (int groupnum = 0; groupnum < 3 ; ++groupnum)
+    {
+        model.appendRow(QList<QStandardItem*>() << new QStandardItem(QString("#%1").arg(groupnum)) << new QStandardItem("Hello") << new QStandardItem("World"));
+
+        // model.appendRow(newRow);
+        // model->appendRow(group);
+    }
+
+    cview->setModel(&model);
+
+    win.show();
+    return app.exec();
+}
+*/

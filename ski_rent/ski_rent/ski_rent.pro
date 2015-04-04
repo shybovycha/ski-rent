@@ -48,7 +48,12 @@ SOURCES += main.cpp \
     dao/pricedao.cpp \
     entities/price.cpp \
     entity_converters/priceentityconverter.cpp \
-    query_builders/pricequerybuilder.cpp
+    query_builders/pricequerybuilder.cpp \
+    controllers/maincontroller.cpp \
+    controllers/userscontroller.cpp \
+    controllers/equipmentcontroller.cpp \
+    ui/userrowmodel.cpp \
+    ui/equipmenrowtmodel.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -82,7 +87,12 @@ HEADERS  += \
     ui/welcomewindow.h \
     entities/price.h \
     dao/pricedao.h \
-    query_builders/pricequerybuilder.h
+    query_builders/pricequerybuilder.h \
+    controllers/maincontroller.h \
+    controllers/userscontroller.h \
+    controllers/equipmentcontroller.h \
+    ui/userrowmodel.h \
+    ui/equipmentrowmodel.h
 
 FORMS    += \
     ui/configurationwindow.ui \

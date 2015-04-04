@@ -11,10 +11,10 @@ public:
     BaseEntity();
     ~BaseEntity();
 
-    unsigned int getId();
+    unsigned int getId() const;
     void setId(unsigned int val);
 
-    QVariant get(QString field);
+    QVariant get(QString field) const;
     void set(QString field, QVariant value);
 
 protected:

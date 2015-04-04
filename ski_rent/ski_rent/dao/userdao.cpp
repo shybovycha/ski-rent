@@ -6,7 +6,7 @@ UserDAO::UserDAO() : BaseDAO<User>() {
 UserDAO::~UserDAO() {
 }
 
-QList<User> UserDAO::findUsers(QString query) {
+QList<User> UserDAO::find(QString query) {
     QString sql = this->queryBuilder->getSearchQuery(query);
     QList<DBRow> rows = DatabaseConnector::getSingletonPtr()->getDatabase()->select(sql);
     QList<User> users = EntityConverter<User>::convert(rows);

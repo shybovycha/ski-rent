@@ -18,7 +18,7 @@ public:
     UserDAO();
     ~UserDAO();
 
-    QList<User> findUsers(QString query);
+    QList<User> find(QString query);
 };
 
 #endif // USERDAO_H
