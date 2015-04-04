@@ -1,9 +1,10 @@
-#include "welcomewindow.h"
 #include <QApplication>
 
-#include "userdao.h"
-#include "user.h"
-#include "QDebug"
+#include "ui/welcomewindow.h"
+#include "dao/userdao.h"
+#include "entities/user.h"
+
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
