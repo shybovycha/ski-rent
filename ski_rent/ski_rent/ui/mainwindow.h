@@ -6,9 +6,11 @@
 
 #include "ui/userrowmodel.h"
 #include "ui/equipmentrowmodel.h"
+#include "ui/equipmentform.h"
 
 #include <QList>
 #include <QWidget>
+#include <QDebug>
 
 namespace Ui {
 class MainWindow;
@@ -27,9 +29,20 @@ public:
 
 public slots:
     void onQuickSearchTextChanged(QString s);
+    void onCreateEquipmentClicked();
+    void onCreateEquipmentSubmitted(Equipment e);
+    void onEditEquipmentClicked();
+    void onUpdateEquipmentSubmitted(Equipment e);
+    void onDeleteEquipmentClicked();
+    void onDeleteEquipmentSubmitted(int id);
+    void onEquipmentRowSelected(QModelIndex index);
+    void onUserRowSelected(QModelIndex index);
 
 signals:
     void quickSearchTextChanged(QString s);
+    void createEquipment(Equipment e);
+    void updateEquipment(Equipment e);
+    void deleteEquipment(int id);
 
 private:
     Ui::MainWindow *ui;

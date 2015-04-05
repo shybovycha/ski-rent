@@ -17,3 +17,13 @@ void EquipmentController::createEquipment(Equipment e) {
 void EquipmentController::updateEquipment(Equipment e) {
     this->equipmentDao->update(e);
 }
+
+EquipmentController* EquipmentController::getSingletonPtr() {
+    static EquipmentController* instance;
+
+    if (!instance) {
+        instance = new EquipmentController();
+    }
+
+    return instance;
+}

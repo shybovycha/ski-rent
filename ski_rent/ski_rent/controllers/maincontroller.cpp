@@ -1,4 +1,5 @@
 #include "controllers/maincontroller.h"
+// #include "controllers/equipmentcontroller.h"
 
 MainController::MainController(QObject *parent) : QObject(parent) {
     this->view = new MainWindow();
@@ -6,6 +7,10 @@ MainController::MainController(QObject *parent) : QObject(parent) {
     this->equipmentDao = new EquipmentDAO();
 
     connect(this->view, SIGNAL(quickSearchTextChanged(QString)), this, SLOT(find(QString)));
+    connect(this->view, SIGNAL(createEquipment(Equipment)), EquipmentController::getSingletonPtr(), SLOT(createEquipment(Equipment)));
+
+    // EquipmentController* equipmentController = EquipmentController::getSingletonPtr();
+    // connect(this->view, SIGNAL(create(QString)), equipmentController, SLOT(find(QString)));
 }
 
 MainController::~MainController() {

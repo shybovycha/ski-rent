@@ -38,16 +38,18 @@ QString QueryBuilder<T>::getCreateQuery(T entity) {
         throw QString("Can not generate create query - no updateColumns set").toStdString().c_str();
     }
 
+    QStringList columnList;
     QStringList valueList;
 
     for (int i = 0; i < this->updateColumns.size(); i++) {
+        columnList.append(QString("`%1`").arg(this->updateColumns[i]));
         valueList.append(QString("'%1'").arg(entity.get(this->updateColumns[i]).toString()));
     }
 
     QString res =
-            QString("INSERT INTO %1 (%2) VALUES (%3)")
+            QString("INSERT INTO `%1` (%2) VALUES (%3)")
             .arg(this->tableName)
-            .arg(this->updateColumns.join(", "))
+            .arg(columnList.join(", "))
             .arg(valueList.join(", "));
 
     return res;
@@ -55,7 +57,7 @@ QString QueryBuilder<T>::getCreateQuery(T entity) {
 
 template<typename T>
 QString QueryBuilder<T>::getReadQuery(int id) {
-    QString res = QString("SELECT * FROM %1 WHERE id = %2").arg(this->tableName).arg(id);
+    QString res = QString("SELECT * FROM `%1` WHERE id = %2").arg(this->tableName).arg(id);
 
     return res;
 }
@@ -69,7 +71,7 @@ QString QueryBuilder<T>::getSearchQuery(QString query) {
         likes.append(QString("`%1` LIKE %2").arg(this->searchColumns[i]).arg(likeCondition));
     }
 
-    QString sql = QString("SELECT * FROM users WHERE %1").arg(likes.join(" OR "));
+    QString sql = QString("SELECT * FROM `%1` WHERE %2").arg(this->tableName).arg(likes.join(" OR "));
 
     return sql;
 }
@@ -83,11 +85,13 @@ QString QueryBuilder<T>::getUpdateQuery(T newEntity) {
     QStringList updates;
 
     for (int i = 0; i < this->updateColumns.size(); i++) {
-        updates.append(QString("'%1'").arg(newEntity.get(this->updateColumns[i]).toString()));
+        updates.append(QString("`%1` = '%2'")
+                       .arg(this->updateColumns[i])
+                       .arg(newEntity.get(this->updateColumns[i]).toString()));
     }
 
     QString res =
-            QString("UPDATE %1 SET %2 WHERE id = %3")
+            QString("UPDATE `%1` SET %2 WHERE id = %3")
             .arg(this->tableName)
             .arg(updates.join(", "))
             .arg(newEntity.getId());
@@ -97,14 +101,14 @@ QString QueryBuilder<T>::getUpdateQuery(T newEntity) {
 
 template<typename T>
 QString QueryBuilder<T>::getDeleteQuery(int id) {
-    QString res = QString("DELETE FROM %1 WHERE id = %2").arg(this->tableName).arg(id);
+    QString res = QString("DELETE FROM `%1` WHERE id = %2").arg(this->tableName).arg(id);
 
     return res;
 }
 
 template<typename T>
 QString QueryBuilder<T>::getListAllQuery() {
-    QString res = QString("SELECT * FROM %1").arg(this->tableName);
+    QString res = QString("SELECT * FROM `%1`").arg(this->tableName);
 
     return res;
 }

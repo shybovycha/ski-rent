@@ -7,6 +7,7 @@
 #include <QList>
 #include <QStringList>
 #include <QVariant>
+#include <QMap>
 #include <QAbstractTableModel>
 
 class EquipmentRowModel : public QAbstractTableModel
@@ -22,6 +23,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &parent, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 
     bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
@@ -34,7 +36,7 @@ protected:
     void setColumns();
 
     QList<Equipment> equipment;
-    QStringList columns;
+    QMap<QString, QString> columns;
 };
 
 #endif // EQUIPMENTROWMODEL_H

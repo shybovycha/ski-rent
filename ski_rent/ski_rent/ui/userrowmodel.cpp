@@ -14,17 +14,20 @@ UserRowModel::~UserRowModel() {
 }
 
 void UserRowModel::clear() {
-    this->users.clear();
+    int n = this->users.size();
+    this->removeRows(0, n);
 }
 
 void UserRowModel::add(const QList<User> &e) {
+    int n = this->users.size();
     this->users.append(e);
-    this->insertRows(this->users.size(), e.size());
+    this->insertRows(n, e.size());
 }
 
 void UserRowModel::add(const User &user) {
+    int n = this->users.size();
     this->users.append(user);
-    this->insertRow(this->users.size());
+    this->insertRow(n);
 }
 
 void UserRowModel::setColumns() {
@@ -69,7 +72,7 @@ bool UserRowModel::insertRows(int position, int rows, const QModelIndex &index) 
     beginInsertRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; row++) {
-        if ((position + row) >= this->users.size())
+        if ((position + row) > this->users.size())
             this->users.insert(position, User());
     }
 
@@ -82,7 +85,8 @@ bool UserRowModel::removeRows(int position, int rows, const QModelIndex &index) 
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; row++) {
-        this->users.removeAt(position);
+        if (position < this->users.size())
+            this->users.removeAt(position);
     }
 
     endRemoveRows();

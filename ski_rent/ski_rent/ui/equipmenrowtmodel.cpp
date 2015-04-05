@@ -14,22 +14,28 @@ EquipmentRowModel::~EquipmentRowModel() {
 }
 
 void EquipmentRowModel::add(const Equipment &e) {
+    int n = this->equipment.size();
     this->equipment.append(e);
+    this->insertRow(n);
 }
 
 void EquipmentRowModel::add(const QList<Equipment> &e) {
+    int n = this->equipment.size();
     this->equipment.append(e);
+    this->insertRows(n, e.size());
 }
 
 void EquipmentRowModel::clear() {
+    int n = this->equipment.size();
     this->equipment.clear();
+    this->removeRows(0, n);
 }
 
 void EquipmentRowModel::setColumns() {
     columns.clear();
-    columns.append(tr("Type"));
-    columns.append(tr("Amount"));
-    columns.append(tr("Condition"));
+    columns["amount"] = tr("Amount");
+    columns["type"] = tr("Type");
+    columns["condition"] = tr("Condition");
 }
 
 int EquipmentRowModel::columnCount(const QModelIndex &parent) const {
@@ -42,7 +48,7 @@ int EquipmentRowModel::rowCount(const QModelIndex &parent) const {
 
 QVariant EquipmentRowModel::data(const QModelIndex &index, int role) const {
     if (index.isValid() && index.row() < this->equipment.size() && role == Qt::DisplayRole)
-        return this->equipment.at(index.row()).getId();
+        return this->equipment.at(index.row()).get(this->columns.keys().at(index.column()));
     else
         return QVariant();
 }
@@ -52,16 +58,24 @@ QVariant EquipmentRowModel::headerData(int section, Qt::Orientation orientation,
         return QVariant();
 
     if (orientation == Qt::Horizontal)
-        return this->columns[section];
+        return this->columns.values()[section];
     else
         return QString::number(section);
+}
+
+Qt::ItemFlags EquipmentRowModel::flags(const QModelIndex &index) const {
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
 
 bool EquipmentRowModel::insertRows(int position, int rows, const QModelIndex &index) {
     beginInsertRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; row++) {
-        this->equipment.insert(position, Equipment());
+        if ((position + row) > this->equipment.size())
+            this->equipment.insert(position, Equipment());
     }
 
     endInsertRows();
@@ -73,7 +87,8 @@ bool EquipmentRowModel::removeRows(int position, int rows, const QModelIndex &in
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; row++) {
-        this->equipment.removeAt(position);
+        if (position < this->equipment.size())
+            this->equipment.removeAt(position);
     }
 
     endRemoveRows();

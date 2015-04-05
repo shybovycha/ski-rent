@@ -24,3 +24,13 @@ QVariant BaseEntity::get(QString field) const {
 void BaseEntity::set(QString field, QVariant value) {
     this->fields[field] = value;
 }
+
+bool BaseEntity::operator=(const BaseEntity &e) {
+    this->fields.clear();
+
+    for (QMap<QString, QVariant>::const_iterator it = e.fields.begin(); it != e.fields.end(); it++) {
+        this->fields[it.key()] = it.value();
+    }
+
+    return true;
+}

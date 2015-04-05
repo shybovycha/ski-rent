@@ -63,7 +63,11 @@ void MySQLAdapter::update(QString query) {
 
     this->db.transaction();
 
-    q.exec(query);
+    bool res = q.exec(query);
 
-    this->db.commit();
+    bool isOk = this->db.commit();
+
+    if (!isOk || !res) {
+        qDebug() << this->db.lastError().text();
+    }
 }

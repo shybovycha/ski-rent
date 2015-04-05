@@ -12,9 +12,7 @@ class EquipmentController : public QObject
     Q_OBJECT
 
 public:
-//    explicit EquipmentController(QObject *parent = 0);
-    EquipmentController();
-    ~EquipmentController();
+    static EquipmentController* getSingletonPtr();
 
 signals:
 
@@ -23,6 +21,9 @@ public slots:
     void updateEquipment(Equipment e);
 
 protected:
+    EquipmentController();
+    ~EquipmentController();
+
     EquipmentDAO *equipmentDao;
 };
 

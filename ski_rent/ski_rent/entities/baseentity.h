@@ -17,6 +17,8 @@ public:
     QVariant get(QString field) const;
     void set(QString field, QVariant value);
 
+    bool operator=(const BaseEntity &e);
+
 protected:
     unsigned int id;
     QMap<QString, QVariant> fields;
