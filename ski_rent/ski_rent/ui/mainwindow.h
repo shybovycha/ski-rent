@@ -11,6 +11,7 @@
 #include <QList>
 #include <QWidget>
 #include <QDebug>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;

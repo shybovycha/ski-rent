@@ -28,6 +28,8 @@ void BaseEntity::set(QString field, QVariant value) {
 bool BaseEntity::operator=(const BaseEntity &e) {
     this->fields.clear();
 
+    this->id = e.id;
+
     for (QMap<QString, QVariant>::const_iterator it = e.fields.begin(); it != e.fields.end(); it++) {
         this->fields[it.key()] = it.value();
     }

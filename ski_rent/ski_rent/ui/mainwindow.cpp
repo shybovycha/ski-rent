@@ -53,7 +53,6 @@ void MainWindow::onQuickSearchTextChanged(QString s) {
 }
 
 void MainWindow::onCreateEquipmentClicked() {
-    // emit createEquipmentClicked();
     EquipmentForm *win = new EquipmentForm();
     connect(win, SIGNAL(saveEquipment(Equipment)), this, SLOT(onCreateEquipmentSubmitted(Equipment)));
     win->show();
@@ -66,18 +65,33 @@ void MainWindow::onCreateEquipmentSubmitted(Equipment e) {
 
 void MainWindow::onDeleteEquipmentSubmitted(int id) {
     emit deleteEquipment(id);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
 void MainWindow::onUpdateEquipmentSubmitted(Equipment e) {
     emit updateEquipment(e);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
 void MainWindow::onEditEquipmentClicked() {
-    // emit editEquipmentClicked();
+    int index = this->ui->equipmentList->selectionModel()->selectedRows().at(0).row();
+    Equipment e = this->equipmentRowModel->at(index);
+    EquipmentForm *win = new EquipmentForm();
+    win->setEquipment(e);
+    connect(win, SIGNAL(saveEquipment(Equipment)), this, SLOT(onUpdateEquipmentSubmitted(Equipment)));
+    win->show();
 }
 
 void MainWindow::onDeleteEquipmentClicked() {
-    // emit deleteEquipmentClicked();
+    int index = this->ui->equipmentList->selectionModel()->selectedRows().at(0).row();
+    Equipment e = this->equipmentRowModel->at(index);
+
+    int ans = QMessageBox::question(this, tr("Please, confirm"), tr("Do you want to remove %1?").arg(e.getType()), QMessageBox::Yes, QMessageBox::No);
+
+    if (ans == QMessageBox::Yes) {
+        emit deleteEquipment(e.getId());
+        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    }
 }
 
 void MainWindow::onEquipmentRowSelected(QModelIndex index) {

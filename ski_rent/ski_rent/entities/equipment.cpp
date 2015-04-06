@@ -2,7 +2,7 @@
 
 Equipment::Equipment()
 {
-    this->set("condition", 'a');
+    this->set("condition", QChar('a'));
     this->set("amount", 0);
 }
 
@@ -20,7 +20,7 @@ int Equipment::getAmount() {
 }
 
 char Equipment::getCondition() {
-    return this->get("condition").toChar().digitValue();
+    return this->get("condition").toChar().unicode();
 }
 
 void Equipment::setType(QString val) {
@@ -32,5 +32,5 @@ void Equipment::setAmount(int val) {
 }
 
 void Equipment::setCondition(char val) {
-    this->set("condition", val);
+    this->set("condition", QChar(val));
 }

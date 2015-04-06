@@ -31,6 +31,7 @@ public:
     void add(const Equipment &e);
     void add(const QList<Equipment> &e);
     void clear();
+    Equipment at(int index) const;
 
 protected:
     void setColumns();

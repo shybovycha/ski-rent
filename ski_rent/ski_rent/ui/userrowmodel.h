@@ -28,6 +28,7 @@ public:
     void add(const User &u);
     void add(const QList<User> &u);
     void clear();
+    User at(int index) const;
 
 private:
     void setColumns();

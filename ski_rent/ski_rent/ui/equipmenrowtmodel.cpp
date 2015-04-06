@@ -47,10 +47,18 @@ int EquipmentRowModel::rowCount(const QModelIndex &parent) const {
 }
 
 QVariant EquipmentRowModel::data(const QModelIndex &index, int role) const {
-    if (index.isValid() && index.row() < this->equipment.size() && role == Qt::DisplayRole)
-        return this->equipment.at(index.row()).get(this->columns.keys().at(index.column()));
-    else
+    if (index.isValid() && index.row() < this->equipment.size() && role == Qt::DisplayRole) {
+        QString key = this->columns.keys().at(index.column());
+        Equipment e = this->equipment.at(index.row());
+
+        if (key == "condition") {
+            return QString("%1").arg((char) e.getCondition());
+        }
+
+        return e.get(key);
+    } else {
         return QVariant();
+    }
 }
 
 QVariant EquipmentRowModel::headerData(int section, Qt::Orientation orientation, int role) const {
@@ -60,7 +68,7 @@ QVariant EquipmentRowModel::headerData(int section, Qt::Orientation orientation,
     if (orientation == Qt::Horizontal)
         return this->columns.values()[section];
     else
-        return QString::number(section);
+        return QString::number(section + 1);
 }
 
 Qt::ItemFlags EquipmentRowModel::flags(const QModelIndex &index) const {
@@ -94,4 +102,8 @@ bool EquipmentRowModel::removeRows(int position, int rows, const QModelIndex &in
     endRemoveRows();
 
     return true;
+}
+
+Equipment EquipmentRowModel::at(int index) const {
+    return this->equipment.at(index);
 }

@@ -93,3 +93,7 @@ bool UserRowModel::removeRows(int position, int rows, const QModelIndex &index) 
 
     return true;
 }
+
+User UserRowModel::at(int index) const {
+    return this->users.at(index);
+}

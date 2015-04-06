@@ -8,6 +8,8 @@ MainController::MainController(QObject *parent) : QObject(parent) {
 
     connect(this->view, SIGNAL(quickSearchTextChanged(QString)), this, SLOT(find(QString)));
     connect(this->view, SIGNAL(createEquipment(Equipment)), EquipmentController::getSingletonPtr(), SLOT(createEquipment(Equipment)));
+    connect(this->view, SIGNAL(updateEquipment(Equipment)), EquipmentController::getSingletonPtr(), SLOT(updateEquipment(Equipment)));
+    connect(this->view, SIGNAL(deleteEquipment(int)), EquipmentController::getSingletonPtr(), SLOT(deleteEquipment(int)));
 
     // EquipmentController* equipmentController = EquipmentController::getSingletonPtr();
     // connect(this->view, SIGNAL(create(QString)), equipmentController, SLOT(find(QString)));

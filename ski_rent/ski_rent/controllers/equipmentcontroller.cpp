@@ -18,6 +18,10 @@ void EquipmentController::updateEquipment(Equipment e) {
     this->equipmentDao->update(e);
 }
 
+void EquipmentController::deleteEquipment(int id) {
+    this->equipmentDao->remove(id);
+}
+
 EquipmentController* EquipmentController::getSingletonPtr() {
     static EquipmentController* instance;
 

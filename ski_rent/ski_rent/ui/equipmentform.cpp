@@ -29,7 +29,8 @@ void EquipmentForm::setEquipment(Equipment e) {
 
     this->ui->typeEdit->setText(e.getType());
     this->ui->amountSpin->setValue(e.getAmount());
-    this->ui->conditionCombo->setCurrentIndex(this->conditions.keys().indexOf(e.getCondition()));
+    char conditionKey = e.getCondition();
+    this->ui->conditionCombo->setCurrentIndex(this->conditions.keys().indexOf(conditionKey));
 }
 
 void EquipmentForm::onCancelClicked() {
@@ -39,7 +40,10 @@ void EquipmentForm::onCancelClicked() {
 void EquipmentForm::onSaveClicked() {
     this->equipment.setType(this->ui->typeEdit->text());
     this->equipment.setAmount(this->ui->amountSpin->value());
-    this->equipment.setCondition(this->conditions.keys()[this->ui->conditionCombo->currentIndex()]);
+
+    int conditionIndex = this->ui->conditionCombo->currentIndex();
+    char conditionKey = this->conditions.keys()[conditionIndex];
+    this->equipment.setCondition(conditionKey);
 
     emit saveEquipment(this->equipment);
 
