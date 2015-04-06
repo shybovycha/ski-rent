@@ -14,21 +14,20 @@
    <string>SkiRent - main</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QToolBox" name="toolBox">
-     <property name="currentIndex">
-      <number>0</number>
+   <item row="0" column="0">
+    <widget class="QLineEdit" name="quickSearchEdit">
+     <property name="toolTip">
+      <string>Quick Search</string>
      </property>
-     <widget class="QWidget" name="rentsPage">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>719</width>
-        <height>288</height>
-       </rect>
-      </property>
-      <attribute name="label">
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="usersTab">
+      <attribute name="title">
        <string>Users</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -101,16 +100,8 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="usersPage">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>719</width>
-        <height>288</height>
-       </rect>
-      </property>
-      <attribute name="label">
+     <widget class="QWidget" name="equipmentTab">
+      <attribute name="title">
        <string>Equipment</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
@@ -158,13 +149,16 @@
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLineEdit" name="quickSearchEdit">
-     <property name="toolTip">
-      <string>Quick Search</string>
-     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Rents</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Reservations</string>
+      </attribute>
+     </widget>
     </widget>
    </item>
   </layout>
