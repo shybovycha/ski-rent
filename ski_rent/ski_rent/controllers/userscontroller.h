@@ -12,17 +12,20 @@ class UsersController : public QObject
     Q_OBJECT
 
 public:
-    // explicit UsersController(QObject *parent = 0);
-    UsersController();
-    ~UsersController();
+    static UsersController* getSingletonPtr();
 
 signals:
 
 public slots:
     void createUser(User u);
     void updateUser(User u);
+    void deleteUser(int userId);
 
 protected:
+    // explicit UsersController(QObject *parent = 0);
+    UsersController();
+    ~UsersController();
+
     UserDAO *userDao;
 };
 

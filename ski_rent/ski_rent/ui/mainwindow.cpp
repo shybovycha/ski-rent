@@ -29,6 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->editEquipmentButton, SIGNAL(clicked()), this, SLOT(onEditEquipmentClicked()));
     connect(this->ui->deleteEquipmentButton, SIGNAL(clicked()), this, SLOT(onDeleteEquipmentClicked()));
 
+    connect(this->ui->createUserButton, SIGNAL(clicked()), this, SLOT(onCreateUserClicked()));
+    connect(this->ui->editUserButton, SIGNAL(clicked()), this, SLOT(onEditUserClicked()));
+    connect(this->ui->deleteUserButton, SIGNAL(clicked()), this, SLOT(onDeleteUserClicked()));
+
     connect(this->ui->userList, SIGNAL(clicked(QModelIndex)), this, SLOT(onUserRowSelected(QModelIndex)));
     connect(this->ui->equipmentList, SIGNAL(clicked(QModelIndex)), this, SLOT(onEquipmentRowSelected(QModelIndex)));
 }
@@ -48,16 +52,6 @@ void MainWindow::setEquipment(QList<Equipment> equipment) {
     this->equipmentRowModel->add(equipment);
 }
 
-void MainWindow::onQuickSearchTextChanged(QString s) {
-    emit quickSearchTextChanged(s);
-}
-
-void MainWindow::onCreateEquipmentClicked() {
-    EquipmentForm *win = new EquipmentForm();
-    connect(win, SIGNAL(saveEquipment(Equipment)), this, SLOT(onCreateEquipmentSubmitted(Equipment)));
-    win->show();
-}
-
 void MainWindow::onCreateEquipmentSubmitted(Equipment e) {
     emit createEquipment(e);
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
@@ -73,9 +67,33 @@ void MainWindow::onUpdateEquipmentSubmitted(Equipment e) {
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
+void MainWindow::onCreateUserSubmitted(User u) {
+    emit createUser(u);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onDeleteUserSubmitted(int id) {
+    emit deleteUser(id);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onUpdateUserSubmitted(User u) {
+    emit updateUser(u);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onQuickSearchTextChanged(QString s) {
+    emit quickSearchTextChanged(s);
+}
+
+void MainWindow::onCreateEquipmentClicked() {
+    EquipmentForm *win = new EquipmentForm();
+    connect(win, SIGNAL(saveEquipment(Equipment)), this, SLOT(onCreateEquipmentSubmitted(Equipment)));
+    win->show();
+}
+
 void MainWindow::onEditEquipmentClicked() {
-    int index = this->ui->equipmentList->selectionModel()->selectedRows().at(0).row();
-    Equipment e = this->equipmentRowModel->at(index);
+    Equipment e = this->getSelectedEquipment();
     EquipmentForm *win = new EquipmentForm();
     win->setEquipment(e);
     connect(win, SIGNAL(saveEquipment(Equipment)), this, SLOT(onUpdateEquipmentSubmitted(Equipment)));
@@ -83,13 +101,37 @@ void MainWindow::onEditEquipmentClicked() {
 }
 
 void MainWindow::onDeleteEquipmentClicked() {
-    int index = this->ui->equipmentList->selectionModel()->selectedRows().at(0).row();
-    Equipment e = this->equipmentRowModel->at(index);
+    Equipment e = this->getSelectedEquipment();
 
     int ans = QMessageBox::question(this, tr("Please, confirm"), tr("Do you want to remove %1?").arg(e.getType()), QMessageBox::Yes, QMessageBox::No);
 
     if (ans == QMessageBox::Yes) {
         emit deleteEquipment(e.getId());
+        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    }
+}
+
+void MainWindow::onCreateUserClicked() {
+    UserForm *win = new UserForm();
+    connect(win, SIGNAL(saveUser(User)), this, SLOT(onCreateUserSubmitted(User)));
+    win->show();
+}
+
+void MainWindow::onEditUserClicked() {
+    User u = this->getSelectedUser();
+    UserForm *win = new UserForm();
+    win->setUser(u);
+    connect(win, SIGNAL(saveUser(User)), this, SLOT(onUpdateUserSubmitted(User)));
+    win->show();
+}
+
+void MainWindow::onDeleteUserClicked() {
+    User u = this->getSelectedUser();
+
+    int ans = QMessageBox::question(this, tr("Please, confirm"), tr("Do you want to remove user %1 %2?").arg(u.getSurname(), u.getName()), QMessageBox::Yes, QMessageBox::No);
+
+    if (ans == QMessageBox::Yes) {
+        emit deleteUser(u.getId());
         emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
     }
 }
@@ -112,4 +154,14 @@ void MainWindow::onUserRowSelected(QModelIndex index) {
         this->ui->editUserButton->setEnabled(false);
         this->ui->deleteUserButton->setEnabled(false);
     }
+}
+
+Equipment MainWindow::getSelectedEquipment() {
+    int index = this->ui->equipmentList->selectionModel()->selectedRows().at(0).row();
+    return this->equipmentRowModel->at(index);
+}
+
+User MainWindow::getSelectedUser() {
+    int index = this->ui->userList->selectionModel()->selectedRows().at(0).row();
+    return this->userRowModel->at(index);
 }

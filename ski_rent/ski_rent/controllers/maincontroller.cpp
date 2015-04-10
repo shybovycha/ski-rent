@@ -7,9 +7,14 @@ MainController::MainController(QObject *parent) : QObject(parent) {
     this->equipmentDao = new EquipmentDAO();
 
     connect(this->view, SIGNAL(quickSearchTextChanged(QString)), this, SLOT(find(QString)));
+
     connect(this->view, SIGNAL(createEquipment(Equipment)), EquipmentController::getSingletonPtr(), SLOT(createEquipment(Equipment)));
     connect(this->view, SIGNAL(updateEquipment(Equipment)), EquipmentController::getSingletonPtr(), SLOT(updateEquipment(Equipment)));
     connect(this->view, SIGNAL(deleteEquipment(int)), EquipmentController::getSingletonPtr(), SLOT(deleteEquipment(int)));
+
+    connect(this->view, SIGNAL(createUser(User)), UsersController::getSingletonPtr(), SLOT(createUser(User)));
+    connect(this->view, SIGNAL(updateUser(User)), UsersController::getSingletonPtr(), SLOT(updateUser(User)));
+    connect(this->view, SIGNAL(deleteUser(int)), UsersController::getSingletonPtr(), SLOT(deleteUser(int)));
 
     // EquipmentController* equipmentController = EquipmentController::getSingletonPtr();
     // connect(this->view, SIGNAL(create(QString)), equipmentController, SLOT(find(QString)));

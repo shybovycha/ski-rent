@@ -6,7 +6,9 @@
 
 #include "ui/userrowmodel.h"
 #include "ui/equipmentrowmodel.h"
+
 #include "ui/equipmentform.h"
+#include "ui/userform.h"
 
 #include <QList>
 #include <QWidget>
@@ -28,22 +30,42 @@ public:
     void setUsers(QList<User> users);
     void setEquipment(QList<Equipment> equipment);
 
+protected:
+    Equipment getSelectedEquipment();
+    User getSelectedUser();
+
 public slots:
     void onQuickSearchTextChanged(QString s);
+
     void onCreateEquipmentClicked();
-    void onCreateEquipmentSubmitted(Equipment e);
     void onEditEquipmentClicked();
-    void onUpdateEquipmentSubmitted(Equipment e);
     void onDeleteEquipmentClicked();
+
+    void onCreateEquipmentSubmitted(Equipment e);
+    void onUpdateEquipmentSubmitted(Equipment e);
     void onDeleteEquipmentSubmitted(int id);
+
+    void onCreateUserClicked();
+    void onEditUserClicked();
+    void onDeleteUserClicked();
+
+    void onCreateUserSubmitted(User e);
+    void onUpdateUserSubmitted(User e);
+    void onDeleteUserSubmitted(int id);
+
     void onEquipmentRowSelected(QModelIndex index);
     void onUserRowSelected(QModelIndex index);
 
 signals:
     void quickSearchTextChanged(QString s);
+
     void createEquipment(Equipment e);
     void updateEquipment(Equipment e);
     void deleteEquipment(int id);
+
+    void createUser(User e);
+    void updateUser(User e);
+    void deleteUser(int id);
 
 private:
     Ui::MainWindow *ui;

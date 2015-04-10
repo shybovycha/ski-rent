@@ -16,3 +16,17 @@ void UsersController::createUser(User u) {
 void UsersController::updateUser(User u) {
     this->userDao->update(u);
 }
+
+void UsersController::deleteUser(int userId) {
+    this->userDao->remove(userId);
+}
+
+UsersController* UsersController::getSingletonPtr() {
+    static UsersController* instance = 0;
+
+    if (!instance) {
+        instance = new UsersController();
+    }
+
+    return instance;
+}
