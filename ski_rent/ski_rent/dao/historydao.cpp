@@ -8,6 +8,16 @@ HistoryDAO::~HistoryDAO() {
 
 }
 
+HistoryDAO* HistoryDAO::getSingletonPtr() {
+    static HistoryDAO* instance = 0;
+
+    if (!instance) {
+        instance = new HistoryDAO();
+    }
+
+    return instance;
+}
+
 DatabaseAdapter* HistoryDAO::getDb() {
     return DatabaseConnector::getSingletonPtr()->getDatabase();
 }

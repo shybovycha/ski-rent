@@ -2,23 +2,23 @@
 
 UsersController::UsersController() // QObject *parent) : QObject(parent)
 {
-    this->userDao = new UserDAO();
+//    this->userDao = new UserDAO();
 }
 
 UsersController::~UsersController() {
-    delete this->userDao;
+//    delete this->userDao;
 }
 
 void UsersController::createUser(User u) {
-    this->userDao->create(u);
+    UserDAO::getSingletonPtr()->create(u);
 }
 
 void UsersController::updateUser(User u) {
-    this->userDao->update(u);
+    UserDAO::getSingletonPtr()->update(u);
 }
 
 void UsersController::deleteUser(int userId) {
-    this->userDao->remove(userId);
+    UserDAO::getSingletonPtr()->remove(userId);
 }
 
 UsersController* UsersController::getSingletonPtr() {

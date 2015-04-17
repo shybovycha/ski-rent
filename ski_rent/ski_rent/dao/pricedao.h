@@ -16,8 +16,7 @@
 class PriceDAO
 {
 public:
-    PriceDAO();
-    ~PriceDAO();
+    static PriceDAO* getSingletonPtr();
 
     void create(Price newEntity);
     void update(QString type, char condition, int time, Price newEntity);
@@ -25,6 +24,9 @@ public:
     QList<Price> find(QString type, char condition, int time);
 
 protected:
+    PriceDAO();
+    ~PriceDAO();
+
     PriceQueryBuilder* queryBuilder;
 
     DatabaseAdapter* getDb();

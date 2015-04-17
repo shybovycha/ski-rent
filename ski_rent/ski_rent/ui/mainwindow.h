@@ -1,6 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "commands/compositecommand.h"
+#include "commands/createequipmentcommand.h"
+#include "commands/deleteequipmentcommand.h"
+#include "commands/updateequipmentcommand.h"
+#include "commands/createusercommand.h"
+#include "commands/deleteusercommand.h"
+#include "commands/updateusercommand.h"
+#include "commands/quicksearchcommand.h"
+
 #include "entities/user.h"
 #include "entities/equipment.h"
 

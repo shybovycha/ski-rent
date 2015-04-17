@@ -2,24 +2,24 @@
 
 EquipmentController::EquipmentController() //QObject *parent) : QObject(parent)
 {
-    this->equipmentDao = new EquipmentDAO();
+//    this->equipmentDao = new EquipmentDAO();
 }
 
 EquipmentController::~EquipmentController()
 {
-    delete this->equipmentDao;
+//    delete this->equipmentDao;
 }
 
 void EquipmentController::createEquipment(Equipment e) {
-    this->equipmentDao->create(e);
+    EquipmentDAO::getSingletonPtr()->create(e);
 }
 
 void EquipmentController::updateEquipment(Equipment e) {
-    this->equipmentDao->update(e);
+    EquipmentDAO::getSingletonPtr()->update(e);
 }
 
 void EquipmentController::deleteEquipment(int id) {
-    this->equipmentDao->remove(id);
+    EquipmentDAO::getSingletonPtr()->remove(id);
 }
 
 EquipmentController* EquipmentController::getSingletonPtr() {

@@ -53,37 +53,38 @@ void MainWindow::setEquipment(QList<Equipment> equipment) {
 }
 
 void MainWindow::onCreateEquipmentSubmitted(Equipment e) {
-    emit createEquipment(e);
-    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    BaseCommand* cmd = CompositeCommand::first(new CreateEquipmentCommand(e))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+    cmd->execute();
 }
 
 void MainWindow::onDeleteEquipmentSubmitted(int id) {
-    emit deleteEquipment(id);
-    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    BaseCommand* cmd = CompositeCommand::first(new DeleteEquipmentCommand(id))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+    cmd->execute();
 }
 
 void MainWindow::onUpdateEquipmentSubmitted(Equipment e) {
-    emit updateEquipment(e);
-    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    BaseCommand* cmd = CompositeCommand::first(new UpdateEquipmentCommand(e))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+    cmd->execute();
 }
 
 void MainWindow::onCreateUserSubmitted(User u) {
-    emit createUser(u);
-    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    BaseCommand* cmd = CompositeCommand::first(new CreateUserCommand(u))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+    cmd->execute();
 }
 
 void MainWindow::onDeleteUserSubmitted(int id) {
-    emit deleteUser(id);
-    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    BaseCommand* cmd = CompositeCommand::first(new DeleteUserCommand(id))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+    cmd->execute();
 }
 
 void MainWindow::onUpdateUserSubmitted(User u) {
-    emit updateUser(u);
-    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    BaseCommand* cmd = CompositeCommand::first(new UpdateUserCommand(u))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+    cmd->execute();
 }
 
 void MainWindow::onQuickSearchTextChanged(QString s) {
-    emit quickSearchTextChanged(s);
+    BaseCommand* cmd = new QuickSearchCommand(this->ui->quickSearchEdit->text(), this);
+    cmd->execute();
 }
 
 void MainWindow::onCreateEquipmentClicked() {
@@ -106,8 +107,8 @@ void MainWindow::onDeleteEquipmentClicked() {
     int ans = QMessageBox::question(this, tr("Please, confirm"), tr("Do you want to remove %1?").arg(e.getType()), QMessageBox::Yes, QMessageBox::No);
 
     if (ans == QMessageBox::Yes) {
-        emit deleteEquipment(e.getId());
-        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+        BaseCommand* cmd = CompositeCommand::first(new DeleteEquipmentCommand(e.getId()))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+        cmd->execute();
     }
 }
 
@@ -131,8 +132,8 @@ void MainWindow::onDeleteUserClicked() {
     int ans = QMessageBox::question(this, tr("Please, confirm"), tr("Do you want to remove user %1 %2?").arg(u.getSurname(), u.getName()), QMessageBox::Yes, QMessageBox::No);
 
     if (ans == QMessageBox::Yes) {
-        emit deleteUser(u.getId());
-        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+        BaseCommand* cmd = CompositeCommand::first(new DeleteUserCommand(u.getId()))->then(new QuickSearchCommand(this->ui->quickSearchEdit->text(), this));
+        cmd->execute();
     }
 }
 

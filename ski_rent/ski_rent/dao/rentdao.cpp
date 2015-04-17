@@ -8,6 +8,16 @@ RentDAO::~RentDAO() {
     delete this->queryBuilder;
 }
 
+RentDAO* RentDAO::getSingletonPtr() {
+    static RentDAO* instance = 0;
+
+    if (!instance) {
+        instance = new RentDAO();
+    }
+
+    return instance;
+}
+
 DatabaseAdapter* RentDAO::getDb() {
     return this->getDb();
 }

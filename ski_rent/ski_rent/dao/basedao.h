@@ -14,8 +14,7 @@ template<typename T>
 class BaseDAO
 {
 public:
-    BaseDAO();
-    ~BaseDAO();
+    static BaseDAO* getSingletonPtr();
 
     QList<T> all();
     T find(int id);
@@ -25,9 +24,23 @@ public:
     void remove(int id);
 
 protected:
+    BaseDAO();
+    ~BaseDAO();
+
     QueryBuilder<T>* queryBuilder;
     DatabaseAdapter* getDb();
 };
+
+template<typename T>
+BaseDAO<T>* BaseDAO<T>::getSingletonPtr() {
+    static BaseDAO<T>* instance;
+
+    if (!instance) {
+        instance = new BaseDAO<T>();
+    }
+
+    return instance;
+}
 
 template<typename T>
 BaseDAO<T>::BaseDAO() {

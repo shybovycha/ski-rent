@@ -13,8 +13,7 @@
 class ReservationDAO
 {
 public:
-    ReservationDAO();
-    ~ReservationDAO();
+    static ReservationDAO* getSingletonPtr();
 
     QList<Reservation> all();
     QList<Reservation> findByUser(int userId);
@@ -25,6 +24,9 @@ public:
     void update(int userId, int equipmentId, Reservation newEntity);
 
 protected:
+    ReservationDAO();
+    ~ReservationDAO();
+
     ReservationQueryBuilder* queryBuilder;
 
     DatabaseAdapter* getDb();

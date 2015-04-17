@@ -16,8 +16,7 @@
 class RentDAO
 {
 public:
-    RentDAO();
-    ~RentDAO();
+    static RentDAO* getSingletonPtr();
 
     void create(int userId, int equipmentId, Rent newEntity);
     void update(int userId, int equipmentId, Rent newEntity);
@@ -28,6 +27,9 @@ public:
     QList<Rent> findByRentFrom(QDateTime rentFromStart, QDateTime rentFromEnd);
 
 protected:
+    RentDAO();
+    ~RentDAO();
+
     RentQueryBuilder* queryBuilder;
 
     DatabaseAdapter* getDb();

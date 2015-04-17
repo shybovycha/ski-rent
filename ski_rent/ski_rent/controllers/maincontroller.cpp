@@ -3,8 +3,8 @@
 
 MainController::MainController(QObject *parent) : QObject(parent) {
     this->view = new MainWindow();
-    this->userDao = new UserDAO();
-    this->equipmentDao = new EquipmentDAO();
+//    this->userDao = new UserDAO();
+//    this->equipmentDao = new EquipmentDAO();
 
     connect(this->view, SIGNAL(quickSearchTextChanged(QString)), this, SLOT(find(QString)));
 
@@ -35,21 +35,21 @@ MainController* MainController::getInstancePtr() {
 }
 
 void MainController::index() {
-    this->view->setUsers(this->userDao->all());
-    this->view->setEquipment(this->equipmentDao->all());
+    this->view->setUsers(UserDAO::getSingletonPtr()->all());
+    this->view->setEquipment(EquipmentDAO::getSingletonPtr()->all());
 
     this->view->show();
 }
 
 void MainController::find(QString query) {
-    this->view->setUsers(this->userDao->find(query));
-    this->view->setEquipment(this->equipmentDao->find(query));
+    this->view->setUsers(UserDAO::getSingletonPtr()->find(query));
+    this->view->setEquipment(EquipmentDAO::getSingletonPtr()->find(query));
 
     this->view->show();
 }
 
 void MainController::availableEquipment() {
-    this->view->setEquipment(this->equipmentDao->available());
+    this->view->setEquipment(((EquipmentDAO*) EquipmentDAO::getSingletonPtr())->available());
 
     this->view->show();
 }

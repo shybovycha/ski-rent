@@ -8,6 +8,16 @@ ReservationDAO::~ReservationDAO() {
     delete this->queryBuilder;
 }
 
+ReservationDAO* ReservationDAO::getSingletonPtr() {
+    static ReservationDAO* instance = 0;
+
+    if (!instance) {
+        instance = new ReservationDAO();
+    }
+
+    return instance;
+}
+
 DatabaseAdapter* ReservationDAO::getDb() {
     return DatabaseConnector::getSingletonPtr()->getDatabase();
 }

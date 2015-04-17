@@ -8,6 +8,16 @@ PriceDAO::~PriceDAO() {
     delete this->queryBuilder;
 }
 
+PriceDAO* PriceDAO::getSingletonPtr() {
+    static PriceDAO* instance = 0;
+
+    if (!instance) {
+        instance = new PriceDAO();
+    }
+
+    return instance;
+}
+
 DatabaseAdapter* PriceDAO::getDb() {
     return DatabaseConnector::getSingletonPtr()->getDatabase();
 }

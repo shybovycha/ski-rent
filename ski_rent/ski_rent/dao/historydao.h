@@ -12,14 +12,16 @@
 class HistoryDAO
 {
 public:
-    HistoryDAO();
-    ~HistoryDAO();
+    static HistoryDAO* getSingletonPtr();
 
     QList<History> all();
     History find(int id);
     void create(History newEntity);
 
 protected:
+    HistoryDAO();
+    ~HistoryDAO();
+
     HistoryQueryBuilder* queryBuilder;
 
     DatabaseAdapter* getDb();

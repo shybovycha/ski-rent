@@ -53,7 +53,19 @@ SOURCES += main.cpp \
     controllers/userscontroller.cpp \
     controllers/equipmentcontroller.cpp \
     ui/userrowmodel.cpp \
-    ui/equipmenrowtmodel.cpp
+    ui/equipmenrowtmodel.cpp \
+    views/equipmentview.cpp \
+    views/mainview.cpp \
+    views/userview.cpp \
+    commands/createusercommand.c \
+    commands/basecommand.cpp \
+    commands/deleteusercommand.cpp \
+    commands/updateusercommand.cpp \
+    commands/createequipmentcommand.cpp \
+    commands/deleteequipmentcommand.cpp \
+    commands/updateequipmentcommand.cpp \
+    commands/quicksearchcommand.cpp \
+    commands/compositecommand.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -92,7 +104,19 @@ HEADERS  += \
     controllers/userscontroller.h \
     controllers/equipmentcontroller.h \
     ui/userrowmodel.h \
-    ui/equipmentrowmodel.h
+    ui/equipmentrowmodel.h \
+    commands/createusercommand.h \
+    views/equipmentview.h \
+    views/mainview.h \
+    views/userview.h \
+    commands/basecommand.h \
+    commands/deleteusercommand.h \
+    commands/updateusercommand.h \
+    commands/createequipmentcommand.h \
+    commands/deleteequipmentcommand.h \
+    commands/updateequipmentcommand.h \
+    commands/quicksearchcommand.h \
+    commands/compositecommand.h
 
 FORMS    += \
     ui/configurationwindow.ui \
