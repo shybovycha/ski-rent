@@ -8,6 +8,7 @@
 
 #include "controllers/equipmentcontroller.h"
 #include "controllers/userscontroller.h"
+#include "util/singleton.h"
 
 #include <QObject>
 #include <QString>
@@ -16,21 +17,19 @@ class MainController : public QObject
 {
     Q_OBJECT
 
+public:
+    MainController(QObject *parent = 0);
+    ~MainController();
+
 public slots:
     void index();
     void find(QString query);
     void availableEquipment();
 
-public:
-    static MainController* getInstancePtr();
-
 protected:
-    MainController(QObject *parent = 0);
-    ~MainController();
-
-    UserDAO *userDao;
-    EquipmentDAO *equipmentDao;
     MainWindow *view;
 };
+
+typedef Singleton<MainController> MainControllerSingleton;
 
 #endif

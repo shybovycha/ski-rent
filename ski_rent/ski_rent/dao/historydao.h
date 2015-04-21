@@ -8,6 +8,7 @@
 #include "db/databaseconnector.h"
 #include "query_builders/historyquerybuilder.h"
 #include "entity_converters/entityconverter.h"
+#include "util/singleton.h"
 
 class HistoryDAO
 {
@@ -24,5 +25,7 @@ protected:
 
     DatabaseAdapter* getDb();
 };
+
+typedef Singleton<HistoryDAO> HistoryDAOSingleton;
 
 #endif // HISTORYDAO_H

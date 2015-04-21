@@ -53,7 +53,13 @@ SOURCES += main.cpp \
     controllers/userscontroller.cpp \
     controllers/equipmentcontroller.cpp \
     ui/userrowmodel.cpp \
-    ui/equipmenrowtmodel.cpp
+    ui/equipmenrowtmodel.cpp \
+    ui/reservationrowmodel.cpp \
+    ui/abstractrowmodel.cpp \
+    util/singleton.cpp \
+    views/equipmentview.cpp \
+    views/mainview.cpp \
+    views/userview.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -92,7 +98,14 @@ HEADERS  += \
     controllers/userscontroller.h \
     controllers/equipmentcontroller.h \
     ui/userrowmodel.h \
-    ui/equipmentrowmodel.h
+    ui/equipmentrowmodel.h \
+    ui/rentrowmodel.h \
+    ui/reservationrowmodel.h \
+    ui/abstractrowmodel.h \
+    util/singleton.h \
+    views/equipmentview.h \
+    views/mainview.h \
+    views/userview.h
 
 FORMS    += \
     ui/configurationwindow.ui \

@@ -2,8 +2,8 @@
 #define USERSCONTROLLER_H
 
 #include "dao/userdao.h"
-
 #include "views/userview.h"
+#include "util/singleton.h"
 
 #include <QObject>
 
@@ -12,7 +12,8 @@ class UsersController : public QObject
     Q_OBJECT
 
 public:
-    static UsersController* getSingletonPtr();
+    UsersController();
+    ~UsersController();
 
 signals:
 
@@ -23,10 +24,8 @@ public slots:
 
 protected:
     // explicit UsersController(QObject *parent = 0);
-    UsersController();
-    ~UsersController();
-
-    UserDAO *userDao;
 };
+
+typedef Singleton<UsersController> UsersControllerSingleton;
 
 #endif // USERSCONTROLLER_H

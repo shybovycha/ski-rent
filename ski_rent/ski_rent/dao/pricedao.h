@@ -12,6 +12,7 @@
 #include "entity_converters/entityconverter.h"
 #include "query_builders/querybuilder.h"
 #include "query_builders/pricequerybuilder.h"
+#include "util/singleton.h"
 
 class PriceDAO
 {
@@ -29,6 +30,8 @@ protected:
 
     DatabaseAdapter* getDb();
 };
+
+typedef Singleton<PriceDAO> PriceDAOSingleton;
 
 #endif // PRICESDAO_H
 

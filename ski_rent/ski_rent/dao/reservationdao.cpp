@@ -9,7 +9,7 @@ ReservationDAO::~ReservationDAO() {
 }
 
 DatabaseAdapter* ReservationDAO::getDb() {
-    return DatabaseConnector::getSingletonPtr()->getDatabase();
+    return DatabaseConnectorSingleton::instance()->getDatabase();
 }
 
 QList<Reservation> ReservationDAO::all() {

@@ -11,6 +11,7 @@
 #include "entity_converters/entityconverter.h"
 #include "query_builders/querybuilder.h"
 #include "query_builders/querybuilder.h"
+#include "util/singleton.h"
 
 class UserDAO : public BaseDAO<User>
 {
@@ -20,5 +21,7 @@ public:
 
     QList<User> find(QString query);
 };
+
+typedef Singleton<UserDAO> UserDAOSingleton;
 
 #endif // USERDAO_H

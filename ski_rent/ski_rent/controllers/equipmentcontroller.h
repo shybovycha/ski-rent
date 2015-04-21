@@ -2,8 +2,8 @@
 #define EQUIPMENTCONTROLLER_H
 
 #include "dao/equipmentdao.h"
-
 #include "views/equipmentview.h"
+#include "util/singleton.h"
 
 #include <QObject>
 
@@ -12,7 +12,8 @@ class EquipmentController : public QObject
     Q_OBJECT
 
 public:
-    static EquipmentController* getSingletonPtr();
+    EquipmentController();
+    ~EquipmentController();
 
 signals:
 
@@ -21,11 +22,8 @@ public slots:
     void updateEquipment(Equipment e);
     void deleteEquipment(int id);
 
-protected:
-    EquipmentController();
-    ~EquipmentController();
-
-    EquipmentDAO *equipmentDao;
 };
+
+typedef Singleton<EquipmentController> EquipmentControllerSingleton;
 
 #endif // EQUIPMENTCONTROLLER_H

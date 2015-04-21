@@ -5,19 +5,7 @@ DatabaseConnector::DatabaseConnector()
     this->dbAdapter = 0;
 }
 
-DatabaseConnector::~DatabaseConnector()
-{
-
-}
-
-DatabaseConnector* DatabaseConnector::getSingletonPtr() {
-    static DatabaseConnector* instance;
-
-    if (!instance) {
-        instance = new DatabaseConnector();
-    }
-
-    return instance;
+DatabaseConnector::~DatabaseConnector() {
 }
 
 DatabaseAdapter* DatabaseConnector::getDatabase() {

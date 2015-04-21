@@ -3,19 +3,20 @@
 
 #include "db/databaseadapter.h"
 #include "db/mysqladapter.h"
+#include "util/singleton.h"
 
 class DatabaseConnector
 {
 public:
-    static DatabaseConnector* getSingletonPtr();
+    DatabaseConnector();
+    ~DatabaseConnector();
 
     DatabaseAdapter* getDatabase();
 
 protected:
-    DatabaseConnector();
-    ~DatabaseConnector();
-
     DatabaseAdapter* dbAdapter;
 };
+
+typedef Singleton<DatabaseConnector> DatabaseConnectorSingleton;
 
 #endif // DATABASECONNECTOR_H

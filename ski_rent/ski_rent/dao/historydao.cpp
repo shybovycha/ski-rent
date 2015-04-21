@@ -9,7 +9,7 @@ HistoryDAO::~HistoryDAO() {
 }
 
 DatabaseAdapter* HistoryDAO::getDb() {
-    return DatabaseConnector::getSingletonPtr()->getDatabase();
+    return DatabaseConnectorSingleton::instance()->getDatabase();
 }
 
 QList<History> HistoryDAO::all() {

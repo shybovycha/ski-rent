@@ -9,7 +9,7 @@ PriceDAO::~PriceDAO() {
 }
 
 DatabaseAdapter* PriceDAO::getDb() {
-    return DatabaseConnector::getSingletonPtr()->getDatabase();
+    return DatabaseConnectorSingleton::instance()->getDatabase();
 }
 
 void PriceDAO::create(Price newEntity) {

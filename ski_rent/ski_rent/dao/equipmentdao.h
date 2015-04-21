@@ -10,6 +10,7 @@
 #include "db/databaseconnector.h"
 #include "entity_converters/entityconverter.h"
 #include "query_builders/querybuilder.h"
+#include "util/singleton.h"
 
 class EquipmentDAO : public BaseDAO<Equipment>
 {
@@ -19,5 +20,7 @@ public:
 
     QList<Equipment> available();
 };
+
+typedef Singleton<EquipmentDAO> EquipmentDAOSingleton;
 
 #endif // EQUIPMENTDAO_H

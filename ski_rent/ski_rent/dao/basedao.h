@@ -18,7 +18,7 @@ public:
     ~BaseDAO();
 
     QList<T> all();
-    T find(int id);
+    T findById(int id);
     QList<T> find(QString query);
     void create(T entity);
     void update(T entity);
@@ -41,7 +41,7 @@ BaseDAO<T>::~BaseDAO() {
 
 template<typename T>
 DatabaseAdapter* BaseDAO<T>::getDb() {
-    return DatabaseConnector::getSingletonPtr()->getDatabase();
+    return DatabaseConnectorSingleton::instance()->getDatabase();
 }
 
 template<typename T>
@@ -51,7 +51,7 @@ QList<T> BaseDAO<T>::all() {
 }
 
 template<typename T>
-T BaseDAO<T>::find(int id) {
+T BaseDAO<T>::findById(int id) {
     QString sql = this->queryBuilder->getReadQuery(id);
     QList<T> res = EntityConverter<T>::convert(this->getDb()->select(sql));
 

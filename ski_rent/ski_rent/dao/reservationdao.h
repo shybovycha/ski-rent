@@ -9,6 +9,7 @@
 #include "db/databaseconnector.h"
 #include "query_builders/reservationquerybuilder.h"
 #include "entity_converters/entityconverter.h"
+#include "util/singleton.h"
 
 class ReservationDAO
 {
@@ -29,5 +30,7 @@ protected:
 
     DatabaseAdapter* getDb();
 };
+
+typedef Singleton<ReservationDAO> ReservationDAOSingleton;
 
 #endif // RESERVATIONDAO_H

@@ -12,6 +12,7 @@
 #include "entity_converters/entityconverter.h"
 #include "query_builders/querybuilder.h"
 #include "query_builders/rentquerybuilder.h"
+#include "util/singleton.h"
 
 class RentDAO
 {
@@ -32,5 +33,7 @@ protected:
 
     DatabaseAdapter* getDb();
 };
+
+typedef Singleton<RentDAO> RentDAOSingleton;
 
 #endif // RENTDAO_H
