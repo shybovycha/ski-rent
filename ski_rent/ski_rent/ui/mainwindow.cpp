@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->ui->tabWidget->setCurrentIndex(0);
+
     this->userRowModel = new AbstractRowModel<User>();
     this->equipmentRowModel = new AbstractRowModel<Equipment>();
     this->rentRowModel = new AbstractRowModel<Rent>();
@@ -49,13 +51,13 @@ MainWindow::~MainWindow()
 void MainWindow::setUsers(QList<User*> users) {
     this->userRowModel->clear();
     this->userRowModel->add(users);
-    this->ui->usersTab->setWindowTitle(tr("Users (%1)").arg(users.size()));
+    this->ui->tabWidget->setTabText(0, tr("Users (%1)").arg(users.size()));
 }
 
 void MainWindow::setEquipment(QList<Equipment*> equipment) {
     this->equipmentRowModel->clear();
     this->equipmentRowModel->add(equipment);
-    this->ui->equipmentTab->setWindowTitle(tr("Equipment (%1)").arg(equipment.size()));
+    this->ui->tabWidget->setTabText(1, tr("Equipment (%1)").arg(equipment.size()));
 }
 
 void MainWindow::onCreateEquipmentSubmitted(Equipment* e) {

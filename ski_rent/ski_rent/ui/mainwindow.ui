@@ -24,7 +24,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="usersTab">
       <attribute name="title">
@@ -149,7 +149,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="rentsTab">
       <attribute name="title">
        <string>Rents</string>
       </attribute>
@@ -198,7 +198,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="reservationsTab">
       <attribute name="title">
        <string>Reservations</string>
       </attribute>
