@@ -11,7 +11,7 @@ QString ReservationQueryBuilder::getListAllQuery() {
     return QString("SELECT * FROM %1").arg(this->tableName);
 }
 
-QString ReservationQueryBuilder::getCreateQuery(Reservation newEntity) {
+QString ReservationQueryBuilder::getCreateQuery(Reservation* newEntity) {
     QStringList columns;
     QStringList values;
 
@@ -21,11 +21,11 @@ QString ReservationQueryBuilder::getCreateQuery(Reservation newEntity) {
     columns.append("rent_from");
     columns.append("rent_to");
 
-    values.append(QString::number(newEntity.getUserId()));
-    values.append(QString::number(newEntity.getEquipmentId()));
-    values.append(QString::number(newEntity.getAmount()));
-    values.append(newEntity.getRentFrom().toString("yyyy-MM-dd hh:mm"));
-    values.append(newEntity.getRentTo().toString("yyyy-MM-dd hh:mm"));
+    values.append(QString::number(newEntity->getUserId()));
+    values.append(QString::number(newEntity->getEquipmentId()));
+    values.append(QString::number(newEntity->getAmount()));
+    values.append(newEntity->getRentFrom().toString("yyyy-MM-dd hh:mm"));
+    values.append(newEntity->getRentTo().toString("yyyy-MM-dd hh:mm"));
 
     for (int i = 0; i < columns.size(); i++) {
         columns[i] = QString("`%1`").arg(columns[i]);
@@ -40,12 +40,12 @@ QString ReservationQueryBuilder::getCreateQuery(Reservation newEntity) {
     return res;
 }
 
-QString ReservationQueryBuilder::getUpdateQuery(int userId, int equipmentId, Reservation newEntity) {
+QString ReservationQueryBuilder::getUpdateQuery(int userId, int equipmentId, Reservation* newEntity) {
     QStringList values;
 
-    values.append(QString("`amount` = %1").arg(newEntity.getAmount()));
-    values.append(QString("`rent_from` = %1").arg(newEntity.getRentFrom().toString("yyyy-MM-dd hh:mm")));
-    values.append(QString("`rent_to` = %1").arg(newEntity.getRentTo().toString("yyyy-MM-dd hh:mm")));
+    values.append(QString("`amount` = %1").arg(newEntity->getAmount()));
+    values.append(QString("`rent_from` = %1").arg(newEntity->getRentFrom().toString("yyyy-MM-dd hh:mm")));
+    values.append(QString("`rent_to` = %1").arg(newEntity->getRentTo().toString("yyyy-MM-dd hh:mm")));
 
     QString res = QString("UPDATE %1 SET %2 WHERE `user_id` = %3 AND `equipment_id` = %4")
             .arg(this->tableName)

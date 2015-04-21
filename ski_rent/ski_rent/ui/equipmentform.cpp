@@ -24,12 +24,12 @@ EquipmentForm::~EquipmentForm()
     delete ui;
 }
 
-void EquipmentForm::setEquipment(Equipment e) {
+void EquipmentForm::setEquipment(Equipment* e) {
     this->equipment = e;
 
-    this->ui->typeEdit->setText(e.getType());
-    this->ui->amountSpin->setValue(e.getAmount());
-    char conditionKey = e.getCondition();
+    this->ui->typeEdit->setText(e->getType());
+    this->ui->amountSpin->setValue(e->getAmount());
+    char conditionKey = e->getCondition();
     this->ui->conditionCombo->setCurrentIndex(this->conditions.keys().indexOf(conditionKey));
 }
 
@@ -38,12 +38,12 @@ void EquipmentForm::onCancelClicked() {
 }
 
 void EquipmentForm::onSaveClicked() {
-    this->equipment.setType(this->ui->typeEdit->text());
-    this->equipment.setAmount(this->ui->amountSpin->value());
+    this->equipment->setType(this->ui->typeEdit->text());
+    this->equipment->setAmount(this->ui->amountSpin->value());
 
     int conditionIndex = this->ui->conditionCombo->currentIndex();
     char conditionKey = this->conditions.keys()[conditionIndex];
-    this->equipment.setCondition(conditionKey);
+    this->equipment->setCondition(conditionKey);
 
     emit saveEquipment(this->equipment);
 

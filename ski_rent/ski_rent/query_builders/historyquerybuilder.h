@@ -12,7 +12,7 @@ public:
     ~HistoryQueryBuilder();
 
     QString getListAllQuery();
-    QString getCreateQuery(History newEntity);
+    QString getCreateQuery(History* newEntity);
     QString getFindQuery(int id);
 
 protected:

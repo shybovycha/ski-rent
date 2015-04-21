@@ -15,15 +15,10 @@ public:
     UsersController();
     ~UsersController();
 
-signals:
-
 public slots:
-    void createUser(User u);
-    void updateUser(User u);
+    void createUser(User* u);
+    void updateUser(User* u);
     void deleteUser(int userId);
-
-protected:
-    // explicit UsersController(QObject *parent = 0);
 };
 
 typedef Singleton<UsersController> UsersControllerSingleton;

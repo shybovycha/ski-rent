@@ -18,7 +18,7 @@ public:
     EquipmentDAO();
     ~EquipmentDAO();
 
-    QList<Equipment> available();
+    QList<Equipment*> available();
 };
 
 typedef Singleton<EquipmentDAO> EquipmentDAOSingleton;

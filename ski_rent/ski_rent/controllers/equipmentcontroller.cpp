@@ -6,11 +6,11 @@ EquipmentController::EquipmentController() {
 EquipmentController::~EquipmentController() {
 }
 
-void EquipmentController::createEquipment(Equipment e) {
+void EquipmentController::createEquipment(Equipment* e) {
     EquipmentDAOSingleton::instance()->create(e);
 }
 
-void EquipmentController::updateEquipment(Equipment e) {
+void EquipmentController::updateEquipment(Equipment* e) {
     EquipmentDAOSingleton::instance()->update(e);
 }
 

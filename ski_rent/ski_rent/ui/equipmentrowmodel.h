@@ -2,42 +2,30 @@
 #define EQUIPMENTROWMODEL_H
 
 #include "entities/equipment.h"
+#include "ui/abstractrowmodel.h"
 
-#include <QObject>
-#include <QList>
-#include <QStringList>
-#include <QVariant>
-#include <QMap>
-#include <QAbstractTableModel>
+template<>
+void AbstractRowModel<Equipment>::setColumns() {
+    columns.clear();
+    columns["amount"] = tr("Amount");
+    columns["type"] = tr("Type");
+    columns["condition"] = tr("Condition");
+}
 
-class EquipmentRowModel : public QAbstractTableModel
-{
-    Q_OBJECT
+template<>
+QVariant AbstractRowModel<Equipment>::data(const QModelIndex &index, int role) const {
+    if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
+        QString key = this->columns.keys().at(index.column());
+        Equipment* e = this->entities.at(index.row());
 
-public:
-    EquipmentRowModel(QObject *parent = 0);
-    EquipmentRowModel(const QList<Equipment> &eqipment, QObject *parent = 0);
-    ~EquipmentRowModel();
+        if (key == "condition") {
+            return QString("%1").arg((char) e->getCondition());
+        }
 
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &parent, int role) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
-
-    bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
-    bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
-
-    void add(const Equipment &e);
-    void add(const QList<Equipment> &e);
-    void clear();
-    Equipment at(int index) const;
-
-protected:
-    void setColumns();
-
-    QList<Equipment> equipment;
-    QMap<QString, QString> columns;
-};
+        return e->get(key);
+    } else {
+        return QVariant();
+    }
+}
 
 #endif // EQUIPMENTROWMODEL_H

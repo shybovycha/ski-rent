@@ -35,7 +35,7 @@ public:
     T* at(int index) const;
 
 protected:
-    virtual void setColumns() = 0;
+    virtual void setColumns();
 
     QList<T*> entities;
     QMap<QString, QString> columns;

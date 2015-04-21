@@ -17,18 +17,18 @@ public:
     explicit UserForm(QWidget *parent = 0);
     ~UserForm();
 
-    void setUser(User u);
+    void setUser(User* u);
 
 public slots:
     void onSaveClicked();
     void onCancelClicked();
 
 signals:
-    void saveUser(User u);
+    void saveUser(User* u);
 
 private:
     Ui::UserForm *ui;
-    User user;
+    User* user;
 };
 
 #endif // USERFORM_H

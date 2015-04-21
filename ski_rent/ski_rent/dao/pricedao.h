@@ -20,10 +20,10 @@ public:
     PriceDAO();
     ~PriceDAO();
 
-    void create(Price newEntity);
-    void update(QString type, char condition, int time, Price newEntity);
+    void create(Price* newEntity);
+    void update(QString type, char condition, int time, Price* newEntity);
     void remove(QString type, char condition, int time);
-    QList<Price> find(QString type, char condition, int time);
+    QList<Price*> find(QString type, char condition, int time);
 
 protected:
     PriceQueryBuilder* queryBuilder;

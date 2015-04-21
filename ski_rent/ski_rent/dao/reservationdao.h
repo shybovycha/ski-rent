@@ -17,13 +17,13 @@ public:
     ReservationDAO();
     ~ReservationDAO();
 
-    QList<Reservation> all();
-    QList<Reservation> findByUser(int userId);
-    QList<Reservation> findByEquipment(int equipmentId);
-    QList<Reservation> findByRentDate(QDateTime dateFrom, QDateTime dateTo);
-    void create(Reservation newEntity);
+    QList<Reservation*> all();
+    QList<Reservation*> findByUser(int userId);
+    QList<Reservation*> findByEquipment(int equipmentId);
+    QList<Reservation*> findByRentDate(QDateTime dateFrom, QDateTime dateTo);
+    void create(Reservation* newEntity);
     void remove(int userId, int equipmentId);
-    void update(int userId, int equipmentId, Reservation newEntity);
+    void update(int userId, int equipmentId, Reservation* newEntity);
 
 protected:
     ReservationQueryBuilder* queryBuilder;

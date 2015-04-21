@@ -19,7 +19,7 @@ public:
     UserDAO();
     ~UserDAO();
 
-    QList<User> find(QString query);
+    QList<User*> find(QString query);
 };
 
 typedef Singleton<UserDAO> UserDAOSingleton;

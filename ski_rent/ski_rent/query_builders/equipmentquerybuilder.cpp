@@ -5,8 +5,7 @@
 #include <QStringList>
 
 template<>
-QueryBuilder<Equipment>::QueryBuilder()
-{
+QueryBuilder<Equipment>::QueryBuilder() {
 }
 
 template<>

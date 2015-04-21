@@ -5,12 +5,10 @@ RentQueryBuilder::RentQueryBuilder()
     this->tableName = "rent";
 }
 
-RentQueryBuilder::~RentQueryBuilder()
-{
-
+RentQueryBuilder::~RentQueryBuilder() {
 }
 
-QString RentQueryBuilder::getCreateQuery(int userId, int equipmentId, Rent newEntity) {
+QString RentQueryBuilder::getCreateQuery(int userId, int equipmentId, Rent* newEntity) {
     QStringList columns;
     QStringList values;
 
@@ -21,8 +19,8 @@ QString RentQueryBuilder::getCreateQuery(int userId, int equipmentId, Rent newEn
 
     values.append(QString::number(userId));
     values.append(QString::number(equipmentId));
-    values.append(QString::number(newEntity.getAmount()));
-    values.append(newEntity.getRentFrom().toString("yyyy-MM-dd hh:mm"));
+    values.append(QString::number(newEntity->getAmount()));
+    values.append(newEntity->getRentFrom().toString("yyyy-MM-dd hh:mm"));
 
     for (int i = 0; i < columns.size(); i++) {
         columns[i] = QString("`%1`").arg(columns[i]);
@@ -35,11 +33,11 @@ QString RentQueryBuilder::getCreateQuery(int userId, int equipmentId, Rent newEn
     return QString("INSERT INTO %1 (%2) VALUES (%3)").arg(this->tableName).arg(columns.join(", ")).arg(values.join(", "));
 }
 
-QString RentQueryBuilder::getUpdateQuery(int userId, int equipmentId, Rent newEntity) {
+QString RentQueryBuilder::getUpdateQuery(int userId, int equipmentId, Rent* newEntity) {
     QStringList values;
 
-    values.append(QString("`amount` = '%1'").arg(newEntity.getAmount()));
-    values.append(QString("`rent_from` = '%1'").arg(newEntity.getRentFrom().toString("yyyy-MM-dd hh:mm")));
+    values.append(QString("`amount` = '%1'").arg(newEntity->getAmount()));
+    values.append(QString("`rent_from` = '%1'").arg(newEntity->getRentFrom().toString("yyyy-MM-dd hh:mm")));
 
     return QString("UPDATE %1 SET %2 WHERE `user_id` = %3 AND `equipment_id` = %4").arg(this->tableName).arg(values.join(", ")).arg(userId).arg(equipmentId);
 }

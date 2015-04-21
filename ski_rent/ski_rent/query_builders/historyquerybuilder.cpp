@@ -5,14 +5,13 @@ HistoryQueryBuilder::HistoryQueryBuilder() {
 }
 
 HistoryQueryBuilder::~HistoryQueryBuilder() {
-
 }
 
 QString HistoryQueryBuilder::getListAllQuery() {
     return QString("SELECT * FROM %1").arg(this->tableName);
 }
 
-QString HistoryQueryBuilder::getCreateQuery(History newEntity) {
+QString HistoryQueryBuilder::getCreateQuery(History* newEntity) {
     QStringList columns;
     QStringList values;
 
@@ -31,20 +30,20 @@ QString HistoryQueryBuilder::getCreateQuery(History newEntity) {
     columns.append("rent_to");
     columns.append("price");
 
-    values.append(newEntity.getName());
-    values.append(newEntity.getSurname());
-    values.append(newEntity.getDocumentType());
-    values.append(newEntity.getDocumentNumber());
-    values.append(newEntity.getCountry());
-    values.append(newEntity.getCity());
-    values.append(newEntity.getAddress());
-    values.append(newEntity.getPhone());
-    values.append(newEntity.getType());
-    values.append(QString::number(newEntity.getAmount()));
-    values.append(QString::number(newEntity.getCondition()));
-    values.append(newEntity.getRentFrom().toString("yyyy-MM-dd hh:mm"));
-    values.append(newEntity.getRentTo().toString("yyyy-MM-dd hh:mm"));
-    values.append(QString::number(newEntity.getPrice()));
+    values.append(newEntity->getName());
+    values.append(newEntity->getSurname());
+    values.append(newEntity->getDocumentType());
+    values.append(newEntity->getDocumentNumber());
+    values.append(newEntity->getCountry());
+    values.append(newEntity->getCity());
+    values.append(newEntity->getAddress());
+    values.append(newEntity->getPhone());
+    values.append(newEntity->getType());
+    values.append(QString::number(newEntity->getAmount()));
+    values.append(QString::number(newEntity->getCondition()));
+    values.append(newEntity->getRentFrom().toString("yyyy-MM-dd hh:mm"));
+    values.append(newEntity->getRentTo().toString("yyyy-MM-dd hh:mm"));
+    values.append(QString::number(newEntity->getPrice()));
 
     for (int i = 0; i < columns.size(); i++) {
         columns[i] = QString("`%1`").arg(columns[i]);

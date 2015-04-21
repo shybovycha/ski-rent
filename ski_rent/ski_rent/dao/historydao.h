@@ -16,9 +16,9 @@ public:
     HistoryDAO();
     ~HistoryDAO();
 
-    QList<History> all();
-    History find(int id);
-    void create(History newEntity);
+    QList<History*> all();
+    History* find(int id);
+    void create(History* newEntity);
 
 protected:
     HistoryQueryBuilder* queryBuilder;

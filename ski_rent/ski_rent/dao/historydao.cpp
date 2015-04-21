@@ -5,25 +5,25 @@ HistoryDAO::HistoryDAO() {
 }
 
 HistoryDAO::~HistoryDAO() {
-
+    delete this->queryBuilder;
 }
 
 DatabaseAdapter* HistoryDAO::getDb() {
     return DatabaseConnectorSingleton::instance()->getDatabase();
 }
 
-QList<History> HistoryDAO::all() {
+QList<History*> HistoryDAO::all() {
     QString sql = this->queryBuilder->getListAllQuery();
     QList<DBRow> rows = this->getDb()->select(sql);
-    QList<History> res = EntityConverter<History>::convert(rows);
+    QList<History*> res = EntityConverter<History>::convert(rows);
 
     return res;
 }
 
-History HistoryDAO::find(int id) {
+History* HistoryDAO::find(int id) {
     QString sql = this->queryBuilder->getFindQuery(id);
     QList<DBRow> rows = this->getDb()->select(sql);
-    QList<History> res = EntityConverter<History>::convert(rows);
+    QList<History*> res = EntityConverter<History>::convert(rows);
 
     if (res.size() > 0) {
         return res[0];
@@ -32,7 +32,7 @@ History HistoryDAO::find(int id) {
     }
 }
 
-void HistoryDAO::create(History newEntity) {
+void HistoryDAO::create(History* newEntity) {
     QString sql = this->queryBuilder->getCreateQuery(newEntity);
     this->getDb()->update(sql);
 }

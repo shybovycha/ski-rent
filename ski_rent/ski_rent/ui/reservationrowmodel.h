@@ -23,11 +23,11 @@ QVariant AbstractRowModel<Reservation>::data(const QModelIndex &index, int role)
         Reservation* e = this->entities.at(index.row());
 
         if (key == "user") {
-            User u = UserDAOSingleton::instance()->findById(e->getUserId());
-            return u.getName();
+            User* u = UserDAOSingleton::instance()->findById(e->getUserId());
+            return u->getName();
         } else if (key == "equipment") {
-            Equipment u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
-            return u.getType();
+            Equipment* u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
+            return u->getType();
         }
 
         return e->get(key);

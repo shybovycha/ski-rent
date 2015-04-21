@@ -8,9 +8,9 @@ template<typename T>
 class QueryBuilder
 {
 public:
-    QString getCreateQuery(T entity);
+    QString getCreateQuery(T* entity);
     QString getReadQuery(int id);
-    QString getUpdateQuery(T newEntity);
+    QString getUpdateQuery(T* newEntity);
     QString getDeleteQuery(int id);
     QString getSearchQuery(QString query);
     QString getListAllQuery();
@@ -33,7 +33,7 @@ QueryBuilder<T>::~QueryBuilder() {
 }
 
 template<typename T>
-QString QueryBuilder<T>::getCreateQuery(T entity) {
+QString QueryBuilder<T>::getCreateQuery(T* newEntity) {
     if (this->updateColumns.size() < 1) {
         throw QString("Can not generate create query - no updateColumns set").toStdString().c_str();
     }
@@ -43,7 +43,7 @@ QString QueryBuilder<T>::getCreateQuery(T entity) {
 
     for (int i = 0; i < this->updateColumns.size(); i++) {
         columnList.append(QString("`%1`").arg(this->updateColumns[i]));
-        valueList.append(QString("'%1'").arg(entity.get(this->updateColumns[i]).toString()));
+        valueList.append(QString("'%1'").arg(newEntity->get(this->updateColumns[i]).toString()));
     }
 
     QString res =
@@ -77,7 +77,7 @@ QString QueryBuilder<T>::getSearchQuery(QString query) {
 }
 
 template<typename T>
-QString QueryBuilder<T>::getUpdateQuery(T newEntity) {
+QString QueryBuilder<T>::getUpdateQuery(T* newEntity) {
     if (this->updateColumns.size() < 1) {
         throw QString("Can not generate update query - no updateColumns set").toStdString().c_str();
     }
@@ -87,14 +87,14 @@ QString QueryBuilder<T>::getUpdateQuery(T newEntity) {
     for (int i = 0; i < this->updateColumns.size(); i++) {
         updates.append(QString("`%1` = '%2'")
                        .arg(this->updateColumns[i])
-                       .arg(newEntity.get(this->updateColumns[i]).toString()));
+                       .arg(newEntity->get(this->updateColumns[i]).toString()));
     }
 
     QString res =
             QString("UPDATE `%1` SET %2 WHERE id = %3")
             .arg(this->tableName)
             .arg(updates.join(", "))
-            .arg(newEntity.getId());
+            .arg(newEntity->getId());
 
     return res;
 }

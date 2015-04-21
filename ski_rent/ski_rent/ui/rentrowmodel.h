@@ -8,7 +8,7 @@
 #include "ui/abstractrowmodel.h"
 
 template<>
-void AbstractRowModel<Rent>::setColumn() {
+void AbstractRowModel<Rent>::setColumns() {
     columns.clear();
     columns["user"] = tr("User");
     columns["equipment"] = tr("Equipment");
@@ -17,17 +17,17 @@ void AbstractRowModel<Rent>::setColumn() {
 }
 
 template<>
-QVariant AbstractRowModel<Rent>::data(const QModelIndex &parent, int role) const {
+QVariant AbstractRowModel<Rent>::data(const QModelIndex &index, int role) const {
     if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
         QString key = this->columns.keys().at(index.column());
         Rent* e = this->entities.at(index.row());
 
         if (key == "user") {
-            User u = UserDAOSingleton::instance()->findById(e->getUserId());
-            return u.getName();
+            User* u = UserDAOSingleton::instance()->findById(e->getUserId());
+            return u->getName();
         } else if (key == "equipment") {
-            Equipment u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
-            return u.getType();
+            Equipment* u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
+            return u->getType();
         }
 
         return e->get(key);

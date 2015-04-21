@@ -6,11 +6,11 @@ UsersController::UsersController() {
 UsersController::~UsersController() {
 }
 
-void UsersController::createUser(User u) {
+void UsersController::createUser(User* u) {
     UserDAOSingleton::instance()->create(u);
 }
 
-void UsersController::updateUser(User u) {
+void UsersController::updateUser(User* u) {
     UserDAOSingleton::instance()->update(u);
 }
 

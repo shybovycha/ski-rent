@@ -17,11 +17,11 @@ public:
     BaseDAO();
     ~BaseDAO();
 
-    QList<T> all();
-    T findById(int id);
-    QList<T> find(QString query);
-    void create(T entity);
-    void update(T entity);
+    QList<T*> all();
+    T* findById(int id);
+    QList<T*> find(QString query);
+    void create(T* entity);
+    void update(T* entity);
     void remove(int id);
 
 protected:
@@ -45,15 +45,15 @@ DatabaseAdapter* BaseDAO<T>::getDb() {
 }
 
 template<typename T>
-QList<T> BaseDAO<T>::all() {
+QList<T*> BaseDAO<T>::all() {
     QString sql = this->queryBuilder->getListAllQuery();
     return EntityConverter<T>::convert(this->getDb()->select(sql));
 }
 
 template<typename T>
-T BaseDAO<T>::findById(int id) {
+T* BaseDAO<T>::findById(int id) {
     QString sql = this->queryBuilder->getReadQuery(id);
-    QList<T> res = EntityConverter<T>::convert(this->getDb()->select(sql));
+    QList<T*> res = EntityConverter<T>::convert(this->getDb()->select(sql));
 
     if (res.size() > 0) {
         return res[0];
@@ -63,19 +63,19 @@ T BaseDAO<T>::findById(int id) {
 }
 
 template<typename T>
-QList<T> BaseDAO<T>::find(QString query) {
+QList<T*> BaseDAO<T>::find(QString query) {
     QString sql = this->queryBuilder->getSearchQuery(query);
     return EntityConverter<T>::convert(this->getDb()->select(sql));
 }
 
 template<typename T>
-void BaseDAO<T>::create(T entity) {
+void BaseDAO<T>::create(T* entity) {
     QString sql = this->queryBuilder->getCreateQuery(entity);
     this->getDb()->update(sql);
 }
 
 template<typename T>
-void BaseDAO<T>::update(T entity) {
+void BaseDAO<T>::update(T* entity) {
     QString sql = this->queryBuilder->getUpdateQuery(entity);
     this->getDb()->update(sql);
 }

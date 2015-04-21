@@ -3,9 +3,10 @@
 
 #include "entities/user.h"
 #include "entities/equipment.h"
+#include "entities/rent.h"
+#include "entities/reservation.h"
 
-#include "ui/userrowmodel.h"
-#include "ui/equipmentrowmodel.h"
+#include "ui/abstractrowmodel.h"
 
 #include "ui/equipmentform.h"
 #include "ui/userform.h"
@@ -27,12 +28,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void setUsers(QList<User> users);
-    void setEquipment(QList<Equipment> equipment);
+    void setUsers(QList<User*> users);
+    void setEquipment(QList<Equipment*> equipment);
 
 protected:
-    Equipment getSelectedEquipment();
-    User getSelectedUser();
+    Equipment* getSelectedEquipment();
+    User* getSelectedUser();
 
 public slots:
     void onQuickSearchTextChanged(QString s);
@@ -41,16 +42,16 @@ public slots:
     void onEditEquipmentClicked();
     void onDeleteEquipmentClicked();
 
-    void onCreateEquipmentSubmitted(Equipment e);
-    void onUpdateEquipmentSubmitted(Equipment e);
+    void onCreateEquipmentSubmitted(Equipment* e);
+    void onUpdateEquipmentSubmitted(Equipment* e);
     void onDeleteEquipmentSubmitted(int id);
 
     void onCreateUserClicked();
     void onEditUserClicked();
     void onDeleteUserClicked();
 
-    void onCreateUserSubmitted(User e);
-    void onUpdateUserSubmitted(User e);
+    void onCreateUserSubmitted(User* e);
+    void onUpdateUserSubmitted(User* e);
     void onDeleteUserSubmitted(int id);
 
     void onEquipmentRowSelected(QModelIndex index);
@@ -59,18 +60,20 @@ public slots:
 signals:
     void quickSearchTextChanged(QString s);
 
-    void createEquipment(Equipment e);
-    void updateEquipment(Equipment e);
+    void createEquipment(Equipment* e);
+    void updateEquipment(Equipment* e);
     void deleteEquipment(int id);
 
-    void createUser(User e);
-    void updateUser(User e);
+    void createUser(User* e);
+    void updateUser(User* e);
     void deleteUser(int id);
 
 private:
     Ui::MainWindow *ui;
-    UserRowModel *userRowModel;
-    EquipmentRowModel *equipmentRowModel;
+    AbstractRowModel<User> *userRowModel;
+    AbstractRowModel<Equipment> *equipmentRowModel;
+    AbstractRowModel<Rent> *rentRowModel;
+    AbstractRowModel<Reservation> *reservationRowModel;
 };
 
 #endif // MAINWINDOW_H

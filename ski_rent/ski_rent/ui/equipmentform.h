@@ -17,18 +17,18 @@ public:
     explicit EquipmentForm(QWidget *parent = 0);
     ~EquipmentForm();
 
-    void setEquipment(Equipment e);
+    void setEquipment(Equipment* e);
 
 public slots:
     void onCancelClicked();
     void onSaveClicked();
 
 signals:
-    void saveEquipment(Equipment e);
+    void saveEquipment(Equipment* e);
 
 private:
     Ui::EquipmentForm *ui;
-    Equipment equipment;
+    Equipment* equipment;
     QMap<char, QString> conditions;
 };
 

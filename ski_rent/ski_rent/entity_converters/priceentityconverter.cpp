@@ -2,13 +2,13 @@
 #include "entities/price.h"
 
 template<>
-Price EntityConverter<Price>::convert(DBRow row) {
-    Price result;
+Price* EntityConverter<Price>::convert(DBRow row) {
+    Price* result = new Price();
 
-    result.setType(row["type"].toString());
-    result.setCondition(row["condition"].toChar().unicode());
-    result.setTime(row["time"].toInt());
-    result.setPrice(row["price"].toFloat());
+    result->setType(row["type"].toString());
+    result->setCondition(row["condition"].toChar().unicode());
+    result->setTime(row["time"].toInt());
+    result->setPrice(row["price"].toFloat());
 
     return result;
 }

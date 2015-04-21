@@ -59,7 +59,8 @@ SOURCES += main.cpp \
     util/singleton.cpp \
     views/equipmentview.cpp \
     views/mainview.cpp \
-    views/userview.cpp
+    views/userview.cpp \
+    ui/rentrowmodel.cpp
 
 HEADERS  += \
     dao/basedao.h \
