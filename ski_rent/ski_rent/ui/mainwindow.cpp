@@ -9,14 +9,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->ui->tabWidget->setCurrentIndex(0);
 
+    // row models
     this->userRowModel = new AbstractRowModel<User>();
     this->equipmentRowModel = new AbstractRowModel<Equipment>();
     this->rentRowModel = new AbstractRowModel<Rent>();
     this->reservationRowModel = new AbstractRowModel<Reservation>();
+    this->priceRowModel = new AbstractRowModel<Price>();
 
+    this->ui->userList->setModel(this->userRowModel);
+    this->ui->equipmentList->setModel(this->equipmentRowModel);
+    this->ui->rentList->setModel(this->rentRowModel);
+    this->ui->reservationList->setModel(this->reservationRowModel);
+    this->ui->priceList->setModel(this->priceRowModel);
+
+    // disabling buttons which require selection
     this->ui->newRentButton->setEnabled(false);
     this->ui->newReservationButton->setEnabled(false);
     this->ui->newReturnButton->setEnabled(false);
+
+    this->ui->newReturnButton2->setEnabled(false);
 
     this->ui->editEquipmentButton->setEnabled(false);
     this->ui->deleteEquipmentButton->setEnabled(false);
@@ -24,11 +35,12 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->editUserButton->setEnabled(false);
     this->ui->deleteUserButton->setEnabled(false);
 
-    this->ui->userList->setModel(this->userRowModel);
-    this->ui->equipmentList->setModel(this->equipmentRowModel);
-    this->ui->rentList->setModel(this->rentRowModel);
-    this->ui->reservationList->setModel(this->reservationRowModel);
+    this->ui->editRentButton->setEnabled(false);
 
+    this->ui->editPriceButton->setEnabled(false);
+    this->ui->deletePriceButton->setEnabled(false);
+
+    // assign slots to signals
     connect(this->ui->quickSearchEdit, SIGNAL(textEdited(QString)), this, SLOT(onQuickSearchTextChanged(QString)));
 
     connect(this->ui->createEquipmentButton, SIGNAL(clicked()), this, SLOT(onCreateEquipmentClicked()));
@@ -39,8 +51,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->editUserButton, SIGNAL(clicked()), this, SLOT(onEditUserClicked()));
     connect(this->ui->deleteUserButton, SIGNAL(clicked()), this, SLOT(onDeleteUserClicked()));
 
+    // slots for enabling editing/deleting buttons
     connect(this->ui->userList, SIGNAL(clicked(QModelIndex)), this, SLOT(onUserRowSelected(QModelIndex)));
     connect(this->ui->equipmentList, SIGNAL(clicked(QModelIndex)), this, SLOT(onEquipmentRowSelected(QModelIndex)));
+    connect(this->ui->rentList, SIGNAL(clicked(QModelIndex)), this, SLOT(onRentRowSelected(QModelIndex)));
+    connect(this->ui->reservationList, SIGNAL(clicked(QModelIndex)), this, SLOT(onReservationRowSelected(QModelIndex)));
+    connect(this->ui->priceList, SIGNAL(clicked(QModelIndex)), this, SLOT(onPriceRowSelected(QModelIndex)));
 }
 
 MainWindow::~MainWindow()
@@ -144,6 +160,26 @@ void MainWindow::onDeleteUserClicked() {
     }
 }
 
+void MainWindow::onPriceRowSelected(QModelIndex index) {
+    if (this->ui->priceList->selectionModel()->hasSelection()) {
+        this->ui->editPriceButton->setEnabled(true);
+        this->ui->deletePriceButton->setEnabled(true);
+    } else {
+        this->ui->editPriceButton->setEnabled(false);
+        this->ui->deletePriceButton->setEnabled(false);
+    }
+}
+
+void MainWindow::onRentRowSelected(QModelIndex index) {
+    if (this->ui->rentList->selectionModel()->hasSelection()) {
+        this->ui->editRentButton->setEnabled(true);
+        this->ui->newReturnButton2->setEnabled(true);
+    } else {
+        this->ui->editRentButton->setEnabled(false);
+        this->ui->newReturnButton2->setEnabled(false);
+    }
+}
+
 void MainWindow::onEquipmentRowSelected(QModelIndex index) {
     if (this->ui->equipmentList->selectionModel()->hasSelection()) {
         this->ui->editEquipmentButton->setEnabled(true);
@@ -158,9 +194,13 @@ void MainWindow::onUserRowSelected(QModelIndex index) {
     if (this->ui->userList->selectionModel()->hasSelection()) {
         this->ui->editUserButton->setEnabled(true);
         this->ui->deleteUserButton->setEnabled(true);
+        this->ui->newReservationButton->setEnabled(true);
+        this->ui->newRentButton->setEnabled(true);
     } else {
         this->ui->editUserButton->setEnabled(false);
         this->ui->deleteUserButton->setEnabled(false);
+        this->ui->newReservationButton->setEnabled(false);
+        this->ui->newRentButton->setEnabled(false);
     }
 }
 

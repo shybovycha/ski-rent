@@ -5,8 +5,9 @@
 #include "entities/equipment.h"
 #include "entities/rent.h"
 #include "entities/reservation.h"
+#include "entities/price.h"
 
-#include "ui/abstractrowmodel.h"
+#include "row_models/abstractrowmodel.h"
 
 #include "ui/equipmentform.h"
 #include "ui/userform.h"
@@ -56,6 +57,8 @@ public slots:
 
     void onEquipmentRowSelected(QModelIndex index);
     void onUserRowSelected(QModelIndex index);
+    void onRentRowSelected(QModelIndex index);
+    void onPriceRowSelected(QModelIndex index);
 
 signals:
     void quickSearchTextChanged(QString s);
@@ -74,6 +77,7 @@ private:
     AbstractRowModel<Equipment> *equipmentRowModel;
     AbstractRowModel<Rent> *rentRowModel;
     AbstractRowModel<Reservation> *reservationRowModel;
+    AbstractRowModel<Price> *priceRowModel;
 };
 
 #endif // MAINWINDOW_H

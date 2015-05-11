@@ -2,7 +2,7 @@
 #define USERROWMODEL_H
 
 #include "entities/user.h"
-#include "ui/abstractrowmodel.h"
+#include "row_models/abstractrowmodel.h"
 
 template<>
 void AbstractRowModel<User>::setColumns() {

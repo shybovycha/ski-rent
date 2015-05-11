@@ -19,7 +19,6 @@ public slots:
     void createEquipment(Equipment* e);
     void updateEquipment(Equipment* e);
     void deleteEquipment(int id);
-
 };
 
 typedef Singleton<EquipmentController> EquipmentControllerSingleton;

@@ -2,7 +2,7 @@
 #define EQUIPMENTROWMODEL_H
 
 #include "entities/equipment.h"
-#include "ui/abstractrowmodel.h"
+#include "row_models/abstractrowmodel.h"
 
 template<>
 void AbstractRowModel<Equipment>::setColumns() {

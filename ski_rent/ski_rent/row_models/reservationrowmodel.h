@@ -1,7 +1,7 @@
 #ifndef RESERVATIONROWMODEL_H
 #define RESERVATIONROWMODEL_H
 
-#include "ui/abstractrowmodel.h"
+#include "row_models/abstractrowmodel.h"
 #include "entities/reservation.h"
 #include "dao/userdao.h"
 #include "dao/equipmentdao.h"

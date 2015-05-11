@@ -52,15 +52,17 @@ SOURCES += main.cpp \
     controllers/maincontroller.cpp \
     controllers/userscontroller.cpp \
     controllers/equipmentcontroller.cpp \
-    ui/userrowmodel.cpp \
-    ui/equipmenrowtmodel.cpp \
-    ui/reservationrowmodel.cpp \
-    ui/abstractrowmodel.cpp \
     util/singleton.cpp \
     views/equipmentview.cpp \
     views/mainview.cpp \
     views/userview.cpp \
-    ui/rentrowmodel.cpp
+    controllers/rentcontroller.cpp \
+    row_models/abstractrowmodel.cpp \
+    row_models/equipmenrowtmodel.cpp \
+    row_models/rentrowmodel.cpp \
+    row_models/reservationrowmodel.cpp \
+    row_models/userrowmodel.cpp \
+    row_models/pricerowmodel.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -98,15 +100,17 @@ HEADERS  += \
     controllers/maincontroller.h \
     controllers/userscontroller.h \
     controllers/equipmentcontroller.h \
-    ui/userrowmodel.h \
-    ui/equipmentrowmodel.h \
-    ui/rentrowmodel.h \
-    ui/reservationrowmodel.h \
-    ui/abstractrowmodel.h \
     util/singleton.h \
     views/equipmentview.h \
     views/mainview.h \
-    views/userview.h
+    views/userview.h \
+    controllers/rentcontroller.h \
+    row_models/abstractrowmodel.h \
+    row_models/equipmentrowmodel.h \
+    row_models/rentrowmodel.h \
+    row_models/reservationrowmodel.h \
+    row_models/userrowmodel.h \
+    row_models/pricerowmodel.h
 
 FORMS    += \
     ui/configurationwindow.ui \

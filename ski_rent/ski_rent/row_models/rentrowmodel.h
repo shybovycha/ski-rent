@@ -5,7 +5,7 @@
 #include "dao/equipmentdao.h"
 
 #include "entities/rent.h"
-#include "ui/abstractrowmodel.h"
+#include "row_models/abstractrowmodel.h"
 
 template<>
 void AbstractRowModel<Rent>::setColumns() {

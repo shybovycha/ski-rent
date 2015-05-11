@@ -24,7 +24,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="usersTab">
       <attribute name="title">
@@ -46,13 +46,6 @@
             <widget class="QPushButton" name="newRentButton">
              <property name="text">
               <string>New rent</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="newReturnButton">
-             <property name="text">
-              <string>Return</string>
              </property>
             </widget>
            </item>
@@ -159,13 +152,6 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QPushButton" name="newRentButton2">
-             <property name="text">
-              <string>New rent</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="editRentButton">
              <property name="text">
               <string>Edit</string>
@@ -208,13 +194,6 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPushButton" name="newReservationButton2">
-             <property name="text">
-              <string>New reservation</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="newRentButton2_2">
              <property name="text">
               <string>To rent</string>
@@ -249,6 +228,45 @@
             <enum>QAbstractItemView::SelectRows</enum>
            </property>
           </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pricesTab">
+      <attribute name="title">
+       <string>Prices</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QPushButton" name="createPriceButton">
+             <property name="text">
+              <string>New price</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="editPriceButton">
+             <property name="text">
+              <string>Update</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="deletePriceButton">
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableView" name="priceList"/>
          </item>
         </layout>
        </item>
