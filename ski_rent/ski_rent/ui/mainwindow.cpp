@@ -25,9 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // disabling buttons which require selection
     this->ui->newRentButton->setEnabled(false);
     this->ui->newReservationButton->setEnabled(false);
-    this->ui->newReturnButton->setEnabled(false);
 
-    this->ui->newReturnButton2->setEnabled(false);
+    this->ui->newReturnButton->setEnabled(false);
 
     this->ui->editEquipmentButton->setEnabled(false);
     this->ui->deleteEquipmentButton->setEnabled(false);
@@ -36,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->deleteUserButton->setEnabled(false);
 
     this->ui->editRentButton->setEnabled(false);
+
+    this->ui->editReservationButton->setEnabled(false);
+    this->ui->cancelReservationButton->setEnabled(false);
 
     this->ui->editPriceButton->setEnabled(false);
     this->ui->deletePriceButton->setEnabled(false);
@@ -51,6 +53,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->editUserButton, SIGNAL(clicked()), this, SLOT(onEditUserClicked()));
     connect(this->ui->deleteUserButton, SIGNAL(clicked()), this, SLOT(onDeleteUserClicked()));
 
+    connect(this->ui->newReservationButton, SIGNAL(clicked()), this, SLOT(onNewReservationClicked()));
+    connect(this->ui->newRentButton, SIGNAL(clicked()), this, SLOT(onNewRentClicked()));
+
+    connect(this->ui->editRentButton, SIGNAL(clicked()), this, SLOT(onEditRentClicked()));
+    connect(this->ui->newReturnButton, SIGNAL(clicked()), this, SLOT(onNewReturnClicked()));
+
+    connect(this->ui->reservationToRentButton, SIGNAL(clicked()), this, SLOT(onReservationToRentClicked()));
+    connect(this->ui->editReservationButton, SIGNAL(clicked()), this, SLOT(onEditReservationClicked()));
+    connect(this->ui->cancelReservationButton, SIGNAL(clicked()), this, SLOT(onCancelReservationClicked()));
+
+    connect(this->ui->createPriceButton, SIGNAL(clicked()), this, SLOT(onCreatePriceClicked()));
+    connect(this->ui->editPriceButton, SIGNAL(clicked()), this, SLOT(onEditPriceClicked()));
+    connect(this->ui->deletePriceButton, SIGNAL(clicked()), this, SLOT(onDeletePriceClicked()));
+
     // slots for enabling editing/deleting buttons
     connect(this->ui->userList, SIGNAL(clicked(QModelIndex)), this, SLOT(onUserRowSelected(QModelIndex)));
     connect(this->ui->equipmentList, SIGNAL(clicked(QModelIndex)), this, SLOT(onEquipmentRowSelected(QModelIndex)));
@@ -64,6 +80,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// filling views with entities
+
 void MainWindow::setUsers(QList<User*> users) {
     this->userRowModel->clear();
     this->userRowModel->add(users);
@@ -75,6 +93,26 @@ void MainWindow::setEquipment(QList<Equipment*> equipment) {
     this->equipmentRowModel->add(equipment);
     this->ui->tabWidget->setTabText(1, tr("Equipment (%1)").arg(equipment.size()));
 }
+
+void MainWindow::setRents(QList<Rent*> rents) {
+    this->rentRowModel->clear();
+    this->rentRowModel->add(rents);
+    this->ui->tabWidget->setTabText(2, tr("Rents (%1)").arg(rents.size()));
+}
+
+void MainWindow::setReservations(QList<Reservation*> reservations) {
+    this->reservationRowModel->clear();
+    this->reservationRowModel->add(reservations);
+    this->ui->tabWidget->setTabText(3, tr("Reservations (%1)").arg(reservations.size()));
+}
+
+void MainWindow::setPrices(QList<Price*> prices) {
+    this->priceRowModel->clear();
+    this->priceRowModel->add(prices);
+    this->ui->tabWidget->setTabText(4, tr("Prices (%1)").arg(prices.size()));
+}
+
+// modal window callbacks
 
 void MainWindow::onCreateEquipmentSubmitted(Equipment* e) {
     emit createEquipment(e);
@@ -109,6 +147,43 @@ void MainWindow::onUpdateUserSubmitted(User* u) {
 void MainWindow::onQuickSearchTextChanged(QString s) {
     emit quickSearchTextChanged(s);
 }
+
+void MainWindow::onCreatePriceSubmitted(Price *e) {
+    emit createPrice(e);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onUpdatePriceSubmitted(QString type, char condition, int time, Price *e) {
+    emit updatePrice(type, condition, time, e);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onDeletePriceSubmitted(QString type, char condition, int time) {
+    emit deletePrice(type, condition, time);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onCreateReservationSubmitted(Reservation *r) {
+    emit createReservation(r);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onUpdateReservationSubmitted(int userId, int equipmentId, Reservation *r) {
+    emit updateReservation(userId, equipmentId, r);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onCreateRentSubmitted(Rent *r) {
+    emit createRent(r);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::onUpdateRentSubmitted(int userId, int equipmentId, Rent *r) {
+    emit updateRent(userId, equipmentId, r);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+// buttons' click handlers
 
 void MainWindow::onCreateEquipmentClicked() {
     EquipmentForm *win = new EquipmentForm();
@@ -160,6 +235,89 @@ void MainWindow::onDeleteUserClicked() {
     }
 }
 
+void MainWindow::onNewReservationClicked() {
+    User* u = this->getSelectedUser();
+    ReservationForm *win = new ReservationForm();
+    win->setUserId(u->getId());
+    connect(win, SIGNAL(saveReservation(Reservation*)), this, SLOT(onCreateReservationSubmitted(Reservation*)));
+    win->show();
+}
+
+void MainWindow::onNewRentClicked() {
+    User* u = this->getSelectedUser();
+    RentForm *win = new RentForm();
+    win->setUserId(u->getId());
+    connect(win, SIGNAL(saveRent(Rent*)), this, SLOT(onCreateRentSubmitted(Rent*)));
+    win->show();
+}
+
+void MainWindow::onEditRentClicked() {
+    Rent *rent = this->getSelectedRent();
+    RentForm *win = new RentForm();
+    win->setRent(rent);
+    connect(win, SIGNAL(saveRent(Rent*)), this, SLOT(onUpdateRentSubmitted(Rent*)));
+    win->show();
+}
+
+void MainWindow::onNewReturnClicked() {
+    Rent *rent = this->getSelectedRent();
+
+    if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this return correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
+        emit returnFromRentSubmitted(rent);
+    }
+}
+
+void MainWindow::onReservationToRentClicked() {
+    Reservation *reservation = this->getSelectedReservation();
+
+    if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this reservation correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
+        emit reservationToRentSubmitted(reservation);
+    }
+}
+
+void MainWindow::onEditReservationClicked() {
+    Reservation *r = this->getSelectedReservation();
+    ReservationForm *win = new ReservationForm();
+    win->setUserId(r->getUserId());
+    win->setReservation(r);
+    connect(win, SIGNAL(saveReservation(Reservation*)), this, SLOT(onCreateReservationSubmitted(Reservation*)));
+    win->show();
+}
+
+void MainWindow::onCancelReservationClicked() {
+    Reservation *reservation = this->getSelectedReservation();
+
+    if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this reservation cancel correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
+        emit reservationCancelSubmitted(reservation);
+    }
+}
+
+void MainWindow::onCreatePriceClicked() {
+    //Equipment *e = this->getSelectedEquipment();
+    PriceForm *win = new PriceForm();
+    //win->setEquipmentId(e->getId());
+    connect(win, SIGNAL(savePrice(Price*)), this, SLOT(onCreatePriceSubmitted(Price*)));
+    win->show();
+}
+
+void MainWindow::onEditPriceClicked() {
+    Price *p = this->getSelectedPrice();
+    PriceForm *win = new PriceForm();
+    win->setPrice(p);
+    connect(win, SIGNAL(savePrice(Price*)), this, SLOT(onUpdatePriceSubmitted(Price*)));
+    win->show();
+}
+
+void MainWindow::onDeletePriceClicked() {
+    Price *p = this->getSelectedPrice();
+
+    if (QMessageBox::question(this, tr("Are you sure?"), tr("Sure, you want to remove this price?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
+        emit removePriceSubmitted(p);
+    }
+}
+
+// row selected handlers
+
 void MainWindow::onPriceRowSelected(QModelIndex index) {
     if (this->ui->priceList->selectionModel()->hasSelection()) {
         this->ui->editPriceButton->setEnabled(true);
@@ -170,13 +328,25 @@ void MainWindow::onPriceRowSelected(QModelIndex index) {
     }
 }
 
+void MainWindow::onReservationRowSelected(QModelIndex index) {
+    if (this->ui->reservationList->selectionModel()->hasSelection()) {
+        this->ui->newRentButton->setEnabled(true);
+        this->ui->editReservationButton->setEnabled(true);
+        this->ui->cancelReservationButton->setEnabled(true);
+    } else {
+        this->ui->newRentButton->setEnabled(false);
+        this->ui->editReservationButton->setEnabled(false);
+        this->ui->cancelReservationButton->setEnabled(false);
+    }
+}
+
 void MainWindow::onRentRowSelected(QModelIndex index) {
     if (this->ui->rentList->selectionModel()->hasSelection()) {
         this->ui->editRentButton->setEnabled(true);
-        this->ui->newReturnButton2->setEnabled(true);
+        this->ui->newReturnButton->setEnabled(true);
     } else {
         this->ui->editRentButton->setEnabled(false);
-        this->ui->newReturnButton2->setEnabled(false);
+        this->ui->newReturnButton->setEnabled(false);
     }
 }
 
@@ -202,6 +372,23 @@ void MainWindow::onUserRowSelected(QModelIndex index) {
         this->ui->newReservationButton->setEnabled(false);
         this->ui->newRentButton->setEnabled(false);
     }
+}
+
+// selected entity getters
+
+Price* MainWindow::getSelectedPrice() {
+    int index = this->ui->priceList->selectionModel()->selectedRows().at(0).row();
+    return this->priceRowModel->at(index);
+}
+
+Reservation* MainWindow::getSelectedReservation() {
+    int index = this->ui->reservationList->selectionModel()->selectedRows().at(0).row();
+    return this->reservationRowModel->at(index);
+}
+
+Rent* MainWindow::getSelectedRent() {
+    int index = this->ui->rentList->selectionModel()->selectedRows().at(0).row();
+    return this->rentRowModel->at(index);
 }
 
 Equipment* MainWindow::getSelectedEquipment() {

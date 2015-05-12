@@ -15,7 +15,7 @@ public:
     ~RentController();
 
 public slots:
-    void createRent(int userId, int equipmentId, Rent* e);
+    void createRent(Rent* e);
     void updateRent(int userId, int equipmentId, Rent* e);
     void deleteRent(int userId, int equipmentId);
 };

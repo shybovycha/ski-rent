@@ -9,11 +9,11 @@ RentDAO::~RentDAO() {
 }
 
 DatabaseAdapter* RentDAO::getDb() {
-    return this->getDb();
+    return DatabaseConnectorSingleton::instance()->getDatabase();
 }
 
-void RentDAO::create(int userId, int equipmentId, Rent* newEntity) {
-    QString sql = this->queryBuilder->getCreateQuery(userId, equipmentId, newEntity);
+void RentDAO::create(Rent* newEntity) {
+    QString sql = this->queryBuilder->getCreateQuery(newEntity);
     this->getDb()->update(sql);
 }
 
@@ -25,6 +25,22 @@ void RentDAO::update(int userId, int equipmentId, Rent* newEntity) {
 void RentDAO::remove(int userId, int equipmentId) {
     QString sql = this->queryBuilder->getRemoveQuery(userId, equipmentId);
     this->getDb()->update(sql);
+}
+
+QList<Rent*> RentDAO::all() {
+    QString sql = this->queryBuilder->getSelectAllQuery();
+    QList<DBRow> rows = this->getDb()->select(sql);
+    QList<Rent*> res = EntityConverter<Rent>::convert(rows);
+
+    return res;
+}
+
+QList<Rent*> RentDAO::find(QString query) {
+    QString sql = this->queryBuilder->getFindQuery(query);
+    QList<DBRow> rows = this->getDb()->select(sql);
+    QList<Rent*> res = EntityConverter<Rent>::convert(rows);
+
+    return res;
 }
 
 QList<Rent*> RentDAO::findByUser(int userId) {

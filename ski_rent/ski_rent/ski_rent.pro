@@ -62,7 +62,9 @@ SOURCES += main.cpp \
     row_models/rentrowmodel.cpp \
     row_models/reservationrowmodel.cpp \
     row_models/userrowmodel.cpp \
-    row_models/pricerowmodel.cpp
+    row_models/pricerowmodel.cpp \
+    controllers/pricecontroller.cpp \
+    controllers/reservationscontroller.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -110,7 +112,9 @@ HEADERS  += \
     row_models/rentrowmodel.h \
     row_models/reservationrowmodel.h \
     row_models/userrowmodel.h \
-    row_models/pricerowmodel.h
+    row_models/pricerowmodel.h \
+    controllers/pricecontroller.h \
+    controllers/reservationscontroller.h
 
 FORMS    += \
     ui/configurationwindow.ui \

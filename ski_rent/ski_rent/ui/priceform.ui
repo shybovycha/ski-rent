@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="typeCombo"/>
+      <widget class="QComboBox" name="equipmentTypeCombo"/>
      </item>
      <item>
       <widget class="QLabel" name="label_2">

@@ -6,8 +6,8 @@ RentController::RentController() {
 RentController::~RentController() {
 }
 
-void RentController::createRent(int userId, int equipmentId, Rent* e) {
-    RentDAOSingleton::instance()->create(userId, equipmentId, e);
+void RentController::createRent(Rent* e) {
+    RentDAOSingleton::instance()->create(e);
 }
 
 void RentController::updateRent(int userId, int equipmentId, Rent* e) {

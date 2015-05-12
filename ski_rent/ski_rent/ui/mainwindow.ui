@@ -24,7 +24,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="usersTab">
       <attribute name="title">
@@ -159,7 +159,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="newReturnButton2">
+            <widget class="QPushButton" name="newReturnButton">
              <property name="text">
               <string>Return</string>
              </property>
@@ -194,7 +194,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPushButton" name="newRentButton2_2">
+            <widget class="QPushButton" name="reservationToRentButton">
              <property name="text">
               <string>To rent</string>
              </property>

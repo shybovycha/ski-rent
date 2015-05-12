@@ -14,7 +14,9 @@ public:
     RentQueryBuilder();
     ~RentQueryBuilder();
 
-    QString getCreateQuery(int userId, int equipmentId, Rent* newEntity);
+    QString getSelectAllQuery();
+    QString getFindQuery(QString query);
+    QString getCreateQuery(Rent* newEntity);
     QString getUpdateQuery(int userId, int equipmentId, Rent* newEntity);
     QString getRemoveQuery(int userId, int equipmentId);
     QString getFindByUserIdQuery(int userId);

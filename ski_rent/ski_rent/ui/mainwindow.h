@@ -11,6 +11,9 @@
 
 #include "ui/equipmentform.h"
 #include "ui/userform.h"
+#include "ui/rentform.h"
+#include "ui/reservationform.h"
+#include "ui/priceform.h"
 
 #include <QList>
 #include <QWidget>
@@ -35,6 +38,9 @@ public:
 protected:
     Equipment* getSelectedEquipment();
     User* getSelectedUser();
+    Price* getSelectedPrice();
+    Reservation* getSelectedReservation();
+    Rent* getSelectedRent();
 
 public slots:
     void onQuickSearchTextChanged(QString s);
@@ -43,33 +49,74 @@ public slots:
     void onEditEquipmentClicked();
     void onDeleteEquipmentClicked();
 
-    void onCreateEquipmentSubmitted(Equipment* e);
-    void onUpdateEquipmentSubmitted(Equipment* e);
-    void onDeleteEquipmentSubmitted(int id);
-
     void onCreateUserClicked();
     void onEditUserClicked();
     void onDeleteUserClicked();
 
-    void onCreateUserSubmitted(User* e);
-    void onUpdateUserSubmitted(User* e);
+    void onCreatePriceClicked();
+    void onEditPriceClicked();
+    void onDeletePriceClicked();
+
+    void onEditRentClicked();
+    void onEditReservationClicked();
+
+    void onCreatePriceSubmitted(Price *e);
+    void onUpdatePriceSubmitted(QString, char, int, Price *e);
+    void onDeletePriceSubmitted(QString, char, int);
+
+    void onCreateUserSubmitted(User *e);
+    void onUpdateUserSubmitted(User *e);
     void onDeleteUserSubmitted(int id);
+
+    void onCreateEquipmentSubmitted(Equipment *e);
+    void onUpdateEquipmentSubmitted(Equipment *e);
+    void onDeleteEquipmentSubmitted(int id);
+
+    void onCreateReservationSubmitted(Reservation *r);
+    void onUpdateReservationSubmitted(int userId, int equipmentId, Reservation *r);
+
+    void onCreateRentSubmitted(Rent *r);
+    void onUpdateRentSubmitted(int, int, Rent *r);
 
     void onEquipmentRowSelected(QModelIndex index);
     void onUserRowSelected(QModelIndex index);
     void onRentRowSelected(QModelIndex index);
+    void onReservationRowSelected(QModelIndex index);
     void onPriceRowSelected(QModelIndex index);
+
+    void onNewReservationClicked();
+    void onNewRentClicked();
+    void onNewReturnClicked();
+    void onReservationToRentClicked();
+    void onCancelReservationClicked();
+
+    void setRents(QList<Rent*> rents);
+    void setReservations(QList<Reservation*> reservations);
+    void setPrices(QList<Price*> prices);
 
 signals:
     void quickSearchTextChanged(QString s);
 
-    void createEquipment(Equipment* e);
-    void updateEquipment(Equipment* e);
+    void createEquipment(Equipment *e);
+    void updateEquipment(Equipment *e);
     void deleteEquipment(int id);
 
-    void createUser(User* e);
-    void updateUser(User* e);
+    void createUser(User *e);
+    void updateUser(User *e);
     void deleteUser(int id);
+
+    void reservationToRentSubmitted(Reservation*);
+    void removePriceSubmitted(Price*);
+    void reservationCancelSubmitted(Reservation*);
+    void updateReservation(int, int, Reservation*);
+    void returnFromRentSubmitted(Rent*);
+    void createPrice(Price*);
+    void updatePrice(QString type, char condition, int time, Price*);
+    void deletePrice(QString type, char condition, int time);
+    void createReservation(Reservation*);
+    void createRent(Rent*);
+    void updateRent(int userId, int equipmentId, Rent*);
+    void removeRent(int userId, int equipmentId);
 
 private:
     Ui::MainWindow *ui;

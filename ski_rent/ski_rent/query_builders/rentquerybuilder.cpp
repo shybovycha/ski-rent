@@ -8,7 +8,35 @@ RentQueryBuilder::RentQueryBuilder()
 RentQueryBuilder::~RentQueryBuilder() {
 }
 
-QString RentQueryBuilder::getCreateQuery(int userId, int equipmentId, Rent* newEntity) {
+QString RentQueryBuilder::getSelectAllQuery() {
+    return QString("SELECT * FROM %1").arg(this->tableName);
+}
+
+QString RentQueryBuilder::getFindQuery(QString query) {
+    // TODO: REWORK!!!
+    QStringList pieces = query.split("\\W");
+    QStringList likes;
+    QStringList fields;
+    QStringList fieldLikes;
+
+    fields.append("B.name");
+
+    for (int i = 0; i < pieces.size(); i++) {
+        likes.append(QString("'%%%1%%'").arg(pieces[i]));
+    }
+
+    for (int i = 0; i < fields.size(); i++) {
+        for (int t = 0; t < likes.size(); t++) {
+            fieldLikes.append(QString("%1 LIKE %2").arg(fields[i]).arg(likes[t]));
+        }
+    }
+
+    QString likeQuery = fieldLikes.join(" OR ");
+
+    return QString("SELECT * FROM rent AS A LEFT JOIN users AS B ON A.user_id = B.id WHERE %1").arg(likeQuery);
+}
+
+QString RentQueryBuilder::getCreateQuery(Rent* newEntity) {
     QStringList columns;
     QStringList values;
 
@@ -17,8 +45,8 @@ QString RentQueryBuilder::getCreateQuery(int userId, int equipmentId, Rent* newE
     columns.append("amount");
     columns.append("rent_from");
 
-    values.append(QString::number(userId));
-    values.append(QString::number(equipmentId));
+    values.append(QString::number(newEntity->getUserId()));
+    values.append(QString::number(newEntity->getEquipmentId()));
     values.append(QString::number(newEntity->getAmount()));
     values.append(newEntity->getRentFrom().toString("yyyy-MM-dd hh:mm"));
 

@@ -3,6 +3,9 @@
 
 #include "dao/equipmentdao.h"
 #include "dao/userdao.h"
+#include "dao/pricedao.h"
+#include "dao/rentdao.h"
+#include "dao/reservationdao.h"
 
 #include "ui/mainwindow.h"
 

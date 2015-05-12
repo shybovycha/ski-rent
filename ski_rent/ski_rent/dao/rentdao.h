@@ -4,6 +4,7 @@
 #include <QList>
 #include <QString>
 #include <QDateTime>
+#include <QString>
 
 #include "entities/rent.h"
 #include "dao/basedao.h"
@@ -20,9 +21,11 @@ public:
     RentDAO();
     ~RentDAO();
 
-    void create(int userId, int equipmentId, Rent* newEntity);
+    void create(Rent* newEntity);
     void update(int userId, int equipmentId, Rent* newEntity);
     void remove(int userId, int equipmentId);
+    QList<Rent*> all();
+    QList<Rent*> find(QString query);
     QList<Rent*> findByUser(int userId);
     QList<Rent*> findByEquipment(int equipmentId);
     QList<Rent*> findByRentFrom(QDateTime rentFrom);
