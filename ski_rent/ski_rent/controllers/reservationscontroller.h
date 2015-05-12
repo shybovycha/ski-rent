@@ -20,6 +20,7 @@ public slots:
     void updateReservation(int userId, int equipmentId, Reservation* newEntity);
     void deleteReservation(int userId, int equipmentId);
     void reservationToRent(Reservation* oldEntity);
+    void cancelReservation(Reservation* oldEntity);
 };
 
 typedef Singleton<ReservationsController> ReservationsControllerSingleton;

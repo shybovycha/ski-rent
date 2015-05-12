@@ -58,7 +58,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QDateEdit" name="rentFromEdit"/>
+      <widget class="QDateTimeEdit" name="rentFromEdit"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Rent to:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateTimeEdit" name="rentToEdit"/>
      </item>
      <item>
       <spacer name="verticalSpacer">

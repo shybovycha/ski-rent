@@ -44,7 +44,9 @@ void ReservationForm::setReservation(Reservation *reservation) {
     ui->equipmentTypeCombo->setCurrentText(tmpEquipment->getType());
 
     ui->amountSpin->setValue(reservation->getAmount());
+
     ui->rentFromEdit->setDateTime(reservation->getRentFrom());
+    ui->rentToEdit->setDateTime(reservation->getRentTo());
 }
 
 void ReservationForm::setUserId(int userId) {
@@ -69,7 +71,8 @@ void ReservationForm::onSaveClicked() {
 
     this->reservation->setEquipmentId(this->equipment[equipmentIndex]->getId());
     this->reservation->setAmount(this->ui->amountSpin->value());
-    this->reservation->setRentFrom(QDateTime::currentDateTime());
+    this->reservation->setRentFrom(ui->rentFromEdit->dateTime());
+    this->reservation->setRentTo(ui->rentToEdit->dateTime());
     this->reservation->setUserId(this->userId);
 
 //    int conditionIndex = this->ui->conditionCombo->currentIndex();

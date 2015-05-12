@@ -19,11 +19,10 @@ MainController::MainController(QObject *parent) : QObject(parent) {
 
     connect(this->view, SIGNAL(createReservation(Reservation*)), ReservationsControllerSingleton::instance(), SLOT(createReservation(Reservation*)));
     connect(this->view, SIGNAL(updateReservation(int, int, Reservation*)), ReservationsControllerSingleton::instance(), SLOT(updateReservation(int, int, Reservation*)));
-    connect(this->view, SIGNAL(deleteReservation(int, int)), ReservationsControllerSingleton::instance(), SLOT(deleteReservation(int, int)));
+    connect(this->view, SIGNAL(reservationCancel(Reservation*)), ReservationsControllerSingleton::instance(), SLOT(cancelReservation(Reservation*)));
 
     connect(this->view, SIGNAL(createRent(Rent*)), RentControllerSingleton::instance(), SLOT(createRent(Rent*)));
     connect(this->view, SIGNAL(updateRent(int, int, Rent*)), RentControllerSingleton::instance(), SLOT(updateRent(int, int, Rent*)));
-    connect(this->view, SIGNAL(deleteRent(int, int)), RentControllerSingleton::instance(), SLOT(deleteReservation(int, int)));
 
     connect(this->view, SIGNAL(reservationToRent(Reservation*)), ReservationsControllerSingleton::instance(), SLOT(reservationToRent(Reservation*)));
     connect(this->view, SIGNAL(returnFromRent(Rent*)), RentControllerSingleton::instance(), SLOT(returnFromRent(Rent*)));

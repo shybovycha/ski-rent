@@ -291,7 +291,7 @@ void MainWindow::onEditReservationClicked() {
     ReservationForm *win = new ReservationForm();
     win->setUserId(r->getUserId());
     win->setReservation(r);
-    connect(win, SIGNAL(saveReservation(Reservation*)), this, SLOT(onCreateReservationSubmitted(Reservation*)));
+    connect(win, SIGNAL(saveReservation(Reservation*)), this, SLOT(onUpdateReservationSubmitted(Reservation*)));
     win->show();
 }
 

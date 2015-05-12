@@ -1,4 +1,5 @@
 #include "dao/reservationdao.h"
+#include <QDebug>
 
 ReservationDAO::ReservationDAO() {
     this->queryBuilder = new ReservationQueryBuilder();
@@ -30,6 +31,7 @@ QList<Reservation*> ReservationDAO::all() {
 QList<Reservation*> ReservationDAO::find(QString query) {
     QString sql = this->queryBuilder->getSearchQuery(query);
     QList<DBRow> rows = this->getDb()->select(sql);
+    qDebug() << sql;
 
     return EntityConverter<Reservation>::convert(rows);
 }
