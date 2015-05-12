@@ -78,6 +78,9 @@ public slots:
     void onCreateRentSubmitted(Rent *r);
     void onUpdateRentSubmitted(int, int, Rent *r);
 
+    void returnFromRentSubmitted(Rent*);
+    void reservationToRentSubmitted(Reservation*);
+
     void onEquipmentRowSelected(QModelIndex index);
     void onUserRowSelected(QModelIndex index);
     void onRentRowSelected(QModelIndex index);
@@ -105,11 +108,11 @@ signals:
     void updateUser(User *e);
     void deleteUser(int id);
 
-    void reservationToRentSubmitted(Reservation*);
-    void removePriceSubmitted(Price*);
-    void reservationCancelSubmitted(Reservation*);
+    void reservationToRent(Reservation*);
+    void removePrice(Price*);
+    void reservationCancel(Reservation*);
     void updateReservation(int, int, Reservation*);
-    void returnFromRentSubmitted(Rent*);
+    void returnFromRent(Rent*);
     void createPrice(Price*);
     void updatePrice(QString type, char condition, int time, Price*);
     void deletePrice(QString type, char condition, int time);

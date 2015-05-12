@@ -7,8 +7,10 @@
 #include "entities/price.h"
 #include "dao/pricedao.h"
 
-class PriceController
+class PriceController : public QObject
 {
+    Q_OBJECT
+
 public:
     PriceController();
     ~PriceController();
@@ -16,7 +18,7 @@ public:
 public slots:
     void createPrice(Price* newEntity);
     void updatePrice(QString type, char condition, int time, Price* newEntity);
-    void removePrice(QString type, char condition, int time);
+    void deletePrice(QString type, char condition, int time);
 };
 
 typedef Singleton<PriceController> PriceControllerSingleton;

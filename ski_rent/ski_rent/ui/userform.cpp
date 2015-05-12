@@ -7,6 +7,8 @@ UserForm::UserForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->user = 0;
+
     // DO NOT TRANSLATE - THIS WILL CAUSE DATA INCONSISTENCY
     ui->documentTypeCombo->addItem("Passport");
     ui->documentTypeCombo->addItem("Visa");
@@ -25,6 +27,10 @@ UserForm::~UserForm()
 }
 
 void UserForm::onSaveClicked() {
+    if (!this->user) {
+        this->user = new User();
+    }
+
     this->user->setName(this->ui->nameEdit->text());
     this->user->setSurname(this->ui->surnameEdit->text());
     this->user->setDocumentType(this->ui->documentTypeCombo->currentText());

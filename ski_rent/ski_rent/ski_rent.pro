@@ -52,6 +52,8 @@ SOURCES += main.cpp \
     controllers/maincontroller.cpp \
     controllers/userscontroller.cpp \
     controllers/equipmentcontroller.cpp \
+    controllers/pricecontroller.cpp \
+    controllers/reservationscontroller.cpp \
     util/singleton.cpp \
     views/equipmentview.cpp \
     views/mainview.cpp \
@@ -62,9 +64,7 @@ SOURCES += main.cpp \
     row_models/rentrowmodel.cpp \
     row_models/reservationrowmodel.cpp \
     row_models/userrowmodel.cpp \
-    row_models/pricerowmodel.cpp \
-    controllers/pricecontroller.cpp \
-    controllers/reservationscontroller.cpp
+    row_models/pricerowmodel.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -102,6 +102,8 @@ HEADERS  += \
     controllers/maincontroller.h \
     controllers/userscontroller.h \
     controllers/equipmentcontroller.h \
+    controllers/pricecontroller.h \
+    controllers/reservationscontroller.h \
     util/singleton.h \
     views/equipmentview.h \
     views/mainview.h \
@@ -112,9 +114,7 @@ HEADERS  += \
     row_models/rentrowmodel.h \
     row_models/reservationrowmodel.h \
     row_models/userrowmodel.h \
-    row_models/pricerowmodel.h \
-    controllers/pricecontroller.h \
-    controllers/reservationscontroller.h
+    row_models/pricerowmodel.h
 
 FORMS    += \
     ui/configurationwindow.ui \

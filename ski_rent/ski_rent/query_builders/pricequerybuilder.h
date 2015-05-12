@@ -13,6 +13,7 @@ public:
 
     QString getListAllQuery();
     QString getCreateQuery(Price* newEntity);
+    QString getSearchQuery(QString query);
     QString getFindQuery(QString type, char condition, int time);
     QString getRemoveQuery(QString type, char condition, int time);
     QString getUpdateQuery(QString type, char condition, int time, Price* newEntity);

@@ -36,7 +36,7 @@ QList<Rent*> RentDAO::all() {
 }
 
 QList<Rent*> RentDAO::find(QString query) {
-    QString sql = this->queryBuilder->getFindQuery(query);
+    QString sql = this->queryBuilder->getSearchQuery(query);
     QList<DBRow> rows = this->getDb()->select(sql);
     QList<Rent*> res = EntityConverter<Rent>::convert(rows);
 
@@ -74,4 +74,3 @@ QList<Rent*> RentDAO::findByRentFrom(QDateTime rentFromStart, QDateTime rentFrom
 
     return res;
 }
-

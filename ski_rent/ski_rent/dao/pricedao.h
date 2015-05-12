@@ -23,6 +23,8 @@ public:
     void create(Price* newEntity);
     void update(QString type, char condition, int time, Price* newEntity);
     void remove(QString type, char condition, int time);
+    QList<Price*> all();
+    QList<Price*> find(QString query);
     QList<Price*> find(QString type, char condition, int time);
 
 protected:

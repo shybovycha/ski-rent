@@ -1,5 +1,4 @@
 #include "controllers/maincontroller.h"
-// #include "controllers/equipmentcontroller.h"
 
 MainController::MainController(QObject *parent) : QObject(parent) {
     this->view = new MainWindow();
@@ -14,8 +13,20 @@ MainController::MainController(QObject *parent) : QObject(parent) {
     connect(this->view, SIGNAL(updateUser(User*)), UsersControllerSingleton::instance(), SLOT(updateUser(User*)));
     connect(this->view, SIGNAL(deleteUser(int)), UsersControllerSingleton::instance(), SLOT(deleteUser(int)));
 
-    // EquipmentController* equipmentController = EquipmentControllerSingleton::instance();
-    // connect(this->view, SIGNAL(create(QString)), equipmentController, SLOT(find(QString)));
+    connect(this->view, SIGNAL(createPrice(Price*)), PriceControllerSingleton::instance(), SLOT(createPrice(Price*)));
+    connect(this->view, SIGNAL(updatePrice(QString, char, int, Price*)), PriceControllerSingleton::instance(), SLOT(updatePrice(QString, char, int, Price*)));
+    connect(this->view, SIGNAL(deletePrice(QString, char, int)), PriceControllerSingleton::instance(), SLOT(deletePrice(QString, char, int)));
+
+    connect(this->view, SIGNAL(createReservation(Reservation*)), ReservationsControllerSingleton::instance(), SLOT(createReservation(Reservation*)));
+    connect(this->view, SIGNAL(updateReservation(int, int, Reservation*)), ReservationsControllerSingleton::instance(), SLOT(updateReservation(int, int, Reservation*)));
+    connect(this->view, SIGNAL(deleteReservation(int, int)), ReservationsControllerSingleton::instance(), SLOT(deleteReservation(int, int)));
+
+    connect(this->view, SIGNAL(createRent(Rent*)), RentControllerSingleton::instance(), SLOT(createRent(Rent*)));
+    connect(this->view, SIGNAL(updateRent(int, int, Rent*)), RentControllerSingleton::instance(), SLOT(updateRent(int, int, Rent*)));
+    connect(this->view, SIGNAL(deleteRent(int, int)), RentControllerSingleton::instance(), SLOT(deleteReservation(int, int)));
+
+    connect(this->view, SIGNAL(reservationToRent(Reservation*)), ReservationsControllerSingleton::instance(), SLOT(reservationToRent(Reservation*)));
+    connect(this->view, SIGNAL(returnFromRent(Rent*)), RentControllerSingleton::instance(), SLOT(returnFromRent(Rent*)));
 }
 
 MainController::~MainController() {
@@ -27,7 +38,7 @@ void MainController::index() {
     this->view->setEquipment(EquipmentDAOSingleton::instance()->all());
     this->view->setRents(RentDAOSingleton::instance()->all());
     this->view->setReservations(ReservationDAOSingleton::instance()->all());
-//    this->view->setPrices(PriceDAOSingleton::instance()->all(); // TODO
+    this->view->setPrices(PriceDAOSingleton::instance()->all());
 
     this->view->show();
 }
@@ -36,8 +47,8 @@ void MainController::find(QString query) {
     this->view->setUsers(UserDAOSingleton::instance()->find(query));
     this->view->setEquipment(EquipmentDAOSingleton::instance()->find(query));
     this->view->setRents(RentDAOSingleton::instance()->find(query));
-//    this->view->setReservations(ReservationDAOSingleton::instance()->findByUser(query));
-//    this->view->setPrices(PriceDAOSingleton::instance()->find(query)); // TODO
+    this->view->setReservations(ReservationDAOSingleton::instance()->find(query));
+    this->view->setPrices(PriceDAOSingleton::instance()->find(query));
 
     this->view->show();
 }

@@ -12,28 +12,25 @@ QString RentQueryBuilder::getSelectAllQuery() {
     return QString("SELECT * FROM %1").arg(this->tableName);
 }
 
-QString RentQueryBuilder::getFindQuery(QString query) {
-    // TODO: REWORK!!!
-    QStringList pieces = query.split("\\W");
+QString RentQueryBuilder::getSearchQuery(QString query) {
+    QString likeCondition = QString("'%%1%'").arg(QString(query).split("\\s+").join("%"));
     QStringList likes;
-    QStringList fields;
-    QStringList fieldLikes;
+    QStringList searchColumns;
 
-    fields.append("B.name");
+    searchColumns.append("B.name");
+    searchColumns.append("B.surname");
+    searchColumns.append("B.document_number");
+    searchColumns.append("B.country");
+    searchColumns.append("B.city");
+    searchColumns.append("B.address");
+    searchColumns.append("B.phone");
+    searchColumns.append("C.type");
 
-    for (int i = 0; i < pieces.size(); i++) {
-        likes.append(QString("'%%%1%%'").arg(pieces[i]));
+    for (int i = 0; i < searchColumns.size(); i++) {
+        likes.append(QString("`%1` LIKE %2").arg(searchColumns[i]).arg(likeCondition));
     }
 
-    for (int i = 0; i < fields.size(); i++) {
-        for (int t = 0; t < likes.size(); t++) {
-            fieldLikes.append(QString("%1 LIKE %2").arg(fields[i]).arg(likes[t]));
-        }
-    }
-
-    QString likeQuery = fieldLikes.join(" OR ");
-
-    return QString("SELECT * FROM rent AS A LEFT JOIN users AS B ON A.user_id = B.id WHERE %1").arg(likeQuery);
+    return QString("SELECT * FROM `rent` AS A JOIN `users` AS B ON A.user_id = B.id JOIN `equipment` AS C ON A.equipment_id = C.id WHERE %1").arg(likes.join(" OR "));
 }
 
 QString RentQueryBuilder::getCreateQuery(Rent* newEntity) {

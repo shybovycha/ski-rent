@@ -27,7 +27,18 @@ void PriceDAO::remove(QString type, char condition, int time) {
     this->getDb()->update(sql);
 }
 
+QList<Price*> PriceDAO::all() {
+    QString sql = this->queryBuilder->getListAllQuery();
+    this->getDb()->select(sql);
+}
+
+QList<Price*> PriceDAO::find(QString query) {
+    QString sql = this->queryBuilder->getSearchQuery(query);
+    this->getDb()->select(sql);
+}
+
 QList<Price*> PriceDAO::find(QString type, char condition, int time) {
+    // TODO: find closest one
     QString sql = this->queryBuilder->getFindQuery(type, condition, time);
     QList<DBRow> rows = this->getDb()->select(sql);
     QList<Price*> prices = EntityConverter<Price>::convert(rows);

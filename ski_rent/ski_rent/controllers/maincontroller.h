@@ -11,6 +11,10 @@
 
 #include "controllers/equipmentcontroller.h"
 #include "controllers/userscontroller.h"
+#include "controllers/pricecontroller.h"
+#include "controllers/reservationscontroller.h"
+#include "controllers/rentcontroller.h"
+
 #include "util/singleton.h"
 
 #include <QObject>

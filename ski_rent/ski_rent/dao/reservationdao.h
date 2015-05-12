@@ -18,12 +18,14 @@ public:
     ~ReservationDAO();
 
     QList<Reservation*> all();
+    QList<Reservation*> find(QString query);
     QList<Reservation*> findByUser(int userId);
     QList<Reservation*> findByEquipment(int equipmentId);
     QList<Reservation*> findByRentDate(QDateTime dateFrom, QDateTime dateTo);
     void create(Reservation* newEntity);
     void remove(int userId, int equipmentId);
     void update(int userId, int equipmentId, Reservation* newEntity);
+    void toRent(Reservation* oldEntity);
 
 protected:
     ReservationQueryBuilder* queryBuilder;

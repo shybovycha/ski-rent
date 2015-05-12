@@ -7,16 +7,21 @@
 #include "entities/reservation.h"
 #include "dao/reservationdao.h"
 
-class ReservationsController
+class ReservationsController : public QObject
 {
+    Q_OBJECT
+
 public:
     ReservationsController();
-    ~ReservationsController();
+    virtual ~ReservationsController();
 
 public slots:
     void createReservation(Reservation* newEntity);
     void updateReservation(int userId, int equipmentId, Reservation* newEntity);
-    void removeReservation(int userId, int equipmentId);
+    void deleteReservation(int userId, int equipmentId);
+    void reservationToRent(Reservation* oldEntity);
 };
+
+typedef Singleton<ReservationsController> ReservationsControllerSingleton;
 
 #endif // RESERVATIONSCONTROLLER_H

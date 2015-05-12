@@ -3,6 +3,7 @@
 PriceController::PriceController() {
 }
 
+
 PriceController::~PriceController() {
 }
 
@@ -14,6 +15,6 @@ void PriceController::updatePrice(QString type, char condition, int time, Price*
     PriceDAOSingleton::instance()->update(type, condition, time, newEntity);
 }
 
-void PriceController::removePrice(QString type, char condition, int time) {
+void PriceController::deletePrice(QString type, char condition, int time) {
     PriceDAOSingleton::instance()->remove(type, condition, time);
 }

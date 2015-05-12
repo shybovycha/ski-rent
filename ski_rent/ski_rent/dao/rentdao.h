@@ -29,7 +29,7 @@ public:
     QList<Rent*> findByUser(int userId);
     QList<Rent*> findByEquipment(int equipmentId);
     QList<Rent*> findByRentFrom(QDateTime rentFrom);
-    QList<Rent*> findByRentFrom(QDateTime rentFromStart, QDateTime rentFromEnd);
+    QList<Rent*> findByRentFrom(QDateTime rentFrom, QDateTime rentTo);
 
 protected:
     RentQueryBuilder* queryBuilder;

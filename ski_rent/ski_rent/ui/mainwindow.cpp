@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->ui->editRentButton->setEnabled(false);
 
+    this->ui->reservationToRentButton->setEnabled(false);
     this->ui->editReservationButton->setEnabled(false);
     this->ui->cancelReservationButton->setEnabled(false);
 
@@ -183,6 +184,16 @@ void MainWindow::onUpdateRentSubmitted(int userId, int equipmentId, Rent *r) {
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
+void MainWindow::returnFromRentSubmitted(Rent* r) {
+    emit returnFromRent(r);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
+void MainWindow::reservationToRentSubmitted(Reservation* r) {
+    emit reservationToRent(r);
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+}
+
 // buttons' click handlers
 
 void MainWindow::onCreateEquipmentClicked() {
@@ -288,14 +299,12 @@ void MainWindow::onCancelReservationClicked() {
     Reservation *reservation = this->getSelectedReservation();
 
     if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this reservation cancel correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
-        emit reservationCancelSubmitted(reservation);
+        emit reservationCancel(reservation);
     }
 }
 
 void MainWindow::onCreatePriceClicked() {
-    //Equipment *e = this->getSelectedEquipment();
     PriceForm *win = new PriceForm();
-    //win->setEquipmentId(e->getId());
     connect(win, SIGNAL(savePrice(Price*)), this, SLOT(onCreatePriceSubmitted(Price*)));
     win->show();
 }
@@ -312,7 +321,7 @@ void MainWindow::onDeletePriceClicked() {
     Price *p = this->getSelectedPrice();
 
     if (QMessageBox::question(this, tr("Are you sure?"), tr("Sure, you want to remove this price?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
-        emit removePriceSubmitted(p);
+        emit removePrice(p);
     }
 }
 
@@ -330,11 +339,11 @@ void MainWindow::onPriceRowSelected(QModelIndex index) {
 
 void MainWindow::onReservationRowSelected(QModelIndex index) {
     if (this->ui->reservationList->selectionModel()->hasSelection()) {
-        this->ui->newRentButton->setEnabled(true);
+        this->ui->reservationToRentButton->setEnabled(true);
         this->ui->editReservationButton->setEnabled(true);
         this->ui->cancelReservationButton->setEnabled(true);
     } else {
-        this->ui->newRentButton->setEnabled(false);
+        this->ui->reservationToRentButton->setEnabled(false);
         this->ui->editReservationButton->setEnabled(false);
         this->ui->cancelReservationButton->setEnabled(false);
     }

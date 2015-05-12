@@ -14,6 +14,10 @@ void ReservationsController::updateReservation(int userId, int equipmentId, Rese
     ReservationDAOSingleton::instance()->update(userId, equipmentId, newEntity);
 }
 
-void ReservationsController::removeReservation(int userId, int equipmentId) {
+void ReservationsController::deleteReservation(int userId, int equipmentId) {
     ReservationDAOSingleton::instance()->remove(userId, equipmentId);
+}
+
+void ReservationsController::reservationToRent(Reservation* oldEntity) {
+    ReservationDAOSingleton::instance()->toRent(oldEntity);
 }

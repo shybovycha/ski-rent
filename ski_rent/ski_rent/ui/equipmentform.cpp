@@ -7,6 +7,8 @@ EquipmentForm::EquipmentForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->equipment = 0;
+
     conditions['A'] = tr("Brand new");
     conditions['B'] = tr("A bit used");
     conditions['C'] = tr("Used");
@@ -38,6 +40,10 @@ void EquipmentForm::onCancelClicked() {
 }
 
 void EquipmentForm::onSaveClicked() {
+    if (!this->equipment) {
+        this->equipment = new Equipment();
+    }
+
     this->equipment->setType(this->ui->typeEdit->text());
     this->equipment->setAmount(this->ui->amountSpin->value());
 

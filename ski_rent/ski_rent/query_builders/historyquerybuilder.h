@@ -2,8 +2,13 @@
 #define HISTORYQUERYBUILDER_H
 
 #include "entities/history.h"
+#include "entities/user.h"
+#include "entities/equipment.h"
+#include "entities/rent.h"
+#include "entities/price.h"
 
 #include <QString>
+#include <QDateTime>
 
 class HistoryQueryBuilder
 {
@@ -13,6 +18,7 @@ public:
 
     QString getListAllQuery();
     QString getCreateQuery(History* newEntity);
+    QString getCreateQuery(User*, Equipment*, Rent*, QDateTime rentTo, Price*);
     QString getFindQuery(int id);
 
 protected:

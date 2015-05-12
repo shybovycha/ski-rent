@@ -15,6 +15,20 @@ QString PriceQueryBuilder::getListAllQuery() {
     return QString("SELECT * FROM %1").arg(this->tableName);
 }
 
+QString PriceQueryBuilder::getSearchQuery(QString query) {
+    QString likeCondition = QString("'%%1%'").arg(QString(query).split("\\s+").join("%"));
+    QStringList likes;
+    QStringList searchColumns;
+
+    searchColumns.append("type");
+
+    for (int i = 0; i < searchColumns.size(); i++) {
+        likes.append(QString("`%1` LIKE %2").arg(searchColumns[i]).arg(likeCondition));
+    }
+
+    return QString("SELECT * FROM `prices` WHERE %1").arg(likes.join(" OR "));
+}
+
 QString PriceQueryBuilder::getCreateQuery(Price* newEntity) {
     QStringList columns, values;
 

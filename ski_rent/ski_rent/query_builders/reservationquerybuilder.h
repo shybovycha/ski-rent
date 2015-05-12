@@ -14,8 +14,10 @@ public:
     ~ReservationQueryBuilder();
 
     QString getListAllQuery();
+    QString getToRentQuery(Reservation* oldEntity);
     QString getCreateQuery(Reservation* newEntity);
     QString getRemoveQuery(int userId, int equipmentId);
+    QString getSearchQuery(QString query);
     QString getFindByUserQuery(int userId);
     QString getFindByEquipmentQuery(int equipmentId);
     QString getFindByRentDateQuery(QDateTime dateFrom, QDateTime dateTo);

@@ -7,6 +7,8 @@ ReservationForm::ReservationForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->reservation = 0;
+
     this->equipment = EquipmentDAOSingleton::instance()->all();
 
     for (int i = 0; i < equipment.size(); i++) {
@@ -54,6 +56,10 @@ void ReservationForm::onCancelClicked() {
 }
 
 void ReservationForm::onSaveClicked() {
+    if (!this->reservation) {
+        this->reservation = new Reservation();
+    }
+
     int equipmentIndex = this->ui->equipmentConditionCombo->currentIndex();
 
     if (equipmentIndex < 0) {

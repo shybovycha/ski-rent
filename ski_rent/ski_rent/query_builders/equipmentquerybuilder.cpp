@@ -6,6 +6,13 @@
 
 template<>
 QueryBuilder<Equipment>::QueryBuilder() {
+    this->tableName = "equipment";
+
+    this->updateColumns.append("type");
+    this->updateColumns.append("amount");
+    this->updateColumns.append("condition");
+
+    this->searchColumns.append("type");
 }
 
 template<>

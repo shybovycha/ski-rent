@@ -7,6 +7,8 @@ RentForm::RentForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->rent = 0;
+
     this->equipment = EquipmentDAOSingleton::instance()->all();
 
     for (int i = 0; i < equipment.size(); i++) {
@@ -44,6 +46,10 @@ void RentForm::recalculatePricePerHour() {
 }
 
 void RentForm::setRent(Rent *rent) {
+    if (!this->rent) {
+        this->rent = new Rent();
+    }
+
     Equipment* tmpEquipment = EquipmentDAOSingleton::instance()->findById(rent->getEquipmentId());
 
     this->rent = rent;

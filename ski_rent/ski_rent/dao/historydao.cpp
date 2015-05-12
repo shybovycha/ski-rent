@@ -36,3 +36,8 @@ void HistoryDAO::create(History* newEntity) {
     QString sql = this->queryBuilder->getCreateQuery(newEntity);
     this->getDb()->update(sql);
 }
+
+void HistoryDAO::create(User* user, Equipment *equipment, Rent *rent, QDateTime rentTo, Price *price) {
+    QString sql = this->queryBuilder->getCreateQuery(user, equipment, rent, rentTo, price);
+    this->getDb()->update(sql);
+}

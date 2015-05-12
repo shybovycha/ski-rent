@@ -7,6 +7,8 @@ PriceForm::PriceForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->price = 0;
+
     this->equipment = EquipmentDAOSingleton::instance()->all();
 
     for (int i = 0; i < equipment.size(); i++) {
@@ -53,6 +55,10 @@ void PriceForm::onCancelClicked() {
 }
 
 void PriceForm::onSaveClicked() {
+    if (!this->price) {
+        this->price = new Price();
+    }
+
     int equipmentIndex = this->ui->equipmentTypeCombo->currentIndex();
 
     if (equipmentIndex < 0) {

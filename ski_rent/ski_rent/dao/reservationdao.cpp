@@ -12,8 +12,23 @@ DatabaseAdapter* ReservationDAO::getDb() {
     return DatabaseConnectorSingleton::instance()->getDatabase();
 }
 
+void ReservationDAO::toRent(Reservation *oldEntity) {
+    QString sql = this->queryBuilder->getToRentQuery(oldEntity);
+    this->getDb()->update(sql);
+
+    sql = this->queryBuilder->getRemoveQuery(oldEntity->getUserId(), oldEntity->getEquipmentId());
+    this->getDb()->update(sql);
+}
+
 QList<Reservation*> ReservationDAO::all() {
     QString sql = this->queryBuilder->getListAllQuery();
+    QList<DBRow> rows = this->getDb()->select(sql);
+
+    return EntityConverter<Reservation>::convert(rows);
+}
+
+QList<Reservation*> ReservationDAO::find(QString query) {
+    QString sql = this->queryBuilder->getSearchQuery(query);
     QList<DBRow> rows = this->getDb()->select(sql);
 
     return EntityConverter<Reservation>::convert(rows);
