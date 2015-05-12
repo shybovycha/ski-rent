@@ -1,39 +1,40 @@
 #ifndef RESERVATIONROWMODEL_H
 #define RESERVATIONROWMODEL_H
 
-#include "row_models/abstractrowmodel.h"
+#include <QAbstractTableModel>
+
 #include "entities/reservation.h"
 #include "dao/userdao.h"
 #include "dao/equipmentdao.h"
 
-template<>
-void AbstractRowModel<Reservation>::setColumns() {
-    columns.clear();
-    columns["user"] = tr("User");
-    columns["equipment"] = tr("Equipment");
-    columns["amount"] = tr("Amount");
-    columns["rent_from"] = tr("Rent from");
-    columns["rent_to"] = tr("Rent to");
-}
+class ReservationRowModel : public QAbstractTableModel
+{
+public:
+    ReservationRowModel(QObject *parent = 0);
+    ReservationRowModel(const QList<Reservation*> &entities, QObject *parent = 0);
+    ~ReservationRowModel();
 
-template<>
-QVariant AbstractRowModel<Reservation>::data(const QModelIndex &index, int role) const {
-    if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
-        QString key = this->columns.keys().at(index.column());
-        Reservation* e = this->entities.at(index.row());
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-        if (key == "user") {
-            User* u = UserDAOSingleton::instance()->findById(e->getUserId());
-            return u->getName();
-        } else if (key == "equipment") {
-            Equipment* u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
-            return u->getType();
-        }
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-        return e->get(key);
-    } else {
-        return QVariant();
-    }
-}
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+
+    bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
+    bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
+
+    void add(Reservation* e);
+    void add(const QList<Reservation*> &e);
+    void clear();
+    Reservation* at(int index) const;
+
+protected:
+    virtual void setColumns();
+
+    QList<Reservation*> entities;
+    QMap<QString, QString> columns;
+};
 
 #endif // RESERVATIONROWMODEL_H

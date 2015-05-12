@@ -40,16 +40,14 @@ void RentForm::recalculatePricePerHour() {
     QString type = ui->equipmentTypeCombo->currentText();
     int conditionIndex = this->ui->equipmentConditionCombo->currentIndex();
     char condition = this->conditions.keys()[conditionIndex];
-    Price *price = PriceDAOSingleton::instance()->find(type, condition, 1.0)[0];
+    //Price *price = PriceDAOSingleton::instance()->find(type, condition, 1.0)[0];
+    Price *price = new Price();
+    price->setPrice(1.0);
 
     ui->pricePerHourLcd->display(QString::number(price->getPrice()));
 }
 
 void RentForm::setRent(Rent *rent) {
-    if (!this->rent) {
-        this->rent = new Rent();
-    }
-
     Equipment* tmpEquipment = EquipmentDAOSingleton::instance()->findById(rent->getEquipmentId());
 
     this->rent = rent;
@@ -72,6 +70,10 @@ void RentForm::onCancelClicked() {
 }
 
 void RentForm::onSaveClicked() {
+    if (!this->rent) {
+        this->rent = new Rent();
+    }
+
     int equipmentIndex = this->ui->equipmentConditionCombo->currentIndex();
 
     if (equipmentIndex < 0) {

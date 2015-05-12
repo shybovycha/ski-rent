@@ -29,12 +29,18 @@ void PriceDAO::remove(QString type, char condition, int time) {
 
 QList<Price*> PriceDAO::all() {
     QString sql = this->queryBuilder->getListAllQuery();
-    this->getDb()->select(sql);
+    QList<DBRow> rows = this->getDb()->select(sql);
+    QList<Price*> prices = EntityConverter<Price>::convert(rows);
+
+    return prices;
 }
 
 QList<Price*> PriceDAO::find(QString query) {
     QString sql = this->queryBuilder->getSearchQuery(query);
-    this->getDb()->select(sql);
+    QList<DBRow> rows = this->getDb()->select(sql);
+    QList<Price*> prices = EntityConverter<Price>::convert(rows);
+
+    return prices;
 }
 
 QList<Price*> PriceDAO::find(QString type, char condition, int time) {

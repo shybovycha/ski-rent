@@ -60,10 +60,10 @@ SOURCES += main.cpp \
     views/userview.cpp \
     controllers/rentcontroller.cpp \
     row_models/abstractrowmodel.cpp \
+    row_models/userrowmodel.cpp \
     row_models/equipmenrowtmodel.cpp \
     row_models/rentrowmodel.cpp \
     row_models/reservationrowmodel.cpp \
-    row_models/userrowmodel.cpp \
     row_models/pricerowmodel.cpp
 
 HEADERS  += \

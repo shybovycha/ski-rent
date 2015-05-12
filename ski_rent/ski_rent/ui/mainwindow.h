@@ -8,6 +8,9 @@
 #include "entities/price.h"
 
 #include "row_models/abstractrowmodel.h"
+#include "row_models/pricerowmodel.h"
+#include "row_models/rentrowmodel.h"
+#include "row_models/reservationrowmodel.h"
 
 #include "ui/equipmentform.h"
 #include "ui/userform.h"
@@ -125,9 +128,9 @@ private:
     Ui::MainWindow *ui;
     AbstractRowModel<User> *userRowModel;
     AbstractRowModel<Equipment> *equipmentRowModel;
-    AbstractRowModel<Rent> *rentRowModel;
-    AbstractRowModel<Reservation> *reservationRowModel;
-    AbstractRowModel<Price> *priceRowModel;
+    RentRowModel *rentRowModel;
+    ReservationRowModel *reservationRowModel;
+    PriceRowModel *priceRowModel;
 };
 
 #endif // MAINWINDOW_H

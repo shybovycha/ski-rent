@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // row models
     this->userRowModel = new AbstractRowModel<User>();
     this->equipmentRowModel = new AbstractRowModel<Equipment>();
-    this->rentRowModel = new AbstractRowModel<Rent>();
-    this->reservationRowModel = new AbstractRowModel<Reservation>();
-    this->priceRowModel = new AbstractRowModel<Price>();
+    this->rentRowModel = new RentRowModel();
+    this->reservationRowModel = new ReservationRowModel();
+    this->priceRowModel = new PriceRowModel();
 
     this->ui->userList->setModel(this->userRowModel);
     this->ui->equipmentList->setModel(this->equipmentRowModel);

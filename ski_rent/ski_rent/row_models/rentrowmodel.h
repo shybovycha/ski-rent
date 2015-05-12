@@ -7,33 +7,41 @@
 #include "entities/rent.h"
 #include "row_models/abstractrowmodel.h"
 
-template<>
-void AbstractRowModel<Rent>::setColumns() {
-    columns.clear();
-    columns["user"] = tr("User");
-    columns["equipment"] = tr("Equipment");
-    columns["amount"] = tr("Amount");
-    columns["rent_from"] = tr("Rent from");
-}
+#include <QObject>
+#include <QList>
+#include <QStringList>
+#include <QVariant>
+#include <QMap>
+#include <QAbstractTableModel>
 
-template<>
-QVariant AbstractRowModel<Rent>::data(const QModelIndex &index, int role) const {
-    if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
-        QString key = this->columns.keys().at(index.column());
-        Rent* e = this->entities.at(index.row());
+class RentRowModel : public QAbstractTableModel
+{
+public:
+    RentRowModel(QObject *parent = 0);
+    RentRowModel(const QList<Rent*> &entities, QObject *parent = 0);
+    ~RentRowModel();
 
-        if (key == "user") {
-            User* u = UserDAOSingleton::instance()->findById(e->getUserId());
-            return u->getName();
-        } else if (key == "equipment") {
-            Equipment* u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
-            return u->getType();
-        }
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-        return e->get(key);
-    } else {
-        return QVariant();
-    }
-}
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+
+    bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
+    bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
+
+    void add(Rent* e);
+    void add(const QList<Rent*> &e);
+    void clear();
+    Rent* at(int index) const;
+
+protected:
+    virtual void setColumns();
+
+    QList<Rent*> entities;
+    QMap<QString, QString> columns;
+};
 
 #endif // RENTROWMODEL_H
