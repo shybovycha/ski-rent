@@ -17,8 +17,8 @@ public:
     QString getSelectAllQuery();
     QString getSearchQuery(QString query);
     QString getCreateQuery(Rent* newEntity);
-    QString getUpdateQuery(int userId, int equipmentId, Rent* newEntity);
-    QString getRemoveQuery(int userId, int equipmentId);
+    QString getUpdateQuery(Rent* oldEntity, Rent* newEntity);
+    QString getRemoveQuery(Rent* oldEntity);
     QString getFindByUserIdQuery(int userId);
     QString getFindByEquipmentIdQuery(int equipmentId);
     QString getFindByRentFrom(QDateTime rentFrom);

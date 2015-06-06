@@ -1,4 +1,5 @@
 #include "dao/rentdao.h"
+#include <QDebug>
 
 RentDAO::RentDAO() {
     this->queryBuilder = new RentQueryBuilder();
@@ -17,13 +18,13 @@ void RentDAO::create(Rent* newEntity) {
     this->getDb()->update(sql);
 }
 
-void RentDAO::update(int userId, int equipmentId, Rent* newEntity) {
-    QString sql = this->queryBuilder->getUpdateQuery(userId, equipmentId, newEntity);
+void RentDAO::update(Rent* oldEntity, Rent* newEntity) {
+    QString sql = this->queryBuilder->getUpdateQuery(oldEntity, newEntity);
     this->getDb()->update(sql);
 }
 
-void RentDAO::remove(int userId, int equipmentId) {
-    QString sql = this->queryBuilder->getRemoveQuery(userId, equipmentId);
+void RentDAO::remove(Rent* oldEntity) {
+    QString sql = this->queryBuilder->getRemoveQuery(oldEntity);
     this->getDb()->update(sql);
 }
 
@@ -37,6 +38,7 @@ QList<Rent*> RentDAO::all() {
 
 QList<Rent*> RentDAO::find(QString query) {
     QString sql = this->queryBuilder->getSearchQuery(query);
+    qDebug() << sql;
     QList<DBRow> rows = this->getDb()->select(sql);
     QList<Rent*> res = EntityConverter<Rent>::convert(rows);
 

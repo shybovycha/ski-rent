@@ -10,12 +10,12 @@ void RentController::createRent(Rent* e) {
     RentDAOSingleton::instance()->create(e);
 }
 
-void RentController::updateRent(int userId, int equipmentId, Rent* e) {
-    RentDAOSingleton::instance()->update(userId, equipmentId, e);
+void RentController::updateRent(Rent* oldRent, Rent* newRent) {
+    RentDAOSingleton::instance()->update(oldRent, newRent);
 }
 
-void RentController::deleteRent(int userId, int equipmentId) {
-    RentDAOSingleton::instance()->remove(userId, equipmentId);
+void RentController::deleteRent(Rent* oldRent) {
+    RentDAOSingleton::instance()->remove(oldRent);
 }
 
 void RentController::returnFromRent(Rent *e) {
@@ -26,5 +26,5 @@ void RentController::returnFromRent(Rent *e) {
     Price *price = PriceDAOSingleton::instance()->find(equipment->getType(), equipment->getCondition(), time)[0];
 
     HistoryDAOSingleton::instance()->create(user, equipment, e, now, price);
-    RentDAOSingleton::instance()->remove(e->getUserId(), e->getEquipmentId());
+    RentDAOSingleton::instance()->remove(e);
 }

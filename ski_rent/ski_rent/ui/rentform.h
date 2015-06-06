@@ -32,12 +32,12 @@ public slots:
     void recalculatePricePerHour();
 
 signals:
-    void saveRent(Rent *rent);
+    void saveRent(Rent* oldRent, Rent *newRent);
 
 private:
     Ui::RentForm *ui;
     int userId;
-    Rent *rent;
+    Rent *oldRent, *newRent;
     QList<Equipment*> equipment;
     QMap<char, QString> conditions;
 };

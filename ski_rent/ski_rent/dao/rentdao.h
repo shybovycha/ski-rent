@@ -22,8 +22,8 @@ public:
     ~RentDAO();
 
     void create(Rent* newEntity);
-    void update(int userId, int equipmentId, Rent* newEntity);
-    void remove(int userId, int equipmentId);
+    void update(Rent* oldEntity, Rent* newEntity);
+    void remove(Rent* oldEntity);
     QList<Rent*> all();
     QList<Rent*> find(QString query);
     QList<Rent*> findByUser(int userId);

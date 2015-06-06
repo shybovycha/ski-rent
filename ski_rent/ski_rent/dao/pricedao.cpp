@@ -50,3 +50,26 @@ QList<Price*> PriceDAO::find(QString type, char condition, int time) {
 
     return prices;
 }
+
+float PriceDAO::getPricePerHour(QString type, char condition, int time) {
+    QList<Price*> prices = this->find(type, condition, time);
+
+    if (prices.isEmpty()) {
+        qDebug() << QString("Could not find matching price entry for `%1` (%2) for %3 hrs")
+                    .arg(type)
+                    .arg(condition)
+                    .arg(time);
+
+        return 0.0;
+    }
+
+    Price* fitPrice = prices[0];
+    int hoursPriced = fitPrice->getTime();
+    float perHoursPriced = fitPrice->getPrice();
+
+    return ceil(time / hoursPriced) * perHoursPriced;
+}
+
+float PriceDAO::getPriceTotal(QString type, char condition, int time, int amount) {
+    return this->getPricePerHour(type, condition, time) * amount;
+}

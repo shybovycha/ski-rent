@@ -4,6 +4,9 @@
 #include <QList>
 #include <QString>
 #include <QDateTime>
+#include <QDebug>
+
+#include <math.h>
 
 #include "entities/price.h"
 #include "dao/basedao.h"
@@ -26,6 +29,8 @@ public:
     QList<Price*> all();
     QList<Price*> find(QString query);
     QList<Price*> find(QString type, char condition, int time);
+    float getPricePerHour(QString type, char condition, int time = 1);
+    float getPriceTotal(QString type, char condition, int time, int amount);
 
 protected:
     PriceQueryBuilder* queryBuilder;

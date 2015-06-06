@@ -183,13 +183,13 @@ void MainWindow::onUpdateReservationSubmitted(Reservation *oldEntity, Reservatio
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
-void MainWindow::onCreateRentSubmitted(Rent *r) {
+void MainWindow::onCreateRentSubmitted(Rent* _, Rent* r) {
     emit createRent(r);
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
-void MainWindow::onUpdateRentSubmitted(int userId, int equipmentId, Rent *r) {
-    emit updateRent(userId, equipmentId, r);
+void MainWindow::onUpdateRentSubmitted(Rent* oldRent, Rent* newRent) {
+    emit updateRent(oldRent, newRent);
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
@@ -281,7 +281,7 @@ void MainWindow::onNewRentClicked() {
     User* u = this->getSelectedUser();
     RentForm *win = new RentForm();
     win->setUserId(u->getId());
-    connect(win, SIGNAL(saveRent(Rent*)), this, SLOT(onCreateRentSubmitted(Rent*)));
+    connect(win, SIGNAL(saveRent(Rent*, Rent*)), this, SLOT(onCreateRentSubmitted(Rent*, Rent*)));
     win->show();
 }
 
@@ -289,7 +289,7 @@ void MainWindow::onEditRentClicked() {
     Rent *rent = this->getSelectedRent();
     RentForm *win = new RentForm();
     win->setRent(rent);
-    connect(win, SIGNAL(saveRent(Rent*)), this, SLOT(onUpdateRentSubmitted(Rent*)));
+    connect(win, SIGNAL(saveRent(Rent*, Rent*)), this, SLOT(onUpdateRentSubmitted(Rent*, Rent*)));
     win->show();
 }
 

@@ -66,7 +66,7 @@ QVariant PriceRowModel::data(const QModelIndex &index, int role) const {
         else if (key == "price")
             return e->getPrice();
         else if (key == "condition")
-            return e->getCondition();
+            return QString("%1").arg(e->getCondition());
         else if (key == "time")
             return e->getTime();
 

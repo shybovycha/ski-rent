@@ -83,8 +83,8 @@ public slots:
     void onCreateReservationSubmitted(Reservation* _, Reservation *newEntity);
     void onUpdateReservationSubmitted(Reservation *oldEntity, Reservation *newEntity);
 
-    void onCreateRentSubmitted(Rent *r);
-    void onUpdateRentSubmitted(int, int, Rent *r);
+    void onCreateRentSubmitted(Rent*, Rent*);
+    void onUpdateRentSubmitted(Rent*, Rent*);
 
     void returnFromRentSubmitted(Rent*);
     void reservationToRentSubmitted(Reservation*);
@@ -126,8 +126,8 @@ signals:
     void deletePrice(QString type, char condition, int time);
     void createReservation(Reservation*);
     void createRent(Rent*);
-    void updateRent(int userId, int equipmentId, Rent*);
-    void removeRent(int userId, int equipmentId);
+    void updateRent(Rent*, Rent*);
+    void removeRent(Rent*);
 
 private:
     Ui::MainWindow *ui;

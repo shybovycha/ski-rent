@@ -34,7 +34,7 @@ QString RentQueryBuilder::getSearchQuery(QString query) {
         }
     }
 
-    return QString("SELECT * FROM `rent` AS A JOIN `users` AS B ON A.user_id = B.id JOIN `equipment` AS C ON A.equipment_id = C.id WHERE %1").arg(likes.join(" OR "));
+    return QString("SELECT A.* FROM `rent` AS A JOIN `users` AS B ON A.user_id = B.id JOIN `equipment` AS C ON A.equipment_id = C.id WHERE %1").arg(likes.join(" OR "));
 }
 
 QString RentQueryBuilder::getCreateQuery(Rent* newEntity) {
@@ -62,17 +62,17 @@ QString RentQueryBuilder::getCreateQuery(Rent* newEntity) {
     return QString("INSERT INTO %1 (%2) VALUES (%3)").arg(this->tableName).arg(columns.join(", ")).arg(values.join(", "));
 }
 
-QString RentQueryBuilder::getUpdateQuery(int userId, int equipmentId, Rent* newEntity) {
+QString RentQueryBuilder::getUpdateQuery(Rent* oldEntity, Rent* newEntity) {
     QStringList values;
 
     values.append(QString("`amount` = '%1'").arg(newEntity->getAmount()));
     values.append(QString("`rent_from` = '%1'").arg(newEntity->getRentFrom().toString("yyyy-MM-dd hh:mm")));
 
-    return QString("UPDATE %1 SET %2 WHERE `user_id` = %3 AND `equipment_id` = %4").arg(this->tableName).arg(values.join(", ")).arg(userId).arg(equipmentId);
+    return QString("UPDATE %1 SET %2 WHERE `user_id` = %3 AND `equipment_id` = %4 AND `rent_from` = '%5'").arg(this->tableName).arg(values.join(", ")).arg(oldEntity->getUserId()).arg(oldEntity->getEquipmentId()).arg(oldEntity->getRentFrom().toString("yyyy-MM-dd hh:mm"));
 }
 
-QString RentQueryBuilder::getRemoveQuery(int userId, int equipmentId) {
-    return QString("DELETE FROM %1 WHERE `user_id` = %2 AND `equipment_id` = %3").arg(this->tableName).arg(userId).arg(equipmentId);
+QString RentQueryBuilder::getRemoveQuery(Rent* oldEntity) {
+    return QString("DELETE FROM %1 WHERE `user_id` = %2 AND `equipment_id` = %3 AND `rent_from` = '%4'").arg(this->tableName).arg(oldEntity->getUserId()).arg(oldEntity->getEquipmentId()).arg(oldEntity->getRentFrom().toString("yyyy-MM-dd hh:mm"));
 }
 
 QString RentQueryBuilder::getFindByUserIdQuery(int userId) {

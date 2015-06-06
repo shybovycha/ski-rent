@@ -7,7 +7,8 @@ RentForm::RentForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->rent = 0;
+    this->oldRent = 0;
+    this->newRent = 0;
 
     this->equipment = EquipmentDAOSingleton::instance()->all();
 
@@ -40,17 +41,23 @@ void RentForm::recalculatePricePerHour() {
     QString type = ui->equipmentTypeCombo->currentText();
     int conditionIndex = this->ui->equipmentConditionCombo->currentIndex();
     char condition = this->conditions.keys()[conditionIndex];
-    //Price *price = PriceDAOSingleton::instance()->find(type, condition, 1.0)[0];
-    Price *price = new Price();
-    price->setPrice(1.0);
+    int amount = this->ui->amountSpin->value();
+    float price = PriceDAOSingleton::instance()->getPriceTotal(type, condition, 1, amount);
 
-    ui->pricePerHourLcd->display(QString::number(price->getPrice()));
+    ui->pricePerHourLcd->display(QString::number(price));
 }
 
 void RentForm::setRent(Rent *rent) {
     Equipment* tmpEquipment = EquipmentDAOSingleton::instance()->findById(rent->getEquipmentId());
 
-    this->rent = rent;
+    this->oldRent = rent;
+
+    this->newRent = new Rent();
+    this->newRent->setAmount(rent->getAmount());
+    this->newRent->setEquipmentId(rent->getEquipmentId());
+    this->newRent->setRentFrom(rent->getRentFrom());
+    this->newRent->setUserId(rent->getUserId());
+
     this->userId = rent->getUserId();
 
     char conditionKey = tmpEquipment->getCondition();
@@ -70,8 +77,9 @@ void RentForm::onCancelClicked() {
 }
 
 void RentForm::onSaveClicked() {
-    if (!this->rent) {
-        this->rent = new Rent();
+    if (!this->newRent) {
+        this->newRent = new Rent();
+        this->newRent->setRentFrom(QDateTime::currentDateTime());
     }
 
     int equipmentIndex = this->ui->equipmentConditionCombo->currentIndex();
@@ -81,15 +89,10 @@ void RentForm::onSaveClicked() {
         return;
     }
 
-    this->rent->setEquipmentId(this->equipment[equipmentIndex]->getId());
-    this->rent->setAmount(this->ui->amountSpin->value());
-    this->rent->setRentFrom(QDateTime::currentDateTime());
-    this->rent->setUserId(this->userId);
+    this->newRent->setEquipmentId(this->equipment[equipmentIndex]->getId());
+    this->newRent->setAmount(this->ui->amountSpin->value());
+    this->newRent->setUserId(this->userId);
 
-//    int conditionIndex = this->ui->equipmentConditionCombo->currentIndex();
-//    char conditionKey = this->conditions.keys()[conditionIndex];
-    // this->rent->setCondition(conditionKey); // TODO: set first available equipment
-
-    emit saveRent(this->rent);
+    emit saveRent(this->oldRent, this->newRent);
     this->close();
 }
