@@ -114,7 +114,8 @@ HEADERS  += \
     row_models/rentrowmodel.h \
     row_models/reservationrowmodel.h \
     row_models/userrowmodel.h \
-    row_models/pricerowmodel.h
+    row_models/pricerowmodel.h \
+    query_builders/equipmentquerybuilder.h
 
 FORMS    += \
     ui/configurationwindow.ui \

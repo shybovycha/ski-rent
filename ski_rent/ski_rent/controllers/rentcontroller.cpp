@@ -23,7 +23,7 @@ void RentController::returnFromRent(Rent *e) {
     int time = e->getRentFrom().msecsTo(now) / (1000 * 60 * 60); // hours
     User *user = UserDAOSingleton::instance()->findById(e->getUserId());
     Equipment *equipment = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
-    Price *price = PriceDAOSingleton::instance()->find(equipment->getType(), equipment->getCondition(), time)[0]; // TODO: REWORK!!!
+    Price *price = PriceDAOSingleton::instance()->find(equipment->getType(), equipment->getCondition(), time)[0];
 
     HistoryDAOSingleton::instance()->create(user, equipment, e, now, price);
     RentDAOSingleton::instance()->remove(e->getUserId(), e->getEquipmentId());

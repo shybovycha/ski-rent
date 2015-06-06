@@ -72,7 +72,7 @@ QString RentQueryBuilder::getUpdateQuery(int userId, int equipmentId, Rent* newE
 }
 
 QString RentQueryBuilder::getRemoveQuery(int userId, int equipmentId) {
-    return QString("DELETE FROM %1 WHERE `user_id` = %1 AND `equipment_id` = %2").arg(this->tableName).arg(userId).arg(equipmentId);
+    return QString("DELETE FROM %1 WHERE `user_id` = %2 AND `equipment_id` = %3").arg(this->tableName).arg(userId).arg(equipmentId);
 }
 
 QString RentQueryBuilder::getFindByUserIdQuery(int userId) {

@@ -22,6 +22,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QMessageBox>
+#include <QCloseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -45,7 +46,11 @@ protected:
     Reservation* getSelectedReservation();
     Rent* getSelectedRent();
 
+    void closeEvent(QCloseEvent *event);
+
 public slots:
+    void onClose();
+
     void onQuickSearchTextChanged(QString s);
 
     void onCreateEquipmentClicked();
@@ -75,7 +80,7 @@ public slots:
     void onUpdateEquipmentSubmitted(Equipment *e);
     void onDeleteEquipmentSubmitted(int id);
 
-    void onCreateReservationSubmitted(Reservation *newEntity);
+    void onCreateReservationSubmitted(Reservation* _, Reservation *newEntity);
     void onUpdateReservationSubmitted(Reservation *oldEntity, Reservation *newEntity);
 
     void onCreateRentSubmitted(Rent *r);

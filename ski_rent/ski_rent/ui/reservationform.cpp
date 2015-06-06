@@ -10,7 +10,7 @@ ReservationForm::ReservationForm(QWidget *parent) :
     this->oldEntity = 0;
     this->newEntity = 0;
 
-    this->equipment = EquipmentDAOSingleton::instance()->all();
+    this->equipment = EquipmentDAOSingleton::instance()->availableForUsage();
 
     for (int i = 0; i < equipment.size(); i++) {
         ui->equipmentTypeCombo->addItem(equipment[i]->getType());

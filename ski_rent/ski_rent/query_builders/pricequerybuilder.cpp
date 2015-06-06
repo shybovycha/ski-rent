@@ -49,7 +49,7 @@ QString PriceQueryBuilder::getCreateQuery(Price* newEntity) {
 }
 
 QString PriceQueryBuilder::getFindQuery(QString type, char condition, int time) {
-    return QString("SELECT * FROM `%1` WHERE `type` = '%2' AND `condition` = '%3' AND `time` = '%4'")
+    return QString("SELECT * FROM `%1` WHERE `type` = '%2' AND `condition` = '%3' AND `time` <= '%4' ORDER BY `time` DESC LIMIT 1")
         .arg(this->tableName)
         .arg(type)
         .arg(condition)

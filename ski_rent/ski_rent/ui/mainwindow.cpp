@@ -81,6 +81,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::onClose() {
+    QApplication::quit();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    event->accept();
+    QApplication::quit();
+}
+
 // filling views with entities
 
 void MainWindow::setUsers(QList<User*> users) {
@@ -164,7 +173,7 @@ void MainWindow::onDeletePriceSubmitted(QString type, char condition, int time) 
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
-void MainWindow::onCreateReservationSubmitted(Reservation *r) {
+void MainWindow::onCreateReservationSubmitted(Reservation* _, Reservation *r) {
     emit createReservation(r);
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
@@ -247,14 +256,28 @@ void MainWindow::onDeleteUserClicked() {
 }
 
 void MainWindow::onNewReservationClicked() {
+    QList<Equipment*> available = EquipmentDAOSingleton::instance()->availableForUsage();
+
+    if (available.isEmpty()) {
+        QMessageBox::warning(this, tr("Error"), tr("Could not reserve anything because there is no equipment or there is no equipment with price set"), QMessageBox::Ok);
+        return;
+    }
+
     User* u = this->getSelectedUser();
     ReservationForm *win = new ReservationForm();
     win->setUserId(u->getId());
-    connect(win, SIGNAL(saveReservation(Reservation*)), this, SLOT(onCreateReservationSubmitted(Reservation*)));
+    connect(win, SIGNAL(saveReservation(Reservation*, Reservation*)), this, SLOT(onCreateReservationSubmitted(Reservation*, Reservation*)));
     win->show();
 }
 
 void MainWindow::onNewRentClicked() {
+    QList<Equipment*> available = EquipmentDAOSingleton::instance()->availableForUsage();
+
+    if (available.isEmpty()) {
+        QMessageBox::warning(this, tr("Error"), tr("Could not reserve anything because there is no equipment or there is no equipment with price set"), QMessageBox::Ok);
+        return;
+    }
+
     User* u = this->getSelectedUser();
     RentForm *win = new RentForm();
     win->setUserId(u->getId());

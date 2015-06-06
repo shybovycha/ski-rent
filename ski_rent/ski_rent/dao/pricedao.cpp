@@ -44,7 +44,6 @@ QList<Price*> PriceDAO::find(QString query) {
 }
 
 QList<Price*> PriceDAO::find(QString type, char condition, int time) {
-    // TODO: find closest one
     QString sql = this->queryBuilder->getFindQuery(type, condition, time);
     QList<DBRow> rows = this->getDb()->select(sql);
     QList<Price*> prices = EntityConverter<Price>::convert(rows);

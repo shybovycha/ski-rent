@@ -24,7 +24,7 @@ int Rent::getAmount() {
 }
 
 QDateTime Rent::getRentFrom() {
-    return this->get("rentf_rom").toDateTime();
+    return this->get("rent_from").toDateTime();
 }
 
 
@@ -43,5 +43,3 @@ void Rent::setAmount(int val) {
 void Rent::setRentFrom(QDateTime val) {
     this->set("rent_from", val);
 }
-
-
