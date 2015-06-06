@@ -2,6 +2,7 @@
 #define RENTCONTROLLER_H
 
 #include <QObject>
+#include <math.h>
 
 #include "entities/rent.h"
 
@@ -26,6 +27,7 @@ public slots:
     void updateRent(Rent*, Rent*);
     void deleteRent(Rent*);
     void returnFromRent(Rent* e);
+    QList<History*> returnFromRent(QList<Rent*> entries);
 };
 
 typedef Singleton<RentController> RentControllerSingleton;

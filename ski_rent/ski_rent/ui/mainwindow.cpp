@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "controllers/rentcontroller.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -286,20 +287,29 @@ void MainWindow::onNewRentClicked() {
 }
 
 void MainWindow::onEditRentClicked() {
-    Rent *rent = this->getSelectedRent();
-    RentForm *win = new RentForm();
-    win->setRent(rent);
-    connect(win, SIGNAL(saveRent(Rent*, Rent*)), this, SLOT(onUpdateRentSubmitted(Rent*, Rent*)));
-    win->show();
+    QList<Rent*> rents = this->getSelectedRents();
+
+    for (int i = 0; i < rents.size(); i++) {
+        Rent* rent = rents.at(i);
+        RentForm* win = new RentForm();
+        win->setRent(rent);
+        connect(win, SIGNAL(saveRent(Rent*, Rent*)), this, SLOT(onUpdateRentSubmitted(Rent*, Rent*)));
+        win->show();
+    }
 }
 
 void MainWindow::onNewReturnClicked() {
-    Rent *rent = this->getSelectedRent();
-
-    if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this return correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
-        emit returnFromRentSubmitted(rent);
-        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+    if (QMessageBox::question(this, tr("Are you sure?"), tr("Are these returns correct?"), QMessageBox::Yes, QMessageBox::No) != QMessageBox::Yes) {
+        return;
     }
+
+    QList<Rent*> rents = this->getSelectedRents();
+    QList<History*> results = RentControllerSingleton::instance()->returnFromRent(rents);
+
+    emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
+
+    BillForm* win = new BillForm(results);
+    win->show();
 }
 
 void MainWindow::onReservationToRentClicked() {
@@ -376,7 +386,7 @@ void MainWindow::onReservationRowSelected(QModelIndex index) {
 }
 
 void MainWindow::onRentRowSelected(QModelIndex index) {
-    if (this->ui->rentList->selectionModel()->hasSelection()) {
+    if (this->ui->rentList->selectionModel()->selectedRows().size() > 0) {
         this->ui->editRentButton->setEnabled(true);
         this->ui->newReturnButton->setEnabled(true);
     } else {
@@ -421,9 +431,16 @@ Reservation* MainWindow::getSelectedReservation() {
     return this->reservationRowModel->at(index);
 }
 
-Rent* MainWindow::getSelectedRent() {
-    int index = this->ui->rentList->selectionModel()->selectedRows().at(0).row();
-    return this->rentRowModel->at(index);
+QList<Rent*> MainWindow::getSelectedRents() {
+    QModelIndexList indices = this->ui->rentList->selectionModel()->selectedRows();
+    QList<Rent*> res;
+
+    for (int i = 0; i < indices.size(); i++) {
+        int index = indices.at(i).row();
+        res.append(this->rentRowModel->at(index));
+    }
+
+    return res;
 }
 
 Equipment* MainWindow::getSelectedEquipment() {

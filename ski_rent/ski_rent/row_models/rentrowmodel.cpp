@@ -90,6 +90,7 @@ void RentRowModel::setColumns() {
     columns.clear();
     columns["user"] = tr("User");
     columns["equipment"] = tr("Equipment");
+    columns["condition"] = tr("Condition");
     columns["amount"] = tr("Amount");
     columns["rent_from"] = tr("Rent from");
 }
@@ -105,6 +106,9 @@ QVariant RentRowModel::data(const QModelIndex &index, int role) const {
         } else if (key == "equipment") {
             Equipment* u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
             return u->getType();
+        } else if (key == "condition") {
+            Equipment* u = EquipmentDAOSingleton::instance()->findById(e->getEquipmentId());
+            return QString("").sprintf("%c", u->getCondition());
         }
 
         return e->get(key);

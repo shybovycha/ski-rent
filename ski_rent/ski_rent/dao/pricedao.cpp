@@ -44,6 +44,10 @@ QList<Price*> PriceDAO::find(QString query) {
 }
 
 QList<Price*> PriceDAO::find(QString type, char condition, int time) {
+    if (time < 1) {
+        time = 1;
+    }
+
     QString sql = this->queryBuilder->getFindQuery(type, condition, time);
     QList<DBRow> rows = this->getDb()->select(sql);
     QList<Price*> prices = EntityConverter<Price>::convert(rows);
@@ -52,6 +56,10 @@ QList<Price*> PriceDAO::find(QString type, char condition, int time) {
 }
 
 float PriceDAO::getPricePerHour(QString type, char condition, int time) {
+    if (time < 1) {
+        time = 1;
+    }
+
     QList<Price*> prices = this->find(type, condition, time);
 
     if (prices.isEmpty()) {

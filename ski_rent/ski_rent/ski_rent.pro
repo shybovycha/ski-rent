@@ -64,7 +64,8 @@ SOURCES += main.cpp \
     row_models/equipmenrowtmodel.cpp \
     row_models/rentrowmodel.cpp \
     row_models/reservationrowmodel.cpp \
-    row_models/pricerowmodel.cpp
+    row_models/pricerowmodel.cpp \
+    ui/billform.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -115,7 +116,8 @@ HEADERS  += \
     row_models/reservationrowmodel.h \
     row_models/userrowmodel.h \
     row_models/pricerowmodel.h \
-    query_builders/equipmentquerybuilder.h
+    query_builders/equipmentquerybuilder.h \
+    ui/billform.h
 
 FORMS    += \
     ui/configurationwindow.ui \
@@ -125,6 +127,7 @@ FORMS    += \
     ui/rentform.ui \
     ui/reservationform.ui \
     ui/userform.ui \
-    ui/welcomewindow.ui
+    ui/welcomewindow.ui \
+    ui/billform.ui
 
 LIBS += -L/home/shybovycha/Qt/5.4/gcc_64/lib/ -lmysqlclient

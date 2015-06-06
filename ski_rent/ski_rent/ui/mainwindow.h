@@ -17,6 +17,7 @@
 #include "ui/rentform.h"
 #include "ui/reservationform.h"
 #include "ui/priceform.h"
+#include "ui/billform.h"
 
 #include <QList>
 #include <QWidget>
@@ -44,7 +45,7 @@ protected:
     User* getSelectedUser();
     Price* getSelectedPrice();
     Reservation* getSelectedReservation();
-    Rent* getSelectedRent();
+    QList<Rent*> getSelectedRents();
 
     void closeEvent(QCloseEvent *event);
 
