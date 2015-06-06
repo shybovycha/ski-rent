@@ -37,14 +37,14 @@ Baza danych tworzy się przy pomocy następnego kodu SQL:
     create table history (id int primary key auto_increment, `name` varchar(100), surname varchar(100), pesel varchar(20), country varchar(50), city varchar(75), address varchar(100), phone varchar(15), `type` varchar(50), amount int default 0, `condition` char(1), rent_from datetime, rent_to datetime, price float);
 
     create view available_equipment as
-           select
-                   A.id,
-                   A.`type`,
-                   coalesce(A.amount, 0) - coalesce(B.amount, 0) - coalesce(C.amount, 0) as amount,
-                   A.`condition`
-            from equipment as A
-            left join rent as B on A.id = B.equipment_id
-            left join reservations as C on A.id = C.equipment_id;
+		select
+			`A`.`id` AS `id`,
+			`A`.`type` AS `type`,
+			sum((coalesce(`A`.`amount`,0) - coalesce(`B`.`amount`,0)) - coalesce(`C`.`amount`,0)) AS `amount`,
+			`A`.`condition` AS `condition`
+		from
+			((`equipment` `A` left join `rent` `B` on ((`A`.`id` = `B`.`equipment_id`))) left join `reservations` `C` on((`A`.`id` = `C`.`equipment_id`)))
+		group by A.id;
 
     delimiter $$
 

@@ -23,8 +23,8 @@ public:
     QList<Reservation*> findByEquipment(int equipmentId);
     QList<Reservation*> findByRentDate(QDateTime dateFrom, QDateTime dateTo);
     void create(Reservation* newEntity);
-    void remove(int userId, int equipmentId);
-    void update(int userId, int equipmentId, Reservation* newEntity);
+    void remove(Reservation* oldEntity);
+    void update(Reservation* oldEntity, Reservation* newEntity);
     void toRent(Reservation* oldEntity);
 
 protected:

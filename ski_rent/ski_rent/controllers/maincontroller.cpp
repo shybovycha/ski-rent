@@ -18,7 +18,7 @@ MainController::MainController(QObject *parent) : QObject(parent) {
     connect(this->view, SIGNAL(deletePrice(QString, char, int)), PriceControllerSingleton::instance(), SLOT(deletePrice(QString, char, int)));
 
     connect(this->view, SIGNAL(createReservation(Reservation*)), ReservationsControllerSingleton::instance(), SLOT(createReservation(Reservation*)));
-    connect(this->view, SIGNAL(updateReservation(int, int, Reservation*)), ReservationsControllerSingleton::instance(), SLOT(updateReservation(int, int, Reservation*)));
+    connect(this->view, SIGNAL(updateReservation(Reservation*, Reservation*)), ReservationsControllerSingleton::instance(), SLOT(updateReservation(Reservation*, Reservation*)));
     connect(this->view, SIGNAL(reservationCancel(Reservation*)), ReservationsControllerSingleton::instance(), SLOT(cancelReservation(Reservation*)));
 
     connect(this->view, SIGNAL(createRent(Rent*)), RentControllerSingleton::instance(), SLOT(createRent(Rent*)));
@@ -43,6 +43,8 @@ void MainController::index() {
 }
 
 void MainController::find(QString query) {
+    query = query.trimmed();
+
     this->view->setUsers(UserDAOSingleton::instance()->find(query));
     this->view->setEquipment(EquipmentDAOSingleton::instance()->find(query));
     this->view->setRents(RentDAOSingleton::instance()->find(query));

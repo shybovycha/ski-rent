@@ -16,12 +16,12 @@ public:
     QString getListAllQuery();
     QString getToRentQuery(Reservation* oldEntity);
     QString getCreateQuery(Reservation* newEntity);
-    QString getRemoveQuery(int userId, int equipmentId);
+    QString getRemoveQuery(Reservation* oldEntity);
     QString getSearchQuery(QString query);
     QString getFindByUserQuery(int userId);
     QString getFindByEquipmentQuery(int equipmentId);
     QString getFindByRentDateQuery(QDateTime dateFrom, QDateTime dateTo);
-    QString getUpdateQuery(int userId, int equipmentId, Reservation* newEntity);
+    QString getUpdateQuery(Reservation* oldEntity, Reservation* newEntity);
 
 protected:
     QString tableName;

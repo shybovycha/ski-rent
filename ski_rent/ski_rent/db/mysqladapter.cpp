@@ -58,16 +58,17 @@ QList< DBRow > MySQLAdapter::select(QString query) {
     return rows;
 }
 
-void MySQLAdapter::update(QString query) {
+bool MySQLAdapter::update(QString query) {
     QSqlQuery q;
-
-    this->db.transaction();
 
     bool res = q.exec(query);
 
-    bool isOk = this->db.commit();
-
-    if (!isOk || !res) {
-        qDebug() << this->db.lastError().text();
+    if (!res) {
+        qDebug() << QString("Could not execute query:\n\n%1\n\nBecause of error: ").arg(query);
+        qDebug() << this->db.lastError().databaseText();
+        qDebug() << this->db.lastError().driverText();
+        qDebug() << "==== Trace end ====";
     }
+
+    return res;
 }

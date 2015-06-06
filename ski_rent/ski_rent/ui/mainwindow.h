@@ -75,8 +75,8 @@ public slots:
     void onUpdateEquipmentSubmitted(Equipment *e);
     void onDeleteEquipmentSubmitted(int id);
 
-    void onCreateReservationSubmitted(Reservation *r);
-    void onUpdateReservationSubmitted(int userId, int equipmentId, Reservation *r);
+    void onCreateReservationSubmitted(Reservation *newEntity);
+    void onUpdateReservationSubmitted(Reservation *oldEntity, Reservation *newEntity);
 
     void onCreateRentSubmitted(Rent *r);
     void onUpdateRentSubmitted(int, int, Rent *r);
@@ -114,7 +114,7 @@ signals:
     void reservationToRent(Reservation*);
     void removePrice(Price*);
     void reservationCancel(Reservation*);
-    void updateReservation(int, int, Reservation*);
+    void updateReservation(Reservation*, Reservation*);
     void returnFromRent(Rent*);
     void createPrice(Price*);
     void updatePrice(QString type, char condition, int time, Price*);

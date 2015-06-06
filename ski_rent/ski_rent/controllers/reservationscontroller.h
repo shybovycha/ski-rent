@@ -17,8 +17,8 @@ public:
 
 public slots:
     void createReservation(Reservation* newEntity);
-    void updateReservation(int userId, int equipmentId, Reservation* newEntity);
-    void deleteReservation(int userId, int equipmentId);
+    void updateReservation(Reservation* oldEntity, Reservation* newEntity);
+    void deleteReservation(Reservation* oldEntity);
     void reservationToRent(Reservation* oldEntity);
     void cancelReservation(Reservation* oldEntity);
 };

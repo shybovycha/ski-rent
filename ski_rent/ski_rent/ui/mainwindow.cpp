@@ -169,8 +169,8 @@ void MainWindow::onCreateReservationSubmitted(Reservation *r) {
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
-void MainWindow::onUpdateReservationSubmitted(int userId, int equipmentId, Reservation *r) {
-    emit updateReservation(userId, equipmentId, r);
+void MainWindow::onUpdateReservationSubmitted(Reservation *oldEntity, Reservation *newEntity) {
+    emit updateReservation(oldEntity, newEntity);
     emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
 }
 
@@ -275,6 +275,7 @@ void MainWindow::onNewReturnClicked() {
 
     if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this return correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
         emit returnFromRentSubmitted(rent);
+        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
     }
 }
 
@@ -283,15 +284,15 @@ void MainWindow::onReservationToRentClicked() {
 
     if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this reservation correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
         emit reservationToRentSubmitted(reservation);
+        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
     }
 }
 
 void MainWindow::onEditReservationClicked() {
     Reservation *r = this->getSelectedReservation();
     ReservationForm *win = new ReservationForm();
-    win->setUserId(r->getUserId());
     win->setReservation(r);
-    connect(win, SIGNAL(saveReservation(Reservation*)), this, SLOT(onUpdateReservationSubmitted(Reservation*)));
+    connect(win, SIGNAL(saveReservation(Reservation*, Reservation*)), this, SLOT(onUpdateReservationSubmitted(Reservation*, Reservation*)));
     win->show();
 }
 
@@ -300,6 +301,7 @@ void MainWindow::onCancelReservationClicked() {
 
     if (QMessageBox::question(this, tr("Are you sure?"), tr("Is this reservation cancel correct?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
         emit reservationCancel(reservation);
+        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
     }
 }
 
@@ -322,6 +324,7 @@ void MainWindow::onDeletePriceClicked() {
 
     if (QMessageBox::question(this, tr("Are you sure?"), tr("Sure, you want to remove this price?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
         emit removePrice(p);
+        emit quickSearchTextChanged(this->ui->quickSearchEdit->text());
     }
 }
 

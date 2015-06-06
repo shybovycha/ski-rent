@@ -32,12 +32,13 @@ public slots:
     void onCancelClicked();
 
 signals:
-    void saveReservation(Reservation* reservation);
+    void saveReservation(Reservation* oldReservation, Reservation* reservation);
 
 private:
     Ui::ReservationForm *ui;
     int userId;
-    Reservation *reservation;
+    int equipmentId;
+    Reservation *oldEntity, *newEntity;
     QList<Equipment*> equipment;
     QMap<char, QString> conditions;
 };

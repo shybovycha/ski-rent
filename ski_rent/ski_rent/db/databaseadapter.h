@@ -16,7 +16,7 @@ public:
     ~DatabaseAdapter();
 
     virtual QList< DBRow > select(QString query) = 0;
-    virtual void update(QString query) = 0;
+    virtual bool update(QString query) = 0;
 
 protected:
     QList<QString> columns(QString tableName);

@@ -15,9 +15,13 @@ DatabaseAdapter* ReservationDAO::getDb() {
 
 void ReservationDAO::toRent(Reservation *oldEntity) {
     QString sql = this->queryBuilder->getToRentQuery(oldEntity);
-    this->getDb()->update(sql);
+    bool rentCreated = this->getDb()->update(sql);
 
-    sql = this->queryBuilder->getRemoveQuery(oldEntity->getUserId(), oldEntity->getEquipmentId());
+    if (!rentCreated) {
+        return;
+    }
+
+    sql = this->queryBuilder->getRemoveQuery(oldEntity);
     this->getDb()->update(sql);
 }
 
@@ -31,7 +35,6 @@ QList<Reservation*> ReservationDAO::all() {
 QList<Reservation*> ReservationDAO::find(QString query) {
     QString sql = this->queryBuilder->getSearchQuery(query);
     QList<DBRow> rows = this->getDb()->select(sql);
-    qDebug() << sql;
 
     return EntityConverter<Reservation>::convert(rows);
 }
@@ -62,13 +65,13 @@ void ReservationDAO::create(Reservation* newEntity) {
     this->getDb()->update(sql);
 }
 
-void ReservationDAO::remove(int userId, int equipmentId) {
-    QString sql = this->queryBuilder->getRemoveQuery(userId, equipmentId);
+void ReservationDAO::remove(Reservation* oldEntity) {
+    QString sql = this->queryBuilder->getRemoveQuery(oldEntity);
     this->getDb()->update(sql);
 }
 
-void ReservationDAO::update(int userId, int equipmentId, Reservation* newEntity) {
-    QString sql = this->queryBuilder->getUpdateQuery(userId, equipmentId, newEntity);
+void ReservationDAO::update(Reservation* oldEntity, Reservation* newEntity) {
+    QString sql = this->queryBuilder->getUpdateQuery(oldEntity, newEntity);
     this->getDb()->update(sql);
 }
 

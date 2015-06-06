@@ -13,7 +13,7 @@ public:
     ~MySQLAdapter();
 
     virtual QList< DBRow > select(QString query);
-    virtual void update(QString query);
+    virtual bool update(QString query);
 };
 
 #endif // MYSQLADAPTER_H

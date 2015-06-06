@@ -7,7 +7,8 @@ ReservationForm::ReservationForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->reservation = 0;
+    this->oldEntity = 0;
+    this->newEntity = 0;
 
     this->equipment = EquipmentDAOSingleton::instance()->all();
 
@@ -35,8 +36,9 @@ ReservationForm::~ReservationForm()
 void ReservationForm::setReservation(Reservation *reservation) {
     Equipment *tmpEquipment = EquipmentDAOSingleton::instance()->findById(reservation->getEquipmentId());
 
-    this->reservation = reservation;
+    this->oldEntity = reservation;
     this->userId = reservation->getUserId();
+    this->equipmentId = reservation->getEquipmentId();
 
     char conditionKey = tmpEquipment->getCondition();
     ui->equipmentConditionCombo->setCurrentIndex(this->conditions.keys().indexOf(conditionKey));
@@ -58,8 +60,8 @@ void ReservationForm::onCancelClicked() {
 }
 
 void ReservationForm::onSaveClicked() {
-    if (!this->reservation) {
-        this->reservation = new Reservation();
+    if (!this->newEntity) {
+        this->newEntity = new Reservation();
     }
 
     int equipmentIndex = this->ui->equipmentConditionCombo->currentIndex();
@@ -69,17 +71,13 @@ void ReservationForm::onSaveClicked() {
         return;
     }
 
-    this->reservation->setEquipmentId(this->equipment[equipmentIndex]->getId());
-    this->reservation->setAmount(this->ui->amountSpin->value());
-    this->reservation->setRentFrom(ui->rentFromEdit->dateTime());
-    this->reservation->setRentTo(ui->rentToEdit->dateTime());
-    this->reservation->setUserId(this->userId);
+    this->newEntity->setEquipmentId(this->equipment[equipmentIndex]->getId());
+    this->newEntity->setAmount(this->ui->amountSpin->value());
+    this->newEntity->setRentFrom(ui->rentFromEdit->dateTime());
+    this->newEntity->setRentTo(ui->rentToEdit->dateTime());
+    this->newEntity->setUserId(this->userId);
 
-//    int conditionIndex = this->ui->conditionCombo->currentIndex();
-//    char conditionKey = this->conditions.keys()[conditionIndex];
-//    this->reservation->setCondition(conditionKey);
-    // TODO: set first available equipment
+    emit saveReservation(this->oldEntity, this->newEntity);
 
-    emit saveReservation(this->reservation);
     this->close();
 }

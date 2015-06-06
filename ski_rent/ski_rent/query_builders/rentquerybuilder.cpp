@@ -26,8 +26,12 @@ QString RentQueryBuilder::getSearchQuery(QString query) {
     searchColumns.append("B.phone");
     searchColumns.append("C.type");
 
-    for (int i = 0; i < searchColumns.size(); i++) {
-        likes.append(QString("`%1` LIKE %2").arg(searchColumns[i]).arg(likeCondition));
+    if (query.isEmpty()) {
+        likes.append("TRUE");
+    } else {
+        for (int i = 0; i < searchColumns.size(); i++) {
+            likes.append(QString("`%1` LIKE %2").arg(searchColumns[i]).arg(likeCondition));
+        }
     }
 
     return QString("SELECT * FROM `rent` AS A JOIN `users` AS B ON A.user_id = B.id JOIN `equipment` AS C ON A.equipment_id = C.id WHERE %1").arg(likes.join(" OR "));
