@@ -61,7 +61,7 @@ QVariant ReservationRowModel::headerData(int section, Qt::Orientation orientatio
         return QVariant();
 
     if (orientation == Qt::Horizontal)
-        return this->columns.values()[section];
+        return this->columns.at(section).second;
     else
         return QString::number(section + 1);
 }
@@ -86,18 +86,22 @@ bool ReservationRowModel::removeRows(int position, int rows, const QModelIndex &
     return true;
 }
 
+void ReservationRowModel::registerColumn(QString field, QString title) {
+    this->columns.push_back(QPair<QString, QString>(field, title));
+}
+
 void ReservationRowModel::setColumns() {
     columns.clear();
-    columns["user"] = tr("User");
-    columns["equipment"] = tr("Equipment");
-    columns["amount"] = tr("Amount");
-    columns["rent_from"] = tr("Rent from");
-    columns["rent_to"] = tr("Rent to");
+    registerColumn("user", tr("User"));
+    registerColumn("equipment", tr("Equipment"));
+    registerColumn("amount", tr("Amount"));
+    registerColumn("rent_from", tr("Rent from"));
+    registerColumn("rent_to", tr("Rent to"));
 }
 
 QVariant ReservationRowModel::data(const QModelIndex &index, int role) const {
     if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
-        QString key = this->columns.keys().at(index.column());
+        QString key = this->columns.at(index.column()).first;
         Reservation* e = this->entities.at(index.row());
 
         if (key == "user") {

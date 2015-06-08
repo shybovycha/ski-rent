@@ -7,15 +7,15 @@
 template<>
 void AbstractRowModel<Equipment>::setColumns() {
     columns.clear();
-    columns["amount"] = tr("Amount");
-    columns["type"] = tr("Type");
-    columns["condition"] = tr("Condition");
+    registerColumn("amount", tr("Amount"));
+    registerColumn("type", tr("Type"));
+    registerColumn("condition", tr("Condition"));
 }
 
 template<>
 QVariant AbstractRowModel<Equipment>::data(const QModelIndex &index, int role) const {
     if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
-        QString key = this->columns.keys().at(index.column());
+        QString key = this->columns.at(index.column()).first;
         Equipment* e = this->entities.at(index.row());
 
         if (key == "condition") {

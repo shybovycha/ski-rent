@@ -8,6 +8,8 @@
 #include <QStringList>
 #include <QVariant>
 #include <QMap>
+#include <QQueue>
+#include <QPair>
 #include <QAbstractTableModel>
 
 class PriceRowModel : public QAbstractTableModel
@@ -35,9 +37,10 @@ public:
 
 protected:
     virtual void setColumns();
+    void registerColumn(QString field, QString title);
 
     QList<Price*> entities;
-    QMap<QString, QString> columns;
+    QQueue< QPair<QString, QString> > columns;
 };
 
 #endif // PRICEROWMODEL_H

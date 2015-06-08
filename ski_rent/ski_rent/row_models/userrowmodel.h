@@ -7,14 +7,15 @@
 template<>
 void AbstractRowModel<User>::setColumns() {
     columns.clear();
-    columns["name"] = tr("Name");
-    columns["surname"] = tr("Surname");
-    columns["document_type"] = tr("Document type");
-    columns["document_number"] = tr("Document number");
-    columns["country"] = tr("Country");
-    columns["city"] = tr("City");
-    columns["address"] = tr("Address");
-    columns["phone"] = tr("Phone");
+
+    registerColumn("name", tr("Name"));
+    registerColumn("surname", tr("Surname"));
+    registerColumn("document_type", tr("Document type"));
+    registerColumn("document_number", tr("Document number"));
+    registerColumn("country", tr("Country"));
+    registerColumn("city", tr("City"));
+    registerColumn("address", tr("Address"));
+    registerColumn("phone", tr("Phone"));
 }
 
 #endif // USERROWMODEL_H

@@ -26,6 +26,7 @@ public:
 
     QList<History*> all();
     History* find(int id);
+    QList<History*> find(QString query);
     void create(History* newEntity);
     void create(User* user, Equipment *equipment, Rent *rent, QDateTime rentTo, Price *price);
 

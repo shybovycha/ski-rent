@@ -20,6 +20,7 @@ public:
     QString getCreateQuery(History* newEntity);
     QString getCreateQuery(User*, Equipment*, Rent*, QDateTime rentTo, Price*);
     QString getFindQuery(int id);
+    QString getSearchQuery(QString query);
 
 protected:
     QString tableName;

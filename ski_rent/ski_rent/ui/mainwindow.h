@@ -42,6 +42,10 @@ public:
 
     void setUsers(QList<User*> users);
     void setEquipment(QList<Equipment*> equipment);
+    void setRents(QList<Rent*> rents);
+    void setReservations(QList<Reservation*> reservations);
+    void setPrices(QList<Price*> prices);
+    void setHistoryEntries(QList<History*> entries);
 
 protected:
     Equipment* getSelectedEquipment();
@@ -106,10 +110,6 @@ public slots:
     void onReservationToRentClicked();
     void onCancelReservationClicked();
 
-    void setRents(QList<Rent*> rents);
-    void setReservations(QList<Reservation*> reservations);
-    void setPrices(QList<Price*> prices);
-
 signals:
     void quickSearchTextChanged(QString s);
 
@@ -138,6 +138,7 @@ private:
     Ui::MainWindow *ui;
     AbstractRowModel<User> *userRowModel;
     AbstractRowModel<Equipment> *equipmentRowModel;
+    AbstractRowModel<History> *historyRowModel;
     RentRowModel *rentRowModel;
     ReservationRowModel *reservationRowModel;
     PriceRowModel *priceRowModel;

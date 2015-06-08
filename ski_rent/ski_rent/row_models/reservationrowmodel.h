@@ -3,6 +3,9 @@
 
 #include <QAbstractTableModel>
 
+#include <QQueue>
+#include <QPair>
+
 #include "entities/reservation.h"
 #include "dao/userdao.h"
 #include "dao/equipmentdao.h"
@@ -32,9 +35,10 @@ public:
 
 protected:
     virtual void setColumns();
+    void registerColumn(QString field, QString title);
 
     QList<Reservation*> entities;
-    QMap<QString, QString> columns;
+    QQueue< QPair<QString, QString> > columns;
 };
 
 #endif // RESERVATIONROWMODEL_H

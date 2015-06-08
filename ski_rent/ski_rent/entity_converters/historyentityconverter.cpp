@@ -16,9 +16,9 @@ History* EntityConverter<History>::convert(DBRow row) {
     result->setPhone(row["phone"].toString());
     result->setType(row["type"].toString());
     result->setAmount(row["amount"].toInt());
-    result->setCondition(row["condition"].toChar().unicode());
-    result->setRentFrom(row["rentFrom"].toDateTime());
-    result->setRentTo(row["rentTo"].toDateTime());
+    result->setCondition(row["condition"].toString().at(0).unicode());
+    result->setRentFrom(row["rent_from"].toDateTime());
+    result->setRentTo(row["rent_to"].toDateTime());
     result->setPrice(row["price"].toFloat());
 
     return result;

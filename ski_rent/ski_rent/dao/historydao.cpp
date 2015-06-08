@@ -32,6 +32,11 @@ History* HistoryDAO::find(int id) {
     }
 }
 
+QList<History*> HistoryDAO::find(QString query) {
+    QString sql = this->queryBuilder->getSearchQuery(query);
+    return EntityConverter<History>::convert(this->getDb()->select(sql));
+}
+
 void HistoryDAO::create(History* newEntity) {
     QString sql = this->queryBuilder->getCreateQuery(newEntity);
     this->getDb()->update(sql);

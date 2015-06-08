@@ -38,6 +38,7 @@ void MainController::index() {
     this->view->setRents(RentDAOSingleton::instance()->all());
     this->view->setReservations(ReservationDAOSingleton::instance()->all());
     this->view->setPrices(PriceDAOSingleton::instance()->all());
+    this->view->setHistoryEntries(HistoryDAOSingleton::instance()->all());
 
     this->view->show();
 }
@@ -50,6 +51,7 @@ void MainController::find(QString query) {
     this->view->setRents(RentDAOSingleton::instance()->find(query));
     this->view->setReservations(ReservationDAOSingleton::instance()->find(query));
     this->view->setPrices(PriceDAOSingleton::instance()->find(query));
+    this->view->setHistoryEntries(HistoryDAOSingleton::instance()->find(query));
 
     this->view->show();
 }

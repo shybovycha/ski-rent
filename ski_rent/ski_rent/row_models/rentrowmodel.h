@@ -12,6 +12,8 @@
 #include <QStringList>
 #include <QVariant>
 #include <QMap>
+#include <QQueue>
+#include <QPair>
 #include <QAbstractTableModel>
 
 class RentRowModel : public QAbstractTableModel
@@ -39,9 +41,10 @@ public:
 
 protected:
     virtual void setColumns();
+    void registerColumn(QString, QString);
 
     QList<Rent*> entities;
-    QMap<QString, QString> columns;
+    QQueue< QPair<QString, QString> > columns;
 };
 
 #endif // RENTROWMODEL_H

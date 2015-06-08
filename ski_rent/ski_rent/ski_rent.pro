@@ -65,7 +65,8 @@ SOURCES += main.cpp \
     row_models/rentrowmodel.cpp \
     row_models/reservationrowmodel.cpp \
     row_models/pricerowmodel.cpp \
-    ui/billform.cpp
+    ui/billform.cpp \
+    row_models/historyrowmodel.cpp
 
 HEADERS  += \
     dao/basedao.h \
@@ -117,7 +118,8 @@ HEADERS  += \
     row_models/userrowmodel.h \
     row_models/pricerowmodel.h \
     query_builders/equipmentquerybuilder.h \
-    ui/billform.h
+    ui/billform.h \
+    row_models/historyrowmodel.h
 
 FORMS    += \
     ui/configurationwindow.ui \

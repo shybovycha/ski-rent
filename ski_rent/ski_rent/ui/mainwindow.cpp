@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // row models
     this->userRowModel = new AbstractRowModel<User>();
     this->equipmentRowModel = new AbstractRowModel<Equipment>();
+    this->historyRowModel = new AbstractRowModel<History>();
     this->rentRowModel = new RentRowModel();
     this->reservationRowModel = new ReservationRowModel();
     this->priceRowModel = new PriceRowModel();
@@ -21,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->rentList->setModel(this->rentRowModel);
     this->ui->reservationList->setModel(this->reservationRowModel);
     this->ui->priceList->setModel(this->priceRowModel);
+    this->ui->historyList->setModel(this->historyRowModel);
 
     // disabling buttons which require selection
     this->ui->newRentButton->setEnabled(false);
@@ -120,6 +122,12 @@ void MainWindow::setPrices(QList<Price*> prices) {
     this->priceRowModel->clear();
     this->priceRowModel->add(prices);
     this->ui->tabWidget->setTabText(4, tr("Prices (%1)").arg(prices.size()));
+}
+
+void MainWindow::setHistoryEntries(QList<History*> entries) {
+    this->historyRowModel->clear();
+    this->historyRowModel->add(entries);
+    this->ui->tabWidget->setTabText(5, tr("Archive (%1)").arg(entries.size()));
 }
 
 // modal window callbacks

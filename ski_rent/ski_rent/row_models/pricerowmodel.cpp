@@ -58,7 +58,7 @@ int PriceRowModel::rowCount(const QModelIndex &parent) const {
 
 QVariant PriceRowModel::data(const QModelIndex &index, int role) const {
     if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
-        QString key = this->columns.keys().at(index.column());
+        QString key = this->columns.at(index.column()).first;
         Price* e = (Price*) this->entities.at(index.row());
 
         if (key == "type")
@@ -81,7 +81,7 @@ QVariant PriceRowModel::headerData(int section, Qt::Orientation orientation, int
         return QVariant();
 
     if (orientation == Qt::Horizontal)
-        return this->columns.values()[section];
+        return this->columns.at(section).second;
     else
         return QString::number(section + 1);
 }
@@ -106,10 +106,14 @@ bool PriceRowModel::removeRows(int position, int rows, const QModelIndex &index)
     return true;
 }
 
+void PriceRowModel::registerColumn(QString field, QString title) {
+    this->columns.push_back(QPair<QString, QString>(field, title));
+}
+
 void PriceRowModel::setColumns() {
     columns.clear();
-    columns["type"] = tr("Equipment");
-    columns["condition"] = tr("Condition");
-    columns["time"] = tr("Rent time");
-    columns["price"] = tr("Price");
+    registerColumn("type", tr("Equipment"));
+    registerColumn("condition", tr("Condition"));
+    registerColumn("time", tr("Rent time"));
+    registerColumn("price", tr("Price"));
 }

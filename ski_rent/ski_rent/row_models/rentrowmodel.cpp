@@ -48,6 +48,10 @@ void RentRowModel::clear() {
     this->removeRows(0, n);
 }
 
+void RentRowModel::registerColumn(QString field, QString title) {
+    this->columns.push_back(QPair<QString, QString>(field, title));
+}
+
 int RentRowModel::columnCount(const QModelIndex &parent) const {
     return this->columns.size();
 }
@@ -61,7 +65,7 @@ QVariant RentRowModel::headerData(int section, Qt::Orientation orientation, int 
         return QVariant();
 
     if (orientation == Qt::Horizontal)
-        return this->columns.values()[section];
+        return this->columns.at(section).second;
     else
         return QString::number(section + 1);
 }
@@ -88,16 +92,16 @@ bool RentRowModel::removeRows(int position, int rows, const QModelIndex &index) 
 
 void RentRowModel::setColumns() {
     columns.clear();
-    columns["user"] = tr("User");
-    columns["equipment"] = tr("Equipment");
-    columns["condition"] = tr("Condition");
-    columns["amount"] = tr("Amount");
-    columns["rent_from"] = tr("Rent from");
+    registerColumn("user", tr("User"));
+    registerColumn("equipment", tr("Equipment"));
+    registerColumn("condition", tr("Condition"));
+    registerColumn("amount", tr("Amount"));
+    registerColumn("rent_from", tr("Rent from"));
 }
 
 QVariant RentRowModel::data(const QModelIndex &index, int role) const {
     if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
-        QString key = this->columns.keys().at(index.column());
+        QString key = this->columns.at(index.column()).first;
         Rent* e = this->entities.at(index.row());
 
         if (key == "user") {

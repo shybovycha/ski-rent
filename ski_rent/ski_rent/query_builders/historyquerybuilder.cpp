@@ -88,8 +88,8 @@ QString HistoryQueryBuilder::getCreateQuery(User *user, Equipment *equipment, Re
 
     values.append(equipment->getType());
 
-    values.append(QString::number(equipment->getCondition()));
     values.append(QString::number(rent->getAmount()));
+    values.append(QString::number(equipment->getCondition()));
     values.append(rent->getRentFrom().toString("yyyy-MM-dd hh:mm"));
     values.append(rentTo.toString("yyyy-MM-dd hh:mm"));
     values.append(QString::number(price->getPrice()));
@@ -111,3 +111,33 @@ QString HistoryQueryBuilder::getFindQuery(int id) {
     return QString("SELECT * FROM %1 WHERE id = %2").arg(this->tableName).arg(id);
 }
 
+QString HistoryQueryBuilder::getSearchQuery(QString query) {
+    QString likeCondition = QString("'%%1%'").arg(QString(query).split("\\s+").join("%"));
+    QStringList likes;
+    QStringList searchColumns;
+
+    searchColumns.append("name");
+    searchColumns.append("surname");
+    searchColumns.append("country");
+    searchColumns.append("city");
+    searchColumns.append("address");
+    searchColumns.append("phone");
+    searchColumns.append("type");
+    searchColumns.append("amount");
+    searchColumns.append("condition");
+    searchColumns.append("rent_from");
+    searchColumns.append("rent_to");
+    searchColumns.append("price");
+    searchColumns.append("document_type");
+    searchColumns.append("document_number");
+
+    if (query.isEmpty()) {
+        likes.append("TRUE");
+    } else {
+        for (int i = 0; i < searchColumns.size(); i++) {
+            likes.append(QString("`%1` LIKE %2").arg(searchColumns[i]).arg(likeCondition));
+        }
+    }
+
+    return QString("SELECT * FROM `%1` WHERE %2").arg(this->tableName).arg(likes.join(" OR "));
+}

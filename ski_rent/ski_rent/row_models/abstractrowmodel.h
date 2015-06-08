@@ -8,6 +8,7 @@
 #include <QStringList>
 #include <QVariant>
 #include <QMap>
+#include <QQueue>
 #include <QAbstractTableModel>
 
 template<typename T>
@@ -36,15 +37,21 @@ public:
 
 protected:
     virtual void setColumns();
+    void registerColumn(QString field, QString title);
 
     QList<T*> entities;
-    QMap<QString, QString> columns;
+    QQueue< QPair<QString, QString> > columns;
 };
 
 template<typename T>
 AbstractRowModel<T>::AbstractRowModel(const QList<T*> &entities, QObject *parent)  : QAbstractTableModel(parent), entities(entities)
 {
     this->setColumns();
+}
+
+template<typename T>
+void AbstractRowModel<T>::registerColumn(QString field, QString title) {
+    this->columns.push_back(QPair<QString, QString>(field, title));
 }
 
 template<typename T>
@@ -110,7 +117,7 @@ int AbstractRowModel<T>::rowCount(const QModelIndex &parent) const {
 template<typename T>
 QVariant AbstractRowModel<T>::data(const QModelIndex &index, int role) const {
     if (index.isValid() && index.row() < this->entities.size() && role == Qt::DisplayRole) {
-        QString key = this->columns.keys().at(index.column());
+        QString key = this->columns.at(index.column()).first;
         BaseEntity* e = (BaseEntity*) this->entities.at(index.row());
 
         return e->get(key);
@@ -125,7 +132,7 @@ QVariant AbstractRowModel<T>::headerData(int section, Qt::Orientation orientatio
         return QVariant();
 
     if (orientation == Qt::Horizontal)
-        return this->columns.values()[section];
+        return this->columns.at(section).second;
     else
         return QString::number(section + 1);
 }
