@@ -7,6 +7,9 @@
 #include "entities/reservation.h"
 #include "entities/price.h"
 
+#include "dao/historydao.h"
+#include "dao/rentdao.h"
+
 #include "row_models/abstractrowmodel.h"
 #include "row_models/pricerowmodel.h"
 #include "row_models/rentrowmodel.h"
@@ -46,6 +49,7 @@ protected:
     Price* getSelectedPrice();
     Reservation* getSelectedReservation();
     QList<Rent*> getSelectedRents();
+    QList<History*> returnFromRent(QList<Rent*> entries);
 
     void closeEvent(QCloseEvent *event);
 

@@ -10,6 +10,8 @@
 #include <QList>
 #include <QString>
 
+#define max(a, b) (a > b) ? a : b
+
 namespace Ui {
 class BillForm;
 }

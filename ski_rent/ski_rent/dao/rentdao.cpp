@@ -38,7 +38,6 @@ QList<Rent*> RentDAO::all() {
 
 QList<Rent*> RentDAO::find(QString query) {
     QString sql = this->queryBuilder->getSearchQuery(query);
-    qDebug() << sql;
     QList<DBRow> rows = this->getDb()->select(sql);
     QList<Rent*> res = EntityConverter<Rent>::convert(rows);
 

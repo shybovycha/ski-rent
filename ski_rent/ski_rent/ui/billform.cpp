@@ -27,13 +27,13 @@ void BillForm::setBillText(QString text) {
 
 void BillForm::setBillingItems(QList<History*> entries) {
     QString entriesHtml = "";
-    QString css = tr("<style>.top-header { width:100%; text-align:center; text-transform:uppercase; } .row { display:block; } .title { display:inline-block; width:70%; } .price { display:inline-block; width:30%; } .spacer { font-family: \"Courier New\", Courier, monospace; }</style>");
-    QString header = tr("<h1>SkiRent</h1><div class=\"top-header\"><h3>the bill</h3></div>");
+    QString css = tr("<style>.top-header { text-transform:uppercase; } * { font-family: \"Courier New\", Courier, monospace; } p { display:inline; }</style>");
+    QString header = tr("<table><thead><tr><th colspan=\"2\"><h1 align=\"center\">SkiRent</h1></th></tr><tr><th colspan=\"2\"><h3 class=\"top-header\" align=\"center\">the bill</h3></th></tr></thead><tbody>");
 
     float total = 0.0;
 
     for (int i = 0; i < entries.size(); i++) {
-        int time = ceil(abs(entries[i]->getRentFrom().msecsTo(entries[i]->getRentTo())) / (60 * 60 * 1000));
+        int time = max(ceil(abs(entries[i]->getRentFrom().msecsTo(entries[i]->getRentTo())) / (60 * 60 * 1000)), 1);
         float pricePerHour = PriceDAOSingleton::instance()->getPricePerHour(entries[i]->getType(), entries[i]->getCondition(), time);
         float totalPrice = PriceDAOSingleton::instance()->getPriceTotal(entries[i]->getType(), entries[i]->getCondition(), time, entries[i]->getAmount());
 
@@ -42,14 +42,14 @@ void BillForm::setBillingItems(QList<History*> entries) {
         QString titleLine = tr("%1 (%2)").arg(entries[i]->getType()).arg(entries[i]->getCondition());
         QString priceLine = tr("%1 hrs &times; %2 = %3").arg(time).arg(pricePerHour).arg(totalPrice);
 
-        entriesHtml += tr("<div class=\"row\"><span class=\"title\">%1</span><span class=\"price\">%2</span></div>")
+        entriesHtml += tr("<tr><td align=\"left\">%1</td><td align=\"right\">%2</td></tr>")
                 .arg(titleLine)
                 .arg(priceLine);
     }
 
-    QString spacerLine = tr("<div class=\"spacer\">----------------------</div>");
+    QString spacerLine = tr("<tr><td colspan=\"2\"><hr /></td></tr>");
     QString currency = tr("USD");
-    QString totalLine = tr("<div class=\"row\"><h1><span class=\"title\">TOTAL, %1</span><span class=\"price\">%2</span></h1></div>")
+    QString totalLine = tr("<tr><td align=\"left\"><h1>TOTAL, %1</h1></td><td align=\"right\"><h1>%2</h1></td></tr></tbody></table>")
             .arg(currency)
             .arg(QString::number(total, 'g', 2));
 
