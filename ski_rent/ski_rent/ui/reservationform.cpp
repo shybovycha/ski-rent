@@ -23,6 +23,8 @@ ReservationForm::ReservationForm(QWidget *parent) :
     conditions['E'] = tr("Almost done");
 
     ui->equipmentConditionCombo->addItems(conditions.values());
+    ui->rentFromEdit->setDateTime(QDateTime::currentDateTime()); // now
+    ui->rentToEdit->setDateTime(QDateTime::currentDateTime().addSecs(60 * 60)); // 1 hour later
 
     connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(onSaveClicked()));
     connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(onCancelClicked()));
