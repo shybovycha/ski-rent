@@ -35,6 +35,19 @@ CREATE TABLE `prices` (
   PRIMARY KEY (`type`,`condition`,`time`)
 );
 
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `surname` varchar(100) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `city` varchar(75) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `document_type` varchar(20) DEFAULT NULL,
+  `document_number` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `rent` (
   `user_id` int(11) NOT NULL DEFAULT '0',
   `equipment_id` int(11) NOT NULL DEFAULT '0',
@@ -56,24 +69,6 @@ CREATE TABLE `reservations` (
   KEY `equipment_id` (`equipment_id`),
   CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipment` (`id`)
-);
-
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-
-SET character_set_client = @saved_cs_client;
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `surname` varchar(100) DEFAULT NULL,
-  `country` varchar(50) DEFAULT NULL,
-  `city` varchar(75) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `document_type` varchar(20) DEFAULT NULL,
-  `document_number` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
 );
 
 CREATE VIEW `available_equipment` AS select `A`.`id` AS `id`,`A`.`type` AS `type`,sum(((coalesce(`A`.`amount`,0) - coalesce(`B`.`amount`,0)) - coalesce(`C`.`amount`,0))) AS `amount`,`A`.`condition` AS `condition` from ((`equipment` `A` left join `rent` `B` on((`A`.`id` = `B`.`equipment_id`))) left join `reservations` `C` on((`A`.`id` = `C`.`equipment_id`))) group by `A`.`id`;
